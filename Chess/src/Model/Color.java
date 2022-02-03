@@ -5,5 +5,5 @@ package Model;
  * @version 1.0 1/02/2022 23:15
  */
 public enum Color {
-
+    WHITE, BLACK;
 }
