@@ -1,8 +1,7 @@
 package Model;
 
-/**
- * @author Dave Smedts
- * @version 1.0 9/02/2022 22:38
- */
-public class Pawn {
+public class Pawn extends Piece{
+    public Pawn(Color color, Square startPosition) {
+        super(color, startPosition);
+    }
 }

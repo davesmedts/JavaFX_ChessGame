@@ -26,6 +26,11 @@ public class Game {
         gameBoard = new Board();
         turn = Color.WHITE;
         startTime = LocalDateTime.now();
+
+        whitePlayer.initializePieces();
+        whitePlayer.setColor(Color.WHITE);
+        blackPlayer.initializePieces();
+        blackPlayer.setColor(Color.BLACK);
     }
 
     public void setStopTime(LocalDateTime stopTime) {

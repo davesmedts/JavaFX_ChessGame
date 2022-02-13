@@ -10,6 +10,10 @@ public class Piece {
     private List<Square> moves;
     private boolean isCaptured;
 
+    public Piece(Color color, Square startPosition) {
+        this.color = color;
+        this.startPosition = startPosition;
+    }
 
     public Square[] getValidMoves(){
         return new Square[0];
