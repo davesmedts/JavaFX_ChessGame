@@ -23,12 +23,12 @@ public class Board {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        int rowNumber = 1;
+        int rowNumber = 8;
         for (int i = 0; i < squares.size(); i++) {
             if (i % 8 == 0) {
                 builder.append("\n");
                 builder.append(rowNumber).append(String.format("%3s", squares.get(i)));
-                rowNumber++;
+                rowNumber--;
             } else {
                 builder.append(String.format("%3s", squares.get(i)));
             }
@@ -39,6 +39,10 @@ public class Board {
             builder.append(columnLetter + "  ");
         }
         return builder.toString();
+    }
+
+    public List<Square> getSquares() {
+        return squares;
     }
 
     public static void main(String[] args) {
