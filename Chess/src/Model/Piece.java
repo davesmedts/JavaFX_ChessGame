@@ -6,7 +6,7 @@ import java.util.List;
 public class Piece {
     private Color color;
     private Square startPosition;
-    private Square position;
+    private Square endPosition;
     private List<Square> moves;
     private boolean isCaptured;
 
@@ -15,6 +15,10 @@ public class Piece {
         this.startPosition = startPosition;
     }
 
+    public Color getColor() {
+        return color;
+    } // getting the color attribute of a Piece, need it for the comparison black-white piece
+
     public Square[] getValidMoves(){
         return new Square[0];
     }
@@ -22,10 +26,16 @@ public class Piece {
     public boolean Move(Square targetSquare){
         List<Square> validMoves = Arrays.asList(getValidMoves());
         if(validMoves.contains(targetSquare)){
-            position = targetSquare;
+            endPosition = targetSquare;
             moves.add(targetSquare);
             return true;
         } return false;
+    }
+
+    public boolean getPiece(Square endPosition, Color color){
+
+        if(endPosition ==  )
+        return ;
     }
 
 }
