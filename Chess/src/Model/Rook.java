@@ -5,10 +5,10 @@ package Model;
  * @version 1.0 9/02/2022 22:38
  */
 public class Rook extends Piece {
-
+//Constructor to create a rook piece, constructor calls the constructor of the superclass Piece
     public Rook(Color color, Square startPosition) {
         super(color, startPosition);
-    } //Constructor to create a rook piece, constructor calls the constructor of the superclass Piece
+    }
 
 
     public Square[] getValidMoves(Square startPosition, Square endPosition, Piece piece) {

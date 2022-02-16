@@ -12,7 +12,7 @@ public class Player {
 //    private List<Piece> capturedPieces;
 
     public void initializePieces() {
-//                Hoe krijgen we de lijst van squares beschikbaar bij Player? Er is geen link met Board.
+//  Hoe krijgen we de lijst van squares beschikbaar bij Player? Er is geen link met Board.
         if (color == Color.WHITE) {
 //        pawns
             for (int i = 0; i < 8; i++) {

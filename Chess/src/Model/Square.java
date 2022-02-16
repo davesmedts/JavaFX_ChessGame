@@ -2,27 +2,27 @@ package Model;
 
 import java.util.Objects;
 
-public class Square implements Comparable<Square>{
-    private int rowNumber;
-    private char columnLetter;
-    private SquareContent squareContent;
+public class Square implements Comparable<Square> {
+    private final int rowNumber;
+    private final char columnLetter;
+    private Piece squareContent;
 
     public Square(int rowNumber, char columnLetter) {
         this.rowNumber = rowNumber;
         this.columnLetter = columnLetter;
-        this.squareContent = SquareContent.EMPTY;
     }
 
-    public enum SquareContent{
-        EMPTY, KING, QUEEN, PAWN, BISHOP, KNIGHT, ROOK;
+//    will be used when a Piece is moved in the game, to keep track of which specific piece is on this square.
+    public void setSquareContent(Piece squareContent) {
+        this.squareContent = squareContent;
     }
 
     @Override
     public int compareTo(Square o) {
-        if (columnLetter == o.columnLetter){
-            return Integer.compare(rowNumber, o.rowNumber);
-        } else {
+        if (columnLetter == o.columnLetter) {
             return Character.compare(columnLetter, o.columnLetter);
+        } else {
+            return Integer.compare(rowNumber, o.rowNumber);
         }
     }
 
@@ -39,17 +39,30 @@ public class Square implements Comparable<Square>{
         return Objects.hash(rowNumber, columnLetter);
     }
 
-    public String toString(){
+    public String toString() {
+////        only for testing, definitive code is to uncommented after testing
+//        return String.format("%s%d", columnLetter, rowNumber);
+
+//        depending on the type of Piece a different output must show.
+//        if emty a dash is shown on the console
         String value;
-        switch (squareContent){
-            case KING: value="K"; break;
-            case PAWN: value = "P"; break;
-            case ROOK: value = "R"; break;
-            case QUEEN: value = "Q"; break;
-            case BISHOP: value =  "B"; break;
-            case KNIGHT: value =  "H"; break;
-            default: value = "-"; break;
+        if (squareContent instanceof King) {
+            value = "K";
+        } else if (squareContent instanceof Pawn) {
+            value = "P";
+        } else if (squareContent instanceof Rook) {
+            value = "R";
+        } else if (squareContent instanceof Queen) {
+            value = "Q";
+        } else if (squareContent instanceof Bishop) {
+            value = "B";
+        } else if (squareContent instanceof Knight) {
+            value = "H";
+        } else {
+            value = "-";
         }
         return value;
+
     }
 }
+
