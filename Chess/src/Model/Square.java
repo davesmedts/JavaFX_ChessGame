@@ -17,6 +17,14 @@ public class Square implements Comparable<Square> {
         this.squareContent = squareContent;
     }
 
+    public int getRowNumber() {
+        return rowNumber;
+    }
+
+    public char getColumnLetter() {
+        return columnLetter;
+    }
+
     @Override
     public int compareTo(Square o) {
         if (columnLetter == o.columnLetter) {

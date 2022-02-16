@@ -24,13 +24,15 @@ public class Game {
             whitePlayer = playerOne;
         }
         gameBoard = new Board();
+        blackPlayer.setGameBoard(gameBoard);
+        blackPlayer.setGameBoard(gameBoard);
         turn = Color.WHITE;
         startTime = LocalDateTime.now();
 
-        whitePlayer.initializePieces();
         whitePlayer.setColor(Color.WHITE);
-        blackPlayer.initializePieces();
+        whitePlayer.initializePieces();
         blackPlayer.setColor(Color.BLACK);
+        blackPlayer.initializePieces();
     }
 
     public void setStopTime(LocalDateTime stopTime) {
@@ -39,5 +41,9 @@ public class Game {
 
     public void setWinner(Player winner) {
         this.winner = winner;
+    }
+
+    public Board getGameBoard() {
+        return gameBoard;
     }
 }

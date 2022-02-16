@@ -11,7 +11,6 @@ public class Piece {
     private List<Square> moves;
     private boolean isCaptured;
 
-
     private List<Piece> blackPieces = new ArrayList<>(); // volgens mij hebben we dit nodig voor onze get
     private List<Piece> whitePieces = new ArrayList<>(); // volgens mij hebben we dit nodig voor onze get
 
@@ -19,7 +18,6 @@ public class Piece {
         this.color = color;
         this.startPosition = startPosition;
     }
-
 
     public void addList(Piece piece) {
         if (piece.color == Color.valueOf("white")) {
