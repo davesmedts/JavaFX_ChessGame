@@ -30,18 +30,23 @@ public class Player {
 //              Hier moeten we de juiste squares ophalen om positie van Piece te linken aan de juiste square op het bord.
                 Square startPosition = lookupSquare(pawnColumn, pawnRow);
                 pieces.add(new Pawn(Color.WHITE, startPosition));
+                startPosition.setSquareContent(pieces.get(pieces.size()-1));
             }
 //        king
             char kingColumn = 'E';
             int kingRow = 1;
             Square startPosition = lookupSquare(kingColumn, kingRow);
             pieces.add(new King(Color.WHITE, startPosition));
+            startPosition.setSquareContent(pieces.get(pieces.size()-1));
+
 
 //        queen
             char queenColumn = 'D';
             int queenRow = 1;
             startPosition = lookupSquare(queenColumn, queenRow);
             pieces.add(new Queen(Color.WHITE, startPosition));
+            startPosition.setSquareContent(pieces.get(pieces.size()-1));
+
 
 //        Knights
             char knightOneColumn = 'B';
@@ -49,26 +54,37 @@ public class Player {
             int knightRow = 1;
             startPosition = lookupSquare(knightOneColumn, knightRow);
             pieces.add(new Knight(Color.WHITE, startPosition));
+            startPosition.setSquareContent(pieces.get(pieces.size()-1));
             startPosition = lookupSquare(knightTwoColumn, knightRow);
             pieces.add(new Knight(Color.WHITE, startPosition));
+            startPosition.setSquareContent(pieces.get(pieces.size()-1));
+
 
 //        rooks
             char rookOneColumn = 'A';
             char rookTwoColumn = 'H';
             int rookRow = 1;
             startPosition = lookupSquare(rookOneColumn, rookRow);
-            pieces.add(new Knight(Color.WHITE, startPosition));
+            pieces.add(new Rook(Color.WHITE, startPosition));
+            startPosition.setSquareContent(pieces.get(pieces.size()-1));
+
             startPosition = lookupSquare(rookTwoColumn, rookRow);
-            pieces.add(new Knight(Color.WHITE, startPosition));
+            pieces.add(new Rook(Color.WHITE, startPosition));
+            startPosition.setSquareContent(pieces.get(pieces.size()-1));
+
 
 //        bishops
             char bishopOneColumn = 'C';
             char bishopTwoColumn = 'F';
             int bishopRow = 1;
             startPosition = lookupSquare(bishopOneColumn, bishopRow);
-            pieces.add(new Knight(Color.WHITE, startPosition));
+            pieces.add(new Bishop(Color.WHITE, startPosition));
+            startPosition.setSquareContent(pieces.get(pieces.size()-1));
+
             startPosition = lookupSquare(bishopTwoColumn, bishopRow);
-            pieces.add(new Knight(Color.WHITE, startPosition));
+            pieces.add(new Bishop(Color.WHITE, startPosition));
+            startPosition.setSquareContent(pieces.get(pieces.size()-1));
+
 
         } else { // for the black Pieces we do the same as above.
 //        pawns
@@ -77,18 +93,24 @@ public class Player {
                 char pawnColumn = (char) (65 + i);
                 Square startPosition = lookupSquare(pawnColumn, pawnRow);
                 pieces.add(new Pawn(Color.BLACK, startPosition));
+                startPosition.setSquareContent(pieces.get(pieces.size()-1));
+
             }
 //        king
             char kingColumn = 'E';
             int kingRow = 8;
             Square startPosition = lookupSquare(kingColumn, kingRow);
             pieces.add(new King(Color.BLACK, startPosition));
+            startPosition.setSquareContent(pieces.get(pieces.size()-1));
+
 
 //        queen
             char queenColumn = 'D';
             int queenRow = 8;
             startPosition = lookupSquare(queenColumn, queenRow);
             pieces.add(new Queen(Color.BLACK, startPosition));
+            startPosition.setSquareContent(pieces.get(pieces.size()-1));
+
 
 //        Knights
             char knightOneColumn = 'B';
@@ -96,38 +118,55 @@ public class Player {
             int knightRow = 8;
             startPosition = lookupSquare(knightOneColumn, knightRow);
             pieces.add(new Knight(Color.BLACK, startPosition));
+            startPosition.setSquareContent(pieces.get(pieces.size()-1));
+
             startPosition = lookupSquare(knightTwoColumn, knightRow);
             pieces.add(new Knight(Color.BLACK, startPosition));
+            startPosition.setSquareContent(pieces.get(pieces.size()-1));
+
 
 //        rooks
             char rookOneColumn = 'A';
             char rookTwoColumn = 'H';
             int rookRow = 8;
             startPosition = lookupSquare(rookOneColumn, rookRow);
-            pieces.add(new Knight(Color.BLACK, startPosition));
+            pieces.add(new Rook(Color.BLACK, startPosition));
+            startPosition.setSquareContent(pieces.get(pieces.size()-1));
+
             startPosition = lookupSquare(rookTwoColumn, rookRow);
-            pieces.add(new Knight(Color.BLACK, startPosition));
+            pieces.add(new Rook(Color.BLACK, startPosition));
+            startPosition.setSquareContent(pieces.get(pieces.size()-1));
+
 
 //        bishops
             char bishopOneColumn = 'C';
             char bishopTwoColumn = 'F';
             int bishopRow = 8;
             startPosition = lookupSquare(bishopOneColumn, bishopRow);
-            pieces.add(new Knight(Color.BLACK, startPosition));
+            pieces.add(new Bishop(Color.BLACK, startPosition));
+            startPosition.setSquareContent(pieces.get(pieces.size()-1));
+
             startPosition = lookupSquare(bishopTwoColumn, bishopRow);
-            pieces.add(new Knight(Color.BLACK, startPosition));
+            pieces.add(new Bishop(Color.BLACK, startPosition));
+            startPosition.setSquareContent(pieces.get(pieces.size()-1));
+
         }
     }
 
     public Square lookupSquare(char columnLetter, int rowNumber) {
-        List<Square> squares = gameBoard.getSquares();
-        Square matchedSquare = null;
-        for (Square square : squares) {
-            if (columnLetter == square.getColumnLetter() && rowNumber == square.getRowNumber()) {
-                matchedSquare = square;
+        try {
+            List<Square> squares = gameBoard.getSquares();
+            Square matchedSquare = null;
+            for (Square square : squares) {
+                if (columnLetter == square.getColumnLetter() && rowNumber == square.getRowNumber()) {
+                    matchedSquare = square;
+                }
             }
+            return matchedSquare;
+        } catch (NullPointerException npe){
+            System.out.println(player + " no game board assigned");
+            return null;
         }
-        return matchedSquare;
     }
 
     public void setColor(Color color) {

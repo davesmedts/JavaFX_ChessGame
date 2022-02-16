@@ -24,7 +24,7 @@ public class Game {
             whitePlayer = playerOne;
         }
         gameBoard = new Board();
-        blackPlayer.setGameBoard(gameBoard);
+        whitePlayer.setGameBoard(gameBoard);
         blackPlayer.setGameBoard(gameBoard);
         turn = Color.WHITE;
         startTime = LocalDateTime.now();
