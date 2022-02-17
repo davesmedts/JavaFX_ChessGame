@@ -25,6 +25,10 @@ public class Square implements Comparable<Square> {
         return columnLetter;
     }
 
+    public Piece getSquareContent() {
+        return squareContent;
+    }
+
     @Override
     public int compareTo(Square o) {
         if (columnLetter == o.columnLetter) {

@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.List;
+
 /**
  * @author Dave Smedts
  * @version 1.0 9/02/2022 22:38
@@ -12,7 +14,7 @@ public class Bishop extends Piece{
 
 
 
-    public Square[] getValidMoves(){
+    public List<Square> getValidMoves(){
 
         return new Square[0];
 

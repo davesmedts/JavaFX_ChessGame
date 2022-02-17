@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.Scanner;
+
 public class TestDave {
     public static void main(String[] args) {
         Player dave = new Player("Dave");
@@ -8,6 +10,12 @@ public class TestDave {
         Game chessGame = new Game(dave, mattia);
 
         System.out.println(chessGame.getGameBoard());
+
+        dave.makeMove();
+
+        System.out.println(chessGame.getGameBoard());
+
+
 
     }
 }
