@@ -11,6 +11,10 @@ public class Player {
     private Color color;
     private List<Piece> pieces;
     private Board gameBoard;
+
+    public List<Piece> getPieces() {
+        return pieces;
+    }
 //    private List<Piece> capturedPieces;
 
 
