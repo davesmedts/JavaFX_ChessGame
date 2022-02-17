@@ -1,9 +1,6 @@
 package Model;
 
-/**
- * @author Dave Smedts
- * @version 1.0 9/02/2022 22:38
- */
+
 public class Rook extends Piece {
     //Constructor to create a rook piece, constructor calls the constructor of the superclass Piece
     public Rook(Color color, Square startPosition) {

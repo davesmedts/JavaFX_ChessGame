@@ -35,10 +35,10 @@ public class Player {
 //        king
             char kingColumn = 'E';
             int kingRow = 1;
-            Square startPosition = lookupSquare(kingColumn, kingRow);
-            pieces.add(new King(Color.WHITE, startPosition));
-            startPosition.setSquareContent(pieces.get(pieces.size()-1));
-
+            Square startPosition = lookupSquare(kingColumn, kingRow); // look for matching square in squares list
+            pieces.add(new King(Color.WHITE, startPosition)); // create new piece with looked up square
+            startPosition.setSquareContent(pieces.get(pieces.size()-1)); // take the last added Piece and assign the piece to the square.
+//          This generic way of working will come back for all the other pieces as well.
 
 //        queen
             char queenColumn = 'D';
@@ -153,6 +153,7 @@ public class Player {
         }
     }
 
+//    this method can be used to find a square that matches the column and row arguments
     public Square lookupSquare(char columnLetter, int rowNumber) {
         try {
             List<Square> squares = gameBoard.getSquares();
@@ -163,6 +164,7 @@ public class Player {
                 }
             }
             return matchedSquare;
+        // we need to catch a NullPointerException in case that a board is not assigned yet.
         } catch (NullPointerException npe){
             System.out.println(player + " no game board assigned");
             return null;

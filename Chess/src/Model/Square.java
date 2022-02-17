@@ -34,6 +34,7 @@ public class Square implements Comparable<Square> {
         }
     }
 
+//    a Square is equal to another square when both columnLetter and rowNumber have a match.
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

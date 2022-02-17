@@ -14,8 +14,9 @@ public class Game {
 
     //constructor
     public Game(Player playerOne, Player playerTwo) {
+        // creating Random boolean that can be used to randomly define who plays black or white
         Random rd = new Random();
-        boolean playerOneIsBlack = rd.nextBoolean(); // creating Random boolean
+        boolean playerOneIsBlack = rd.nextBoolean();
         if(playerOneIsBlack){
             blackPlayer = playerOne;
             whitePlayer = playerTwo;
@@ -23,12 +24,15 @@ public class Game {
             blackPlayer = playerTwo;
             whitePlayer = playerOne;
         }
+//        we create a new gameBoard and assign the board to the Player object as well.
         gameBoard = new Board();
         whitePlayer.setGameBoard(gameBoard);
         blackPlayer.setGameBoard(gameBoard);
+//        player who plays white always has the first turn.
         turn = Color.WHITE;
         startTime = LocalDateTime.now();
 
+//        we call the initializePieces method to create all pieces and place them onto our board.
         whitePlayer.setColor(Color.WHITE);
         whitePlayer.initializePieces();
         blackPlayer.setColor(Color.BLACK);
