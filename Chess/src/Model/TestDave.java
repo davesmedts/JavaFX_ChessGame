@@ -11,7 +11,9 @@ public class TestDave {
 
         System.out.println(chessGame.getGameBoard());
 
-        dave.makeMove();
+        dave.selectPiece();
+
+
 
         System.out.println(chessGame.getGameBoard());
 

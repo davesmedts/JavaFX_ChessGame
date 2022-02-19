@@ -7,6 +7,7 @@ import java.util.List;
 public class Board {
     private final int NUMBER_OF_ROWS = 8;
     private final int NUMBER_OF_COLUMNS = 8;
+    private MovesValidator movesValidator;
 
     List<Square> squares;
 
@@ -19,6 +20,15 @@ public class Board {
                 squares.add(new Square(rowNumber, columnLetter));
             }
         }
+
+    }
+
+    // create movesValidator object and set this movesValidator attribute
+    public MovesValidator createMovesValidator() {
+        this.movesValidator = new MovesValidator();
+        this.movesValidator.setSquares(squares); // set the squares of the movesValidator object
+
+        return this.movesValidator;
     }
 
     @Override

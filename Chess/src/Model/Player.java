@@ -12,6 +12,11 @@ public class Player {
     private Color color;
     private List<Piece> pieces;
     private Board gameBoard;
+    private MovesValidator movesValidator;
+
+    public void setMovesValidator(MovesValidator movesValidator) {
+        this.movesValidator = movesValidator;
+    }
 
     public List<Piece> getPieces() {
         return pieces;
@@ -189,7 +194,7 @@ public class Player {
         this.gameBoard = gameBoard;
     }
 
-    public void makeMove() {
+    public void selectPiece() {
         Scanner keyboard = new Scanner(System.in);
         System.out.println("start: please enter column and row of the piece:");
         String startSquare = keyboard.nextLine().toUpperCase();
@@ -202,25 +207,12 @@ public class Player {
         Piece selectedPiece = lookupPiece(columnLetter, rowNumber);
 //        Exception handling still to do! What if no piece is found.
 
+        List<Square> validMoveSquares= movesValidator.getValidMoveSquares(selectedPiece); // we put all the valid square values in a list
+
         System.out.println("end: please enter column and row of where you want to move the piece:");
         String targetSquare = keyboard.nextLine().toUpperCase();
 
-        List<Square> possibleMoves = selectedPiece.getValidMoves();
-        for (Square possibleMove : possibleMoves) {
-            for (Square square : gameBoard.getSquares()) {
-                if (possibleMove.equals(square)) {
-                    Piece piece = square.getSquareContent();
-                    if (piece != null) {
-                        possibleMoves.remove(piece.getPosition());
-//                        binary search and loop with remove??
-                    }
-                }
-            }
-        }
-        //
-
-//        no own piece can be present on target square
-//        only horse can jump over other pieces
-//
     }
+
+
 }

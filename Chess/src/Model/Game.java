@@ -28,6 +28,13 @@ public class Game {
         gameBoard = new Board();
         whitePlayer.setGameBoard(gameBoard);
         blackPlayer.setGameBoard(gameBoard);
+
+        // Create the movesValidator and assign it to the board and the players
+        MovesValidator movesValidator= gameBoard.createMovesValidator();
+        whitePlayer.setMovesValidator(movesValidator);
+        blackPlayer.setMovesValidator(movesValidator);
+
+
 //        player who plays white always has the first turn.
         turn = Color.WHITE;
         startTime = LocalDateTime.now();

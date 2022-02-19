@@ -14,10 +14,5 @@ public class Bishop extends Piece{
 
 
 
-    public List<Square> getValidMoves(){
-
-        return new Square[0];
-
-    } //We calculate every valid move for the bishop, by doing a constructor overload
 
 }
