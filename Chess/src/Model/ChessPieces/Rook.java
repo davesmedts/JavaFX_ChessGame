@@ -1,10 +1,11 @@
-package Model;
+package Model.ChessPieces;
 
+
+import Model.Color;
+import Model.Square;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static java.awt.Color.white;
 
 public class Rook extends Piece {
     //Constructor to create a rook piece, constructor calls the constructor of the superclass Piece
@@ -15,6 +16,16 @@ public class Rook extends Piece {
     @Override
     public List<Square> getValidMoves() {
         List<Square> validSquares = new ArrayList<>();
+
+        List<Square> north = new ArrayList<>();
+        List<Square> south = new ArrayList<>();
+        List<Square> west = new ArrayList<>();
+        List<Square> east = new ArrayList<>();
+        List<Square> ne = new ArrayList<>();
+        List<Square> nw = new ArrayList<>();
+        List<Square> se = new ArrayList<>();
+        List<Square> sw = new ArrayList<>();
+
 //        vertical moves
         for (int i = 1; i <= 8; i++) {
             char column = super.getPosition().getColumnLetter();

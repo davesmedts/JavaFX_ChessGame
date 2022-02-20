@@ -1,5 +1,7 @@
 package Model;
 
+import Model.ChessPieces.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -69,7 +71,6 @@ public class Player {
             pieces.add(new Knight(Color.WHITE, startPosition));
             startPosition.setSquareContent(pieces.get(pieces.size() - 1));
 
-
 //        rooks
             char rookOneColumn = 'A';
             char rookTwoColumn = 'H';
@@ -81,7 +82,6 @@ public class Player {
             startPosition = lookupSquare(rookTwoColumn, rookRow);
             pieces.add(new Rook(Color.WHITE, startPosition));
             startPosition.setSquareContent(pieces.get(pieces.size() - 1));
-
 
 //        bishops
             char bishopOneColumn = 'C';
@@ -207,7 +207,7 @@ public class Player {
         Piece selectedPiece = lookupPiece(columnLetter, rowNumber);
 //        Exception handling still to do! What if no piece is found.
 
-        List<Square> validMoveSquares= movesValidator.getValidMoveSquares(selectedPiece); // we put all the valid square values in a list
+        List<Square> validMoveSquares = movesValidator.getValidMoveSquares(selectedPiece); // we put all the valid square values in a list
 
         System.out.println("end: please enter column and row of where you want to move the piece:");
         String targetSquare = keyboard.nextLine().toUpperCase();

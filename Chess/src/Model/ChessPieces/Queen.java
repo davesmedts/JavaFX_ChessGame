@@ -1,4 +1,7 @@
-package Model;
+package Model.ChessPieces;
+
+import Model.Color;
+import Model.Square;
 
 /**
  * @author Dave Smedts

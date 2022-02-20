@@ -1,4 +1,7 @@
-package Model;
+package Model.ChessPieces;
+
+import Model.Color;
+import Model.Square;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,25 +55,25 @@ public class King extends Piece {
             validSquares.add(new Square(newRow, newColumn));
         }
 //        move right-up
-        if (row + 1 <= 8 || column + 1 < 65 + 8) { // check if target is whithin the scope of the board.
+        if (row + 1 <= 8 && column + 1 < 65 + 8) { // check if target is whithin the scope of the board.
             int newRow = row + 1;
             char newColumn = (char) (column + 1);
             validSquares.add(new Square(newRow, newColumn));
         }
 //        move right-down
-        if (row - 1 >= 1 || column + 1 < 65 + 8) { // check if target is whithin the scope of the board.
+        if (row - 1 >= 1 && column + 1 < 65 + 8) { // check if target is whithin the scope of the board.
             int newRow = row - 1;
             char newColumn = (char) (column + 1);
             validSquares.add(new Square(newRow, newColumn));
         }
 //        move left-up
-        if (row + 1 <= 8 || column - 1 >= 65) { // check if target is whithin the scope of the board.
+        if (row + 1 <= 8 && column - 1 >= 65) { // check if target is whithin the scope of the board.
             int newRow = row + 1;
             char newColumn = (char) (column - 1);
             validSquares.add(new Square(newRow, newColumn));
         }
 //        move left-down
-        if (row - 1 <= 1 || column - 1 >= 65) { // check if target is whithin the scope of the board.
+        if (row - 1 <= 1 && column - 1 >= 65) { // check if target is whithin the scope of the board.
             int newRow = row - 1;
             char newColumn = (char) (column - 1);
             validSquares.add(new Square(newRow, newColumn));

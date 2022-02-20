@@ -1,5 +1,7 @@
 package Model;
 
+import Model.ChessPieces.*;
+
 import java.util.Objects;
 
 public class Square implements Comparable<Square> {

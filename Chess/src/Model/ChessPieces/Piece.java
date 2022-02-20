@@ -1,8 +1,9 @@
-package Model;
+package Model.ChessPieces;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import Model.Color;
+import Model.Square;
+
+import java.util.*;
 
 public class Piece {
     private Color color;
@@ -19,8 +20,8 @@ public class Piece {
         this.position = startPosition;
     }
 
-    public List<Square> getValidMoves() {
-        return new ArrayList<>();
+    public Map<String, List<Square>> getValidMoves() {
+        return new HashMap<>();
     }
 
     public Square getPosition() {

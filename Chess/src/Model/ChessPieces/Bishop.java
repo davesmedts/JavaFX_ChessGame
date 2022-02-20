@@ -1,6 +1,7 @@
-package Model;
+package Model.ChessPieces;
 
-import java.util.List;
+import Model.Color;
+import Model.Square;
 
 /**
  * @author Dave Smedts

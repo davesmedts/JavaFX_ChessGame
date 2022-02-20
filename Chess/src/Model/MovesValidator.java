@@ -1,7 +1,10 @@
 package Model;
 
+import Model.ChessPieces.Piece;
+
+import java.util.Collections;
 import java.util.List;
-import java.util.Scanner;
+import java.util.Map;
 
 /**
  * @author Mattia Verreydt
@@ -17,35 +20,26 @@ public class MovesValidator {
     }
 
     public List<Square> getValidMoveSquares(Piece selectedPiece) {
-        List<Square> possibleMoves = selectedPiece.getValidMoves();
+        Map<String, List<Square>> possibleMoves = selectedPiece.getValidMoves();
 
-
-//        for (Square possibleMove : possibleMoves) {
-//            for (Square square : allBoardSquares) {
-//                if (possibleMove.equals(square)) {
-//                    Piece piece = square.getSquareContent();
-//                    if (piece != null) {
-//                        possibleMoves.remove(piece.getPosition());
-////                        binary search and loop with remove??
-//                    }
-//                }
-//            }
-
-            for (Square possibleMove : possibleMoves) {
-                Piece piece = possibleMove.getSquareContent();
-                if (piece != null) {
-                    possibleMoves.remove(piece.getPosition());
-                   // binary search and loop with remove?? Nodig omdat we de volgende vakken moeten verwijderen, op deze vakken staat geen piece, maar op voorgaande vak stond wel een piece!!
+        for (Square possibleMove : possibleMoves) {
+            for (Square square : allBoardSquares) {
+                if (possibleMove.equals(square)) {
+                    Piece piece = square.getSquareContent();
+                    if (piece != null) {
+                        possibleMoves.remove(piece.getPosition());
+//                        binary search and loop with remove??
+                    }
                 }
-
             }
         }
+            return null;
         //
 
 //        no own piece can be present on target square
 //        only horse can jump over other pieces
 //
     }
-
-
 }
+
+
