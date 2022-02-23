@@ -13,8 +13,6 @@ public class TestDave {
 
         dave.selectPiece();
 
-
-
         System.out.println(chessGame.getGameBoard());
 
 
