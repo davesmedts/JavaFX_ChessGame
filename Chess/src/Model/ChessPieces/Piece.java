@@ -28,6 +28,14 @@ public class Piece {
         return position;
     }
 
+    public Color getColor() {
+        return color;
+    }
+
+    public void setPosition(Square position) {
+        this.position = position;
+    }
+
     //    public Boolean getPiece(Square startPos, Square endPosition, Color color) {
 //        if (color == Color.valueOf("white")) {
 //            for (int i = 0; i < whitePieces.size(); i++) {

@@ -4,7 +4,9 @@ import Model.Color;
 import Model.Square;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Dave Smedts
@@ -23,61 +25,80 @@ public class King extends Piece {
     }
 
     @Override
-    public List<Square> getValidMoves() {
-        List<Square> validSquares = new ArrayList<>();
+    public Map<String, List<Square>> getValidMoves() {
+        Map<String, List<Square>> possibleSquares = new HashMap<>();
+
+        List<Square> north = new ArrayList<>();
+        List<Square> south = new ArrayList<>();
+        List<Square> west = new ArrayList<>();
+        List<Square> east = new ArrayList<>();
+        List<Square> northEast = new ArrayList<>();
+        List<Square> northWest = new ArrayList<>();
+        List<Square> southEast = new ArrayList<>();
+        List<Square> southWest = new ArrayList<>();
+
 //        get the current row and column of the piece that has to move
         char column = super.getPosition().getColumnLetter();
         int row = super.getPosition().getRowNumber();
 
 //        a King can move in any direction but is limited to the square next to it.
-//        move up
+//        north
         if (row + 1 <= 8) { // check if target is whithin the scope of the board.
             int newRow = row + 1;
             char newColumn = column;
-            validSquares.add(new Square(newRow, newColumn));
+            north.add(new Square(newRow, newColumn));
         }
-//        move down
+//        south
         if (row - 1 >= 1) { // check if target is whithin the scope of the board.
             int newRow = row - 1;
             char newColumn = column;
-            validSquares.add(new Square(newRow, newColumn));
+            south.add(new Square(newRow, newColumn));
         }
-//        move left
+//        west
         if (column - 1 >= 65) { // check if target is whithin the scope of the board.
             int newRow = row;
             char newColumn = (char) (column - 1);
-            validSquares.add(new Square(newRow, newColumn));
+            west.add(new Square(newRow, newColumn));
         }
-//        move right
+//        east
         if (column + 1 < 65 + 8) { // check if target is whithin the scope of the board.
             int newRow = row;
             char newColumn = (char) (column + 1);
-            validSquares.add(new Square(newRow, newColumn));
+            east.add(new Square(newRow, newColumn));
         }
-//        move right-up
+//        north-east
         if (row + 1 <= 8 && column + 1 < 65 + 8) { // check if target is whithin the scope of the board.
             int newRow = row + 1;
             char newColumn = (char) (column + 1);
-            validSquares.add(new Square(newRow, newColumn));
+            northEast.add(new Square(newRow, newColumn));
         }
-//        move right-down
+//        south-east
         if (row - 1 >= 1 && column + 1 < 65 + 8) { // check if target is whithin the scope of the board.
             int newRow = row - 1;
             char newColumn = (char) (column + 1);
-            validSquares.add(new Square(newRow, newColumn));
+            southEast.add(new Square(newRow, newColumn));
         }
-//        move left-up
+//        north-west
         if (row + 1 <= 8 && column - 1 >= 65) { // check if target is whithin the scope of the board.
             int newRow = row + 1;
             char newColumn = (char) (column - 1);
-            validSquares.add(new Square(newRow, newColumn));
+            northWest.add(new Square(newRow, newColumn));
         }
-//        move left-down
+//        south-west
         if (row - 1 <= 1 && column - 1 >= 65) { // check if target is whithin the scope of the board.
             int newRow = row - 1;
             char newColumn = (char) (column - 1);
-            validSquares.add(new Square(newRow, newColumn));
+            southWest.add(new Square(newRow, newColumn));
         }
-        return validSquares;
+        possibleSquares.put("north", north);
+        possibleSquares.put("east", east);
+        possibleSquares.put("south", south);
+        possibleSquares.put("west", west);
+        possibleSquares.put("northEast", northEast);
+        possibleSquares.put("northWest", northWest);
+        possibleSquares.put("southEast", southEast);
+        possibleSquares.put("southWest", southWest);
+
+        return possibleSquares;
     }
 }

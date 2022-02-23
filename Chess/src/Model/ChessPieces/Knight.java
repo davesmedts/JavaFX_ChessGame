@@ -3,7 +3,6 @@ package Model.ChessPieces;
 import Model.Color;
 import Model.Square;
 
-import java.sql.SQLInvalidAuthorizationSpecException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

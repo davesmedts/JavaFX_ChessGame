@@ -3,6 +3,7 @@ package Model;
 import Model.ChessPieces.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -208,11 +209,25 @@ public class Player {
 //        Exception handling still to do! What if no piece is found.
 
         List<Square> validMoveSquares = movesValidator.getValidMoveSquares(selectedPiece); // we put all the valid square values in a list
-
-        System.out.println("end: please enter column and row of where you want to move the piece:");
-        String targetSquare = keyboard.nextLine().toUpperCase();
-
+        movePiece(validMoveSquares, selectedPiece);
     }
 
+    public void movePiece(List<Square> validMoveSquares, Piece selectedPiece) {
+        Scanner keyboard = new Scanner(System.in);
+        System.out.println("end: please enter column and row of where you want to move the piece:");
+        String targetSquare = keyboard.nextLine().toUpperCase();
+        char[] targetSquareArray = targetSquare.toCharArray();
+        char columnLetter = targetSquareArray[0];
+//        Exception handling still to do! What if no piece is found. values must match board!
+        int rowNumber = targetSquareArray[1];
+//        Exception handling still to do! What if no piece is found. values must match the board
+        Square targetSquareObject = lookupSquare(columnLetter, rowNumber);
+//        Exception handling still to do! What if no piece is found.
+        for (Square validMoveSquare : validMoveSquares) {
+            if(validMoveSquare == targetSquareObject){
+                selectedPiece.setPosition(validMoveSquare);
+            }
+        }
+    }
 
 }
