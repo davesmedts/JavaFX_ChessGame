@@ -3,9 +3,56 @@ package Model.ChessPieces;
 import Model.Color;
 import Model.Square;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class Pawn extends Piece{
     public Pawn(Color color, Square startPosition) {
         super(color, startPosition);
+    }
+
+    @Override
+    public Map<String, List<Square>> getValidMoves() {
+        Map<String, List<Square>> possibleSquares = new HashMap<>();
+
+        List<Square> north = new ArrayList<>();
+        List<Square> south = new ArrayList<>();
+        List<Square> west = new ArrayList<>();
+        List<Square> east = new ArrayList<>();
+        List<Square> northEast = new ArrayList<>();
+        List<Square> northWest = new ArrayList<>();
+        List<Square> southEast = new ArrayList<>();
+        List<Square> southWest = new ArrayList<>();
+
+        //        get the current row and column of the piece that has to move
+        char column = super.getPosition().getColumnLetter();
+        int row = super.getPosition().getRowNumber();
+
+
+//        north
+        if (row + 1 <= 8) { // check if target is whithin the scope of the board.
+            int newRow = row + 1;
+            char newColumn = column;
+            north.add(new Square(newRow, newColumn));
+        }
+        if(super.getMoves().size() == 0){ //only on the first move a pawn can move 2 squares
+            int newRow = row + 2;
+            char newColumn = column;
+            north.add(new Square(newRow, newColumn));
+        }
+
+        possibleSquares.put("north", north);
+        possibleSquares.put("east", east);
+        possibleSquares.put("south", south);
+        possibleSquares.put("west", west);
+        possibleSquares.put("northEast", northEast);
+        possibleSquares.put("northWest", northWest);
+        possibleSquares.put("southEast", southEast);
+        possibleSquares.put("southWest", southWest);
+
+        return possibleSquares;
     }
 }
 

@@ -90,6 +90,7 @@ public class King extends Piece {
             char newColumn = (char) (column - 1);
             southWest.add(new Square(newRow, newColumn));
         }
+
         possibleSquares.put("north", north);
         possibleSquares.put("east", east);
         possibleSquares.put("south", south);

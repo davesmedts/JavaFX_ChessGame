@@ -162,6 +162,12 @@ public class Player {
             startPosition.setSquareContent(pieces.get(pieces.size() - 1));
 
         }
+
+        if (color == Color.WHITE) {
+            movesValidator.setWhitePieces(pieces);
+        } else {
+            movesValidator.setWhitePieces(pieces);
+        }
     }
 
     //    this method can be used to find a square that matches the column and row arguments
@@ -202,10 +208,12 @@ public class Player {
         char[] startSquareArray = startSquare.toCharArray();
         char columnLetter = startSquareArray[0];
 //        Exception handling still to do! What if no piece is found. values must match board!
-        int rowNumber = startSquareArray[1];
+        int rowNumber = Character.getNumericValue(startSquareArray[1]);
 //        Exception handling still to do! What if no piece is found. values must match the board
-
         Piece selectedPiece = lookupPiece(columnLetter, rowNumber);
+        if (selectedPiece == null) {
+            selectPiece();
+        }
 //        Exception handling still to do! What if no piece is found.
 
         List<Square> validMoveSquares = movesValidator.getValidMoveSquares(selectedPiece); // we put all the valid square values in a list
@@ -224,7 +232,7 @@ public class Player {
         Square targetSquareObject = lookupSquare(columnLetter, rowNumber);
 //        Exception handling still to do! What if no piece is found.
         for (Square validMoveSquare : validMoveSquares) {
-            if(validMoveSquare == targetSquareObject){
+            if (validMoveSquare == targetSquareObject) {
                 selectedPiece.setPosition(validMoveSquare);
             }
         }

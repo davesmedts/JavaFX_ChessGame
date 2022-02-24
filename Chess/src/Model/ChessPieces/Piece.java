@@ -20,6 +20,10 @@ public class Piece {
         this.position = startPosition;
     }
 
+    public List<Square> getMoves() {
+        return moves;
+    }
+
     public Map<String, List<Square>> getValidMoves() {
         return new HashMap<>();
     }

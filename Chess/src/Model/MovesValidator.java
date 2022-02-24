@@ -17,6 +17,14 @@ public class MovesValidator {
         this.allBoardSquares = squares;
     }
 
+    public void setWhitePieces(List<Piece> whitePieces) {
+        this.whitePieces = whitePieces;
+    }
+
+    public void setBlackPieces(List<Piece> blackPieces) {
+        this.blackPieces = blackPieces;
+    }
+
     public List<Square> getValidMoveSquares(Piece selectedPiece) {
         List<Square> validMoves = new ArrayList<>(); // list to return
         Map<String, List<Square>> possibleMoves = selectedPiece.getValidMoves(); //possible movements without check on the board
