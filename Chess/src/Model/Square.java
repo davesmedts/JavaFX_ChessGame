@@ -55,11 +55,11 @@ public class Square implements Comparable<Square> {
     }
 
     public String toString() {
-//        only for testing, definitive code is to uncommented after testing
+////        only for testing, definitive code is to be uncommented after testing
         return String.format("%s%d", columnLetter, rowNumber);
 
 //        depending on the type of Piece a different output must show.
-//        if emty a dash is shown on the console
+//        if empty a dash is shown on the console
 //        String value;
 //        if (squareContent instanceof King) {
 //            value = "K";

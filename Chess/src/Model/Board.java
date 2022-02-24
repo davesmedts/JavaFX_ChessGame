@@ -11,6 +11,7 @@ public class Board {
 
     List<Square> squares;
 
+
     public Board() {
         squares = new ArrayList<Square>();
         for (int i = 0; i < NUMBER_OF_ROWS; i++) {
@@ -20,7 +21,6 @@ public class Board {
                 squares.add(new Square(rowNumber, columnLetter));
             }
         }
-
     }
 
     // create movesValidator object and set this movesValidator attribute
