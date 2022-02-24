@@ -57,13 +57,13 @@ public class Knight extends Piece {
         if (row + 1 <= 8 && column - 2 >= 65) {
             int newRow = row + 1;
             char newColumn = (char) ((char) column - 2);
-            northEast.add(new Square(newRow, newColumn));
+            northWest.add(new Square(newRow, newColumn));
         }
 //        move SouthEast(left down)
         if (row - 1 >= 1 && column - 2 >= 65) {
             int newRow = row - 1;
             char newColumn = (char) ((char) column - 2);
-            southEast.add(new Square(newRow, newColumn));
+            southWest.add(new Square(newRow, newColumn));
         }
 //        move north east (right up)
         if (row + 1 <= 8 && column + 2 < 65 + 8) {
