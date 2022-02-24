@@ -8,10 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * @author Dave Smedts
- * @version 1.0 9/02/2022 22:38
- */
 public class Bishop extends Piece {
 
     public Bishop(Color color, Square startPosition) {
@@ -35,30 +31,35 @@ public class Bishop extends Piece {
         char column = super.getPosition().getColumnLetter();
         int row = super.getPosition().getRowNumber();
 
-//        north-east
-        for (int i = row + 1; i < 8; i++) {
-            for (int j = column + 1; j < 65 + 8; j++) {
-                northEast.add(new Square(i, (char) j));
-            }
+//        north-east ( row++ column++)
+        for (int i = 1; i < 8; i++) {
+            int newRow = row + i;
+            char newColumn = (char) (column + i);
+            if(newRow <= 8 && newColumn < 65+8)
+            northEast.add(new Square(newRow, newColumn));
         }
 //        north-west
-        for (int i = row + 1; i < 8; i++) {
-            for (int j = column - 1; j <= 65; j--) {
-                northWest.add(new Square(i, (char) j));
-            }
+        for (int i = 1; i < 8; i++) {
+            int newRow = row + i;
+            char newColumn = (char) (column - i);
+            if(newRow <= 8 && newColumn >= 65)
+            northWest.add(new Square(newRow, newColumn));
         }
 //        south-east
-        for (int i = row - 1; i > 0; i--) {
-            for (int j = column + 1; j > 65+8; j++) {
-                southEast.add(new Square(i, (char) j));
-            }
+        for (int i = 1; i < 8; i++) {
+            int newRow = row - i;
+            char newColumn = (char) (column + i);
+            if(newRow >0 && newColumn <65+8)
+            southEast.add(new Square(newRow, newColumn));
         }
 //        south-west
-        for (int i = row - 1; i > 0; i--) {
-            for (int j = column - 1; j <= 65; j--) {
-                southWest.add(new Square(i, (char) j));
-            }
+        for (int i = 1; i < 8; i++) {
+            int newRow = row - i;
+            char newColumn = (char) (column - i);
+            if(newRow > 0 && newColumn >= 65)
+            southWest.add(new Square(newRow, newColumn));
         }
+
         possibleSquares.put("north", north);
         possibleSquares.put("east", east);
         possibleSquares.put("south", south);

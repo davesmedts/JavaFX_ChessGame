@@ -47,7 +47,7 @@ public class TestPossibleMoves {
             System.out.println(direction);
         }
 
-        Piece bishop = new Bishop(Color.WHITE, new Square(1, 'C'));
+        Piece bishop = new Bishop(Color.WHITE, new Square(3, 'C'));
         System.out.println("\nbischop");
         Map<String, List<Square>> possibleMovesBishop = bishop.getValidMoves();
         for (List<Square> direction : possibleMovesBishop.values()) {
