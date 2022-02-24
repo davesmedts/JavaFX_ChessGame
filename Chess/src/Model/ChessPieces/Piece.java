@@ -18,6 +18,8 @@ public class Piece {
     public Piece(Color color, Square startPosition) {
         this.color = color;
         this.position = startPosition;
+        moves = new ArrayList<>();
+        isCaptured = false;
     }
 
     public List<Square> getMoves() {

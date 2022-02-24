@@ -85,7 +85,7 @@ public class King extends Piece {
             northWest.add(new Square(newRow, newColumn));
         }
 //        south-west
-        if (row - 1 <= 1 && column - 1 >= 65) { // check if target is whithin the scope of the board.
+        if (row - 1 >= 1 && column - 1 >= 65) { // check if target is whithin the scope of the board.
             int newRow = row - 1;
             char newColumn = (char) (column - 1);
             southWest.add(new Square(newRow, newColumn));
