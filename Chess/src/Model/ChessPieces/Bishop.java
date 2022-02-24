@@ -31,33 +31,33 @@ public class Bishop extends Piece {
         char column = super.getPosition().getColumnLetter();
         int row = super.getPosition().getRowNumber();
 
-//        north-east ( row++ column++)
+//        north-east
         for (int i = 1; i < 8; i++) {
             int newRow = row + i;
             char newColumn = (char) (column + i);
-            if(newRow <= 8 && newColumn < 65+8)
-            northEast.add(new Square(newRow, newColumn));
+            if (newRow <= 8 && newColumn < 65 + 8)
+                northEast.add(new Square(newRow, newColumn));
         }
 //        north-west
         for (int i = 1; i < 8; i++) {
             int newRow = row + i;
             char newColumn = (char) (column - i);
-            if(newRow <= 8 && newColumn >= 65)
-            northWest.add(new Square(newRow, newColumn));
+            if (newRow <= 8 && newColumn >= 65)
+                northWest.add(new Square(newRow, newColumn));
         }
 //        south-east
         for (int i = 1; i < 8; i++) {
             int newRow = row - i;
             char newColumn = (char) (column + i);
-            if(newRow >0 && newColumn <65+8)
-            southEast.add(new Square(newRow, newColumn));
+            if (newRow > 0 && newColumn < 65 + 8)
+                southEast.add(new Square(newRow, newColumn));
         }
 //        south-west
         for (int i = 1; i < 8; i++) {
             int newRow = row - i;
             char newColumn = (char) (column - i);
-            if(newRow > 0 && newColumn >= 65)
-            southWest.add(new Square(newRow, newColumn));
+            if (newRow > 0 && newColumn >= 65)
+                southWest.add(new Square(newRow, newColumn));
         }
 
         possibleSquares.put("north", north);

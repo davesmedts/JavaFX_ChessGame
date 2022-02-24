@@ -33,7 +33,7 @@ public class TestPossibleMoves {
             System.out.println(direction);
         }
 
-        Piece queen = new Queen(Color.WHITE, new Square(1, 'D'));
+        Piece queen = new Queen(Color.WHITE, new Square(4, 'D'));
         System.out.println("\nqueen");
         Map<String, List<Square>> possibleMovesQueen = queen.getValidMoves();
         for (List<Square> direction : possibleMovesQueen.values()) {
@@ -54,7 +54,7 @@ public class TestPossibleMoves {
             System.out.println(direction);
         }
 
-        Piece rook = new Rook(Color.WHITE, new Square(1, 'C'));
+        Piece rook = new Rook(Color.WHITE, new Square(3, 'C'));
         System.out.println("\nrook");
         Map<String, List<Square>> possibleMovesRook = rook.getValidMoves();
         for (List<Square> direction : possibleMovesRook.values()) {

@@ -5,6 +5,7 @@ import Model.Color;
 import Model.Square;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,37 +15,61 @@ public class Rook extends Piece {
         super(color, startPosition);
     }
 
-//    @Override
-//    public Map<String, List<Square>> getValidMoves() {
-//        List<Square> validSquares = new ArrayList<>();
-//
-//        List<Square> north = new ArrayList<>();
-//        List<Square> south = new ArrayList<>();
-//        List<Square> west = new ArrayList<>();
-//        List<Square> east = new ArrayList<>();
-//        List<Square> ne = new ArrayList<>();
-//        List<Square> nw = new ArrayList<>();
-//        List<Square> se = new ArrayList<>();
-//        List<Square> sw = new ArrayList<>();
-//
-////        vertical moves
-//        for (int i = 1; i <= 8; i++) {
-//            char column = super.getPosition().getColumnLetter();
-//            int row = i;
-//            validSquares.add(new Square(row, column));
-//        }
-////        Because we added the piece his current positions as well we need to delete this from the validsquares list
-//        validSquares.remove(super.getPosition());
-////        horizontal moves
-//        for (int i = 1; i <= 65+8; i++) {
-//            char column = (char) (65 + i);
-//            int row = super.getPosition().getRowNumber();
-//            validSquares.add(new Square(row, column));
-//        }
-////        Because we added the piece his current positions as well we need to delete this from the validsquares list
-//        validSquares.remove(super.getPosition());
-//
-//        return validSquares;
-//    }
-//
+    @Override
+    public Map<String, List<Square>> getValidMoves() {
+        Map<String, List<Square>> possibleSquares = new HashMap<>();
+
+        List<Square> north = new ArrayList<>();
+        List<Square> south = new ArrayList<>();
+        List<Square> west = new ArrayList<>();
+        List<Square> east = new ArrayList<>();
+        List<Square> northEast = new ArrayList<>();
+        List<Square> northWest = new ArrayList<>();
+        List<Square> southEast = new ArrayList<>();
+        List<Square> southWest = new ArrayList<>();
+
+        //        get the current row and column of the piece that has to move
+        char column = super.getPosition().getColumnLetter();
+        int row = super.getPosition().getRowNumber();
+
+//        north
+        for (int i = 1; i < 8; i++) {
+            int newRow = row + i;
+            char newColumn = column;
+            if (newRow <= 8)
+                north.add(new Square(newRow, newColumn));
+        }
+//        south
+        for (int i = 1; i < 8; i++) {
+            int newRow = row - i;
+            char newColumn = column;
+            if (newRow > 0)
+                south.add(new Square(newRow, newColumn));
+        }
+//        east
+        for (int i = 1; i < 8; i++) {
+            int newRow = row;
+            char newColumn = (char) (column + i);
+            if (newColumn < 65 + 8)
+                east.add(new Square(newRow, newColumn));
+        }
+//        west
+        for (int i = 1; i < 8; i++) {
+            int newRow = row;
+            char newColumn = (char) (column - i);
+            if (newColumn >= 65)
+                west.add(new Square(newRow, newColumn));
+        }
+
+        possibleSquares.put("north", north);
+        possibleSquares.put("east", east);
+        possibleSquares.put("south", south);
+        possibleSquares.put("west", west);
+        possibleSquares.put("northEast", northEast);
+        possibleSquares.put("northWest", northWest);
+        possibleSquares.put("southEast", southEast);
+        possibleSquares.put("southWest", southWest);
+
+        return possibleSquares;
+    }
 }
