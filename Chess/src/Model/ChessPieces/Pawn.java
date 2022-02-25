@@ -30,17 +30,30 @@ public class Pawn extends Piece{
         char column = super.getPosition().getColumnLetter();
         int row = super.getPosition().getRowNumber();
 
-
+        if(super.getColor() == Color.WHITE){
 //        north
-        if (row + 1 <= 8) { // check if target is whithin the scope of the board.
-            int newRow = row + 1;
-            char newColumn = column;
-            north.add(new Square(newRow, newColumn));
-        }
-        if(super.getMoves().size() == 0){ //only on the first move a pawn can move 2 squares
-            int newRow = row + 2;
-            char newColumn = column;
-            north.add(new Square(newRow, newColumn));
+            if (row + 1 <= 8) { // check if target is whithin the scope of the board.
+                int newRow = row + 1;
+                char newColumn = column;
+                north.add(new Square(newRow, newColumn));
+            }
+            if (super.getMoves().size() == 0) { //only on the first move a pawn can move 2 squares
+                int newRow = row + 2;
+                char newColumn = column;
+                north.add(new Square(newRow, newColumn));
+            }
+        } else if (super.getColor() == Color.BLACK) {
+            //        north
+            if (row - 1 > 0) { // check if target is whithin the scope of the board.
+                int newRow = row - 1;
+                char newColumn = column;
+                south.add(new Square(newRow, newColumn));
+            }
+            if (super.getMoves().size() == 0) { //only on the first move a pawn can move 2 squares
+                int newRow = row - 2;
+                char newColumn = column;
+                south.add(new Square(newRow, newColumn));
+            }
         }
 
         possibleSquares.put("north", north);

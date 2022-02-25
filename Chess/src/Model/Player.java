@@ -203,7 +203,7 @@ public class Player {
 
     public void selectPiece() {
         Scanner keyboard = new Scanner(System.in);
-        System.out.println("start: please enter column and row of the piece:");
+        System.out.println(player + ": please enter column and row of the piece:");
         String startSquare = keyboard.nextLine().toUpperCase();
         char[] startSquareArray = startSquare.toCharArray();
         char columnLetter = startSquareArray[0];
@@ -222,7 +222,7 @@ public class Player {
 
     public void movePiece(List<Square> validMoveSquares, Piece selectedPiece) {
         Scanner keyboard = new Scanner(System.in);
-        System.out.println("end: please enter column and row of where you want to move the piece:");
+        System.out.println(player + ": please enter column and row of where you want to move the piece:");
         String targetSquare = keyboard.nextLine().toUpperCase();
         char[] targetSquareArray = targetSquare.toCharArray();
         char columnLetter = targetSquareArray[0];
