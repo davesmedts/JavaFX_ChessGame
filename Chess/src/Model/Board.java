@@ -39,10 +39,10 @@ public class Board {
         for (int i = 0; i < squares.size(); i++) {
             if (i % 8 == 0) {
                 builder.append("\n"); // After printing 8 squares we need to start a new line.
-                builder.append(rowNumber).append(String.format("%3s", squares.get(i))); // new line start with the specific rowNumber
+                builder.append(rowNumber).append(String.format("%3s", squares.get(i).getBoardView())); // new line start with the specific rowNumber
                 rowNumber--; // update on which rowNumber we are printing
             } else {
-                builder.append(String.format("%3s", squares.get(i)));
+                builder.append(String.format("%3s", squares.get(i).getBoardView()));
             }
         }
         builder.append("\n   ");

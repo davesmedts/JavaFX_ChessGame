@@ -55,28 +55,29 @@ public class Square implements Comparable<Square> {
     }
 
     public String toString() {
-////        only for testing, definitive code is to be uncommented after testing
         return String.format("%s%d", columnLetter, rowNumber);
+    }
 
+    public String getBoardView(){
 //        depending on the type of Piece a different output must show.
 //        if empty a dash is shown on the console
-//        String value;
-//        if (squareContent instanceof King) {
-//            value = "K";
-//        } else if (squareContent instanceof Pawn) {
-//            value = "P";
-//        } else if (squareContent instanceof Rook) {
-//            value = "R";
-//        } else if (squareContent instanceof Queen) {
-//            value = "Q";
-//        } else if (squareContent instanceof Bishop) {
-//            value = "B";
-//        } else if (squareContent instanceof Knight) {
-//            value = "H";
-//        } else {
-//            value = "-";
-//        }
-//        return value;
+        String value;
+        if (squareContent instanceof King) {
+            value = "K";
+        } else if (squareContent instanceof Pawn) {
+            value = "P";
+        } else if (squareContent instanceof Rook) {
+            value = "R";
+        } else if (squareContent instanceof Queen) {
+            value = "Q";
+        } else if (squareContent instanceof Bishop) {
+            value = "B";
+        } else if (squareContent instanceof Knight) {
+            value = "H";
+        } else {
+            value = "-";
+        }
+        return value;
 
     }
 }

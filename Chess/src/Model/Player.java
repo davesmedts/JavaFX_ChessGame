@@ -227,15 +227,21 @@ public class Player {
         char[] targetSquareArray = targetSquare.toCharArray();
         char columnLetter = targetSquareArray[0];
 //        Exception handling still to do! What if no piece is found. values must match board!
-        int rowNumber = targetSquareArray[1];
+        int rowNumber = Character.getNumericValue(targetSquareArray[1]); // the getNumericValue method transforms the character to a numeric value.
 //        Exception handling still to do! What if no piece is found. values must match the board
         Square targetSquareObject = lookupSquare(columnLetter, rowNumber);
 //        Exception handling still to do! What if no piece is found.
         for (Square validMoveSquare : validMoveSquares) {
             if (validMoveSquare == targetSquareObject) {
-                selectedPiece.setPosition(validMoveSquare);
+                Square startPosition = selectedPiece.getPosition(); // set the previous content to null because the piece is moved
+                startPosition.setSquareContent(null);
+                selectedPiece.setPosition(targetSquareObject); // assigns the new square to the piece
+                targetSquareObject.setSquareContent(selectedPiece); // assings piece to the new square
+                System.out.println(selectedPiece.getPosition());
             }
+
         }
+        ;
     }
 
 }

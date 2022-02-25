@@ -4,10 +4,6 @@ import Model.ChessPieces.Piece;
 
 import java.util.*;
 
-/**
- * @author Mattia Verreydt
- * @version 1.0 19-2-2022 11:29
- */
 public class MovesValidator {
     private List<Square> allBoardSquares;
     private List<Piece> whitePieces;
@@ -30,34 +26,18 @@ public class MovesValidator {
         Map<String, List<Square>> possibleMoves = selectedPiece.getValidMoves(); //possible movements without check on the board
         Collection<List<Square>> directions = possibleMoves.values(); // Collection of all lists, each list is a direction of movements
         for (List<Square> direction : directions) { // we take one direction list at a time to loop over each direction
-            int movesCounter = 0;
+            boolean pieceFound = false; //flag that shows if a piece has been detected.
             for (Square possibleMove : direction) { // we take each square from the direction list
-//            boolean pieceFound = false;
                 for (Square boardSquare : allBoardSquares) { // we take all squares on the gameboard to be checked with the squares on of the direction list
                     if (possibleMove.equals(boardSquare)) {
                         Piece piece = boardSquare.getSquareContent();
-                        if (piece != null) { // check if a piece is present on the square
-//                            pieceFound = true;
-                            int index = Collections.binarySearch(direction, possibleMove);
-                            if (piece.getColor() == selectedPiece.getColor()) {
-                                for (int i = 0; i < index; i++) {
-                                    for (Square boardSquareAgain : allBoardSquares) { // we take al squares on the gameboard to be checked with the squares on of the direction list
-                                        if (direction.get(i).equals(boardSquare)) {
-                                            validMoves.add(boardSquareAgain);
-                                        }
-                                    }
-                                }
-                            } else {
-                                for (int i = 0; i <= index; i++) {
-                                    for (Square boardSquareAgain : allBoardSquares) { // we take al squares on the gameboard to be checked with the squares on of the direction list
-                                        if (direction.get(i).equals(boardSquare)) {
-                                            validMoves.add(boardSquareAgain);
-                                        }
-                                    }
-                                }
+                        if (piece != null && !pieceFound) { // check if a piece is present on the square and if any other piece were found in earlier iterations.
+                            pieceFound = true;
+                            if (piece.getColor() != selectedPiece.getColor()) { //only if the piece color is the color of the opponent we are able to move to this position.
+                                validMoves.add(boardSquare);
                             }
-                        } else if (++movesCounter == direction.size()) {
-                            validMoves.addAll(direction);
+                        } else if (!pieceFound) {
+                            validMoves.add(boardSquare);
                         }
                     }
                 }
@@ -67,5 +47,6 @@ public class MovesValidator {
         return validMoves;
     }
 }
+//}
 
 
