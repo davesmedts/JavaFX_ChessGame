@@ -1,0 +1,9 @@
+TO DO
+
+- we kunnen enkel eigen pieces selecteren
+- als we een piece selecteren die we niet kunnen verzetten dan moeten we een error krijgen en nogmaals iets selecteren
+- hoe capturen?
+- special moves
+- Verloop spel met winnaar en datetime
+- werken met extra bestanden voor opslag
+
