@@ -10,6 +10,8 @@ public class TestPossibleMoves {
         Player dave = new Player("Dave");
         Player mattia = new Player("mattia");
         Game chessGame = new Game(dave, mattia);
+            System.out.println(dave.getColor());
+            System.out.println(mattia.getColor());
         for (int i = 0; i < 10; i++) {
             System.out.println(chessGame.getGameBoard());
             dave.selectPiece();

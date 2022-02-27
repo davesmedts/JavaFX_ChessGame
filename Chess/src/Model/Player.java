@@ -1,5 +1,6 @@
 package Model;
 
+import Exceptions.*;
 import Model.ChessPieces.*;
 
 import java.util.ArrayList;
@@ -193,6 +194,10 @@ public class Player {
         return matchedPiece;
     }
 
+    public Color getColor() {
+        return color;
+    }
+
     public void setColor(Color color) {
         this.color = color;
     }
@@ -213,17 +218,23 @@ public class Player {
 //        Exception handling still to do! What if no piece is found. values must match the board
         try {
             Piece selectedPiece = lookupPiece(columnLetter, rowNumber);
-
-            List<Square> validMoveSquares = movesValidator.getValidMoveSquares(selectedPiece); // we put all the valid square values in a list
-            movePiece(validMoveSquares, selectedPiece);
-
+            if (selectedPiece.getColor() == color) {
+                List<Square> validMoveSquares = movesValidator.getValidMoveSquares(selectedPiece); // we put all the valid square values in a list
+                if (validMoveSquares.isEmpty()) {
+                    throw new IllegalPieceSelectionException("Er zijn geen mogelijke zetten beschikbaar, probeer opnieuw");
+                }
+                movePiece(validMoveSquares, selectedPiece);
+            } else {
+                throw new IllegalPieceSelectionException("niet de juiste kleur");
+            }
+        } catch (IllegalPieceSelectionException ex) {
+            System.out.println(ex.getMessage());
+            selectPiece();
         } catch (NullPointerException ex) {
             System.out.println("Kolom of rij staat niet op het bord of bevat geen eigen piece, Probeer opnieuw iets te selecteren");
             selectPiece();
-
         }
     }
-
 
     public void movePiece(List<Square> validMoveSquares, Piece selectedPiece) {
         Scanner keyboard = new Scanner(System.in);
@@ -234,19 +245,34 @@ public class Player {
 //        Exception handling still to do! What if no piece is found. values must match board!
         int rowNumber = Character.getNumericValue(targetSquareArray[1]); // the getNumericValue method transforms the character to a numeric value.
 //        Exception handling still to do! What if no piece is found. values must match the board
-        Square targetSquareObject = lookupSquare(columnLetter, rowNumber);
-//        Exception handling still to do! What if no piece is found.
-        for (Square validMoveSquare : validMoveSquares) {
-            if (validMoveSquare == targetSquareObject) {
-                Square startPosition = selectedPiece.getPosition(); // set the previous content to null because the piece is moved
-                startPosition.setSquareContent(null);
-                selectedPiece.setPosition(targetSquareObject); // assigns the new square to the piece
-                targetSquareObject.setSquareContent(selectedPiece); // assings piece to the new square
-                System.out.println(selectedPiece.getPosition());
+        try {
+            Square targetSquareObject = lookupSquare(columnLetter, rowNumber);
+            if (targetSquareObject == null) {
+                throw new IllegalMoveException("Invoer niet gevonden op het bord, probeer opnieuw: ");
+            }
+            boolean isFound = false;
+            for (Square validMoveSquare : validMoveSquares) {
+                if (validMoveSquare == targetSquareObject) {
+                    isFound = true;
+                    Square startPosition = selectedPiece.getPosition(); // set the previous content to null because the piece is moved
+                    startPosition.setSquareContent(null);
+                    selectedPiece.setPosition(targetSquareObject); // assigns the new square to the piece
+                    targetSquareObject.setSquareContent(selectedPiece); // assigns piece to the new square
+                    System.out.println(selectedPiece.getPosition());
+                    if (targetSquareObject.getSquareContent() != null && targetSquareObject.getSquareContent().getColor() != selectedPiece.getColor()) {
+                        targetSquareObject.getSquareContent().capturePiece();
+                    }
+                }
+            }
+            if (!isFound) {
+                throw new IllegalMoveException("Invoer behoort niet tot de mogelijke zetten, probeer opnieuw: ");
             }
 
+        } catch (IllegalMoveException ime) {
+            System.out.println(ime.getMessage());
+            movePiece(validMoveSquares, selectedPiece);
         }
+//        Exception handling still to do! What if no piece is found.
         ;
     }
-
 }

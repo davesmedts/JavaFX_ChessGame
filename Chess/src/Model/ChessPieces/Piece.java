@@ -42,6 +42,11 @@ public class Piece {
         this.position = position;
     }
 
+    public void capturePiece(){
+        isCaptured = true;
+        position = null; // value for captured pieces
+    }
+
     //    public Boolean getPiece(Square startPos, Square endPosition, Color color) {
 //        if (color == Color.valueOf("white")) {
 //            for (int i = 0; i < whitePieces.size(); i++) {

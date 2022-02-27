@@ -47,6 +47,5 @@ public class MovesValidator {
         return validMoves;
     }
 }
-//}
 
 
