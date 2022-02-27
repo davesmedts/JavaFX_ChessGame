@@ -202,23 +202,28 @@ public class Player {
     }
 
     public void selectPiece() {
+
+
         Scanner keyboard = new Scanner(System.in);
         System.out.println(player + ": please enter column and row of the piece:");
         String startSquare = keyboard.nextLine().toUpperCase();
         char[] startSquareArray = startSquare.toCharArray();
         char columnLetter = startSquareArray[0];
-//        Exception handling still to do! What if no piece is found. values must match board!
         int rowNumber = Character.getNumericValue(startSquareArray[1]);
 //        Exception handling still to do! What if no piece is found. values must match the board
-        Piece selectedPiece = lookupPiece(columnLetter, rowNumber);
-        if (selectedPiece == null) {
-            selectPiece();
-        }
-//        Exception handling still to do! What if no piece is found.
+        try {
+            Piece selectedPiece = lookupPiece(columnLetter, rowNumber);
 
-        List<Square> validMoveSquares = movesValidator.getValidMoveSquares(selectedPiece); // we put all the valid square values in a list
-        movePiece(validMoveSquares, selectedPiece);
+            List<Square> validMoveSquares = movesValidator.getValidMoveSquares(selectedPiece); // we put all the valid square values in a list
+            movePiece(validMoveSquares, selectedPiece);
+
+        } catch (NullPointerException ex) {
+            System.out.println("Kolom of rij staat niet op het bord of bevat geen eigen piece, Probeer opnieuw iets te selecteren");
+            selectPiece();
+
+        }
     }
+
 
     public void movePiece(List<Square> validMoveSquares, Piece selectedPiece) {
         Scanner keyboard = new Scanner(System.in);
