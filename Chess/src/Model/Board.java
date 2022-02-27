@@ -13,11 +13,11 @@ public class Board {
 
 
     public Board() {
-        squares = new ArrayList<Square>();
-        for (int i = 0; i < NUMBER_OF_ROWS; i++) {
-            for (int j = NUMBER_OF_COLUMNS-1; j >= 0; j--) {
+        squares = new ArrayList<>();
+        for (int i = NUMBER_OF_ROWS; i > 0; i--) {
+            for (int j = 0; j < NUMBER_OF_COLUMNS; j++) {
                 char columnLetter = (char) (65 + j); //ASCII code gebruiken om int naar char om te zetten
-                int rowNumber = i + 1;
+                int rowNumber = i;
                 squares.add(new Square(rowNumber, columnLetter));
             }
         }
@@ -34,7 +34,6 @@ public class Board {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        Collections.reverse(squares);
         int rowNumber = 8;
         for (int i = 0; i < squares.size(); i++) {
             if (i % 8 == 0) {
@@ -49,7 +48,7 @@ public class Board {
 //        print out the column labels on the screen
         for (int i = 0; i < NUMBER_OF_COLUMNS; i++) {
             char columnLetter = (char) (65 + i);
-            builder.append(columnLetter + "  ");
+            builder.append(columnLetter).append("  ");
         }
         return builder.toString();
     }
