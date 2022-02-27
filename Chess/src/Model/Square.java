@@ -14,7 +14,7 @@ public class Square implements Comparable<Square> {
         this.columnLetter = columnLetter;
     }
 
-//    will be used when a Piece is moved in the game, to keep track of which specific piece is on this square.
+    //    will be used when a Piece is moved in the game, to keep track of which specific piece is on this square.
     public void setSquareContent(Piece squareContent) {
         this.squareContent = squareContent;
     }
@@ -40,7 +40,7 @@ public class Square implements Comparable<Square> {
         }
     }
 
-//    a Square is equal to another square when both columnLetter and rowNumber have a match.
+    //    a Square is equal to another square when both columnLetter and rowNumber have a match.
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -58,22 +58,34 @@ public class Square implements Comparable<Square> {
         return String.format("%s%d", columnLetter, rowNumber);
     }
 
-    public String getBoardView(){
+    public String getBoardView() {
 //        depending on the type of Piece a different output must show.
 //        if empty a dash is shown on the console
         String value;
-        if (squareContent instanceof King) {
+        if (squareContent instanceof King && squareContent.getColor() == Color.WHITE) {
             value = "K";
-        } else if (squareContent instanceof Pawn) {
+        } else if (squareContent instanceof Pawn && squareContent.getColor() == Color.WHITE) {
             value = "P";
-        } else if (squareContent instanceof Rook) {
+        } else if (squareContent instanceof Rook && squareContent.getColor() == Color.WHITE) {
             value = "R";
-        } else if (squareContent instanceof Queen) {
+        } else if (squareContent instanceof Queen && squareContent.getColor() == Color.WHITE) {
             value = "Q";
-        } else if (squareContent instanceof Bishop) {
+        } else if (squareContent instanceof Bishop && squareContent.getColor() == Color.WHITE) {
             value = "B";
-        } else if (squareContent instanceof Knight) {
+        } else if (squareContent instanceof Knight && squareContent.getColor() == Color.WHITE) {
             value = "H";
+        } else if (squareContent instanceof King && squareContent.getColor() == Color.BLACK) {
+            value = "k";
+        } else if (squareContent instanceof Pawn && squareContent.getColor() == Color.BLACK) {
+            value = "p";
+        } else if (squareContent instanceof Rook && squareContent.getColor() == Color.BLACK) {
+            value = "r";
+        } else if (squareContent instanceof Queen && squareContent.getColor() == Color.BLACK) {
+            value = "q";
+        } else if (squareContent instanceof Bishop && squareContent.getColor() == Color.BLACK) {
+            value = "b";
+        } else if (squareContent instanceof Knight && squareContent.getColor() == Color.BLACK) {
+            value = "h";
         } else {
             value = "-";
         }
@@ -81,4 +93,3 @@ public class Square implements Comparable<Square> {
 
     }
 }
-

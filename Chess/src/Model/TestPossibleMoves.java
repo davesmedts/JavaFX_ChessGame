@@ -1,7 +1,6 @@
 package Model;
 
 import Model.ChessPieces.*;
-
 import java.util.List;
 import java.util.Map;
 
@@ -12,7 +11,7 @@ public class TestPossibleMoves {
         Game chessGame = new Game(dave, mattia);
             System.out.println(dave.getColor());
             System.out.println(mattia.getColor());
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 15; i++) {
             System.out.println(chessGame.getGameBoard());
             dave.selectPiece();
             System.out.println(chessGame.getGameBoard());
