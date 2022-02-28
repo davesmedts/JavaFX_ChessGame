@@ -208,7 +208,6 @@ public class Player {
 
     public void selectPiece() {
 
-
         Scanner keyboard = new Scanner(System.in);
         System.out.println(player + ": please enter column and row of the piece:");
         String startSquare = keyboard.nextLine().toUpperCase();
@@ -218,12 +217,22 @@ public class Player {
 //        Exception handling still to do! What if no piece is found. values must match the board
         try {
             Piece selectedPiece = lookupPiece(columnLetter, rowNumber);
+
             if (selectedPiece.getColor() == color) {
-                List<Square> validMoveSquares = movesValidator.getValidMoveSquares(selectedPiece); // we put all the valid square values in a list
-                if (validMoveSquares.isEmpty()) {
-                    throw new IllegalPieceSelectionException("Er zijn geen mogelijke zetten beschikbaar, probeer opnieuw");
+                if(selectedPiece instanceof Pawn ){
+                    List<Square> validMoveSquares = movesValidator.getValidMoveSquaresPawn(selectedPiece); // we put all the valid square values in a list
+                    if (validMoveSquares.isEmpty()) {
+                        throw new IllegalPieceSelectionException("Er zijn geen mogelijke zetten beschikbaar, probeer opnieuw");
+                    }
+                    movePiece(validMoveSquares, selectedPiece);
+
+                } else {
+                    List<Square> validMoveSquares = movesValidator.getValidMoveSquares(selectedPiece); // we put all the valid square values in a list
+                    if (validMoveSquares.isEmpty()) {
+                        throw new IllegalPieceSelectionException("Er zijn geen mogelijke zetten beschikbaar, probeer opnieuw");
+                    }
+                    movePiece(validMoveSquares, selectedPiece);
                 }
-                movePiece(validMoveSquares, selectedPiece);
             } else {
                 throw new IllegalPieceSelectionException("niet de juiste kleur");
             }
@@ -234,6 +243,8 @@ public class Player {
             System.out.println("Kolom of rij staat niet op het bord of bevat geen eigen piece, Probeer opnieuw iets te selecteren");
             selectPiece();
         }
+        //
+
     }
 
     public void movePiece(List<Square> validMoveSquares, Piece selectedPiece) {

@@ -10,10 +10,7 @@ public class Piece {
     private Square position;
     private List<Square> moves;
     private boolean isCaptured;
-
-
-//    private List<Piece> blackPieces = new ArrayList<>(); // volgens mij hebben we dit nodig voor onze getPiece --> list
-//    private List<Piece> whitePieces = new ArrayList<>(); // volgens mij hebben we dit nodig voor onze getPiece
+    
 
     public Piece(Color color, Square startPosition) {
         this.color = color;
