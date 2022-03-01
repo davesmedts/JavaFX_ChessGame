@@ -2,12 +2,19 @@ TO DO
 
 - hoe capturen?
     - pawn in validmovesvalidator toevoegen?
+
 - special moves
     - en passant
     - rokeren
     - capture door pawn, schuin.
-    - promoveren pawn
+    - promoveren pawn (DONE)
     - check/checkmate
+
+
+    BUG
+    - array out of bounds lijn 216 in de player klasse
+    - je kan met de pion telkens twee zetten vooruit doen
+
 - Verloop spel met winnaar en datetime
 - werken met extra bestanden voor opslag
 

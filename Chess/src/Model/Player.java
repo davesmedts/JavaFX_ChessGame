@@ -3,10 +3,7 @@ package Model;
 import Exceptions.*;
 import Model.ChessPieces.*;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Player {
     private String player;
@@ -207,24 +204,22 @@ public class Player {
     }
 
     public void selectPiece() {
-
         Scanner keyboard = new Scanner(System.in);
         System.out.println(player + ": please enter column and row of the piece:");
         String startSquare = keyboard.nextLine().toUpperCase();
         char[] startSquareArray = startSquare.toCharArray();
         char columnLetter = startSquareArray[0];
-        int rowNumber = Character.getNumericValue(startSquareArray[1]);
+        int rowNumber = Character.getNumericValue(startSquareArray[1]); // TO DO IK KRIJG NEN ARRAY OUT OF BOUNDS EXCEPTION ALS IK ENKEL DE LETTER A INGEEF
 //        Exception handling still to do! What if no piece is found. values must match the board
         try {
             Piece selectedPiece = lookupPiece(columnLetter, rowNumber);
-
             if (selectedPiece.getColor() == color) {
-                if(selectedPiece instanceof Pawn ){
+                if (selectedPiece instanceof Pawn) {
                     List<Square> validMoveSquares = movesValidator.getValidMoveSquaresPawn(selectedPiece); // we put all the valid square values in a list
                     if (validMoveSquares.isEmpty()) {
                         throw new IllegalPieceSelectionException("Er zijn geen mogelijke zetten beschikbaar, probeer opnieuw");
                     }
-                    movePiece(validMoveSquares, selectedPiece);
+                    movePawn(validMoveSquares, selectedPiece);
 
                 } else {
                     List<Square> validMoveSquares = movesValidator.getValidMoveSquares(selectedPiece); // we put all the valid square values in a list
@@ -246,6 +241,56 @@ public class Player {
         //
 
     }
+
+    public void movePawn(List<Square> validMoveSquares, Piece selectedPiece) {
+        Scanner keyboard = new Scanner(System.in);
+        System.out.println(player + ": please enter column and row of where you want to move the piece:");
+        String targetSquare = keyboard.nextLine().toUpperCase();
+        char[] targetSquareArray = targetSquare.toCharArray();
+        char columnLetter = targetSquareArray[0];
+//        Exception handling still to do! What if no piece is found. values must match board!
+        int rowNumber = Character.getNumericValue(targetSquareArray[1]); // the getNumericValue method transforms the character to a numeric value.
+//        Exception handling still to do! What if no piece is found. values must match the board
+        try {
+            int endRowWhite = 1; // need these two attributes to check if the pawn is going to the end row
+            int endRowBlack = 8;
+            Square targetSquareObject = lookupSquare(columnLetter, rowNumber);
+
+            if (targetSquareObject == null) {
+                throw new IllegalMoveException("Invoer niet gevonden op het bord, probeer opnieuw: ");
+            }
+            boolean isFound = false;
+            for (Square validMoveSquare : validMoveSquares) {
+                if (validMoveSquare == targetSquareObject) {
+                    isFound = true;
+                    Square startPosition = selectedPiece.getPosition(); // set the previous content to null because the piece is moved
+                    startPosition.setSquareContent(null);
+                    selectedPiece.setPosition(targetSquareObject); // assigns the new square to the piece
+                    targetSquareObject.setSquareContent(selectedPiece); // assigns piece to the new square
+                    System.out.println(selectedPiece.getPosition());
+                    if (targetSquareObject.getSquareContent() != null && targetSquareObject.getSquareContent().getColor() != selectedPiece.getColor()) {
+                        targetSquareObject.getSquareContent().capturePiece();
+                    }
+                    if (rowNumber == endRowBlack || rowNumber == endRowWhite) { // we check if the rownumber that the user gave in is the same as the endrow for the color
+                        System.out.println("U kan uw pion promoveren. Geef de letter van het stuk in (Q,K,B,R):");
+                        String desiredPiece = keyboard.nextLine().toUpperCase();
+                        promotePiece(desiredPiece, selectedPiece);
+                    }
+
+                }
+            }
+            if (!isFound) {
+                throw new IllegalMoveException("Invoer behoort niet tot de mogelijke zetten, probeer opnieuw: ");
+            }
+
+        } catch (IllegalMoveException ime) {
+            System.out.println(ime.getMessage());
+            movePiece(validMoveSquares, selectedPiece);
+        }
+//        Exception handling still to do! What if no piece is found.
+        ;
+    }
+
 
     public void movePiece(List<Square> validMoveSquares, Piece selectedPiece) {
         Scanner keyboard = new Scanner(System.in);
@@ -286,4 +331,30 @@ public class Player {
 //        Exception handling still to do! What if no piece is found.
         ;
     }
+
+    public void promotePiece(String desiredPieceLetter, Piece selectedPiece) {
+        Square startPosition = selectedPiece.getPosition(); // set the pawn content to null because the piece is promoted
+        startPosition.setSquareContent(null); // Welke value gaan we dit juist geven, want nu komt dat in de lijst met captured pieces wat niet de bedoeling is
+        Color kleurPiece = selectedPiece.getColor();
+
+        if (Objects.equals(desiredPieceLetter, "Q")) { // ik kon niet vergelijken met == want dan ging dieje niet in dit if statement. Enig idee hoe dat komt? wss omdat die referentie wordt vergeleken...?
+            pieces.add(new Queen(kleurPiece, startPosition));
+            startPosition.setSquareContent(pieces.get(pieces.size() - 1));
+            startPosition.getBoardView(); // ben nog niet helemaal mee waarom ik hier dit moet doen om het te laten werken. Kunt gij mij dat eens uitleggen?
+        } else if (Objects.equals(desiredPieceLetter, "K")) {
+            pieces.add(new Knight(kleurPiece, startPosition));
+            startPosition.setSquareContent(pieces.get(pieces.size() - 1));
+            startPosition.getBoardView();
+        } else if (Objects.equals(desiredPieceLetter, "B")) {
+            pieces.add(new Bishop (kleurPiece, startPosition));
+            startPosition.setSquareContent(pieces.get(pieces.size() - 1));
+            startPosition.getBoardView();
+        } else if (Objects.equals(desiredPieceLetter, "R")) {
+            pieces.add(new Rook (kleurPiece, startPosition));
+            startPosition.setSquareContent(pieces.get(pieces.size() - 1));
+            startPosition.getBoardView();
+        }
+    }
 }
+
+
