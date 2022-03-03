@@ -21,8 +21,10 @@ public class MovesValidator {
         this.blackPieces = blackPieces;
     }
 
+
     public List<Square> getValidMoveSquares(Piece selectedPiece) {
         List<Square> validMoves = new ArrayList<>(); // list to return
+
         Map<String, List<Square>> possibleMoves = selectedPiece.getValidMoves(); //possible movements without check on the board
         Collection<List<Square>> directions = possibleMoves.values(); // Collection of all lists, each list is a direction of movements
         for (List<Square> direction : directions) { // we take one direction list at a time to loop over each direction
@@ -49,7 +51,7 @@ public class MovesValidator {
 
     public List<Square> getValidMoveSquaresPawn(Piece selectedPiece) {
         List<Square> validMoves = new ArrayList<>(); // list to return
-        Map<String, List<Square>> possibleMoves = selectedPiece.getValidMoves(); //possible movements without check on the board
+        Map<String, List<Square>> possibleMoves = selectedPiece.getValidMovesPawn(allBoardSquares); //possible movements without check on the board
         Collection<List<Square>> directions = possibleMoves.values(); // Collection of all lists, each list is a direction of movements
         for (List<Square> direction : directions) { // we take one direction list at a time to loop over each direction
             boolean pieceFound = false; //flag that shows if a piece has been detected.

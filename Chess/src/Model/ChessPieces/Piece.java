@@ -10,7 +10,8 @@ public class Piece {
     private Square position;
     private List<Square> moves;
     private boolean isCaptured;
-    
+
+
 
     public Piece(Color color, Square startPosition) {
         this.color = color;
@@ -27,12 +28,20 @@ public class Piece {
         return new HashMap<>();
     }
 
+    public Map<String, List<Square>> getValidMovesPawn(List<Square> squares){
+        return new HashMap<>();
+    }
+
     public Square getPosition() {
         return position;
     }
 
     public Color getColor() {
         return color;
+    }
+
+    public void setMoves(Square square) {
+        moves.add(square);
     }
 
     public void setPosition(Square position) {

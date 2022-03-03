@@ -6,14 +6,14 @@ TO DO
 - special moves
     - en passant
     - rokeren
-    - capture door pawn, schuin.
+    - capture door pawn, schuin
     - promoveren pawn (DONE)
     - check/checkmate
 
 
     BUG
-    - array out of bounds lijn 216 in de player klasse
-    - je kan met de pion telkens twee zetten vooruit doen
+    - array out of bounds lijn 216 in de player klasse ook exception als je enkel 'a' intikt
+    - je kan met de pion telkens twee zetten vooruit doen (DONE --> de list moves in pieces werd niet opgevuld)
 
 - Verloop spel met winnaar en datetime
 - werken met extra bestanden voor opslag

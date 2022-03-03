@@ -211,6 +211,8 @@ public class Player {
         char columnLetter = startSquareArray[0];
         int rowNumber = Character.getNumericValue(startSquareArray[1]); // TO DO IK KRIJG NEN ARRAY OUT OF BOUNDS EXCEPTION ALS IK ENKEL DE LETTER A INGEEF
 //        Exception handling still to do! What if no piece is found. values must match the board
+
+
         try {
             Piece selectedPiece = lookupPiece(columnLetter, rowNumber);
             if (selectedPiece.getColor() == color) {
@@ -251,10 +253,13 @@ public class Player {
 //        Exception handling still to do! What if no piece is found. values must match board!
         int rowNumber = Character.getNumericValue(targetSquareArray[1]); // the getNumericValue method transforms the character to a numeric value.
 //        Exception handling still to do! What if no piece is found. values must match the board
+
+
         try {
             int endRowWhite = 1; // need these two attributes to check if the pawn is going to the end row
             int endRowBlack = 8;
             Square targetSquareObject = lookupSquare(columnLetter, rowNumber);
+            selectedPiece.setMoves(targetSquareObject); // add the move to the move list in piece
 
             if (targetSquareObject == null) {
                 throw new IllegalMoveException("Invoer niet gevonden op het bord, probeer opnieuw: ");
@@ -303,6 +308,8 @@ public class Player {
 //        Exception handling still to do! What if no piece is found. values must match the board
         try {
             Square targetSquareObject = lookupSquare(columnLetter, rowNumber);
+            selectedPiece.setMoves(targetSquareObject); // add the move to the move list in piece
+
             if (targetSquareObject == null) {
                 throw new IllegalMoveException("Invoer niet gevonden op het bord, probeer opnieuw: ");
             }
