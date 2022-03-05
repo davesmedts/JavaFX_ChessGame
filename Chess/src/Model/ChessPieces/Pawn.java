@@ -89,7 +89,7 @@ public class Pawn extends Piece {
                         char selectedPieceCurrentColumnLetter = super.getPosition().getColumnLetter();
                         int pieceRowNumber = piece.getPosition().getRowNumber();
                         int selectedPieceCurrentRow = super.getPosition().getRowNumber();
-                        if (pieceRowNumber == selectedPieceCurrentRow + 1 && (pieceColumnLetter == selectedPieceCurrentColumnLetter + 1 || pieceColumnLetter == selectedPieceCurrentColumnLetter - 1)) {
+                        if (pieceRowNumber == selectedPieceCurrentRow -1 && (pieceColumnLetter == selectedPieceCurrentColumnLetter + 1 || pieceColumnLetter == selectedPieceCurrentColumnLetter - 1)) {
                             south.add(new Square(pieceRowNumber, pieceColumnLetter));
                         }
                     }
@@ -109,7 +109,7 @@ public class Pawn extends Piece {
                         char selectedPieceCurrentColumnLetter = super.getPosition().getColumnLetter();
                         int pieceRowNumber = piece.getPosition().getRowNumber();
                         int selectedPieceCurrentRow = super.getPosition().getRowNumber();
-                        if (pieceRowNumber == selectedPieceCurrentRow + 1 && (pieceColumnLetter == selectedPieceCurrentColumnLetter + 1 || pieceColumnLetter == selectedPieceCurrentColumnLetter - 1)) {
+                        if (pieceRowNumber == selectedPieceCurrentRow - 1 && (pieceColumnLetter == selectedPieceCurrentColumnLetter + 1 || pieceColumnLetter == selectedPieceCurrentColumnLetter - 1)) {
                             south.add(new Square(pieceRowNumber,pieceColumnLetter));
                         }
                     }
