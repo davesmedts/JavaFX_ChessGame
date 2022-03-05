@@ -90,7 +90,7 @@ public class Pawn extends Piece {
                         int pieceRowNumber = piece.getPosition().getRowNumber();
                         int selectedPieceCurrentRow = super.getPosition().getRowNumber();
                         if (pieceRowNumber == selectedPieceCurrentRow + 1 && (pieceColumnLetter == selectedPieceCurrentColumnLetter + 1 || pieceColumnLetter == selectedPieceCurrentColumnLetter - 1)) {
-                            north.add(new Square(pieceRowNumber, pieceColumnLetter));
+                            south.add(new Square(pieceRowNumber, pieceColumnLetter));
                         }
                     }
 
@@ -104,14 +104,13 @@ public class Pawn extends Piece {
 
                 for (Square boardSquare : allBoardSquares) { //loop over all the board squares and check if there is a piece on it. we can add the square to the list if the piece is oblique
                     Piece piece = boardSquare.getSquareContent();
-
                     if (piece != null) {
                         char pieceColumnLetter= piece.getPosition().getColumnLetter();
                         char selectedPieceCurrentColumnLetter = super.getPosition().getColumnLetter();
                         int pieceRowNumber = piece.getPosition().getRowNumber();
                         int selectedPieceCurrentRow = super.getPosition().getRowNumber();
                         if (pieceRowNumber == selectedPieceCurrentRow + 1 && (pieceColumnLetter == selectedPieceCurrentColumnLetter + 1 || pieceColumnLetter == selectedPieceCurrentColumnLetter - 1)) {
-                            north.add(new Square(pieceRowNumber,pieceColumnLetter));
+                            south.add(new Square(pieceRowNumber,pieceColumnLetter));
                         }
                     }
 
