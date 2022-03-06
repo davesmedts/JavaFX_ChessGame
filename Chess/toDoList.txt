@@ -1,19 +1,18 @@
 TO DO
 
-- hoe capturen?
-    - pawn in validmovesvalidator toevoegen?
 
 - special moves
-    - en passant
+    - en passant (debuggen)
     - rokeren
-    - capture door pawn, schuin
-    - promoveren pawn (DONE)
     - check/checkmate
-
 
     BUG
     - array out of bounds lijn 216 in de player klasse ook exception als je enkel 'a' intikt
-    - je kan met de pion telkens twee zetten vooruit doen (DONE --> de list moves in pieces werd niet opgevuld)
+
+
+    DESIGN CHECKS
+    - Promoveren PAWN --> kunnen we het niet in 1 methode steken? Dus geen movePawn
+    - Schuin capturen --> kunnen we de checks niet in de movevalidatie doen?
 
 - Verloop spel met winnaar en datetime
 - werken met extra bestanden voor opslag

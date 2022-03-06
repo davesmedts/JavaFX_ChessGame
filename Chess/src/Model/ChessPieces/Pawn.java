@@ -3,10 +3,7 @@ package Model.ChessPieces;
 import Model.Color;
 import Model.Square;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Pawn extends Piece {
     public Pawn(Color color, Square startPosition) {
@@ -49,6 +46,13 @@ public class Pawn extends Piece {
                         if (pieceRowNumber == selectedPieceCurrentRow + 1 && (pieceColumnLetter == selectedPieceCurrentColumnLetter + 1 || pieceColumnLetter == selectedPieceCurrentColumnLetter - 1)) {
                             north.add(new Square(pieceRowNumber, pieceColumnLetter));
                         }
+
+                        List<Square> enPassantSquares = enPassant(allBoardSquares);
+
+                        for (Square enPassantSquare : enPassantSquares) {
+                            north.add(enPassantSquare);
+                        }
+
                     }
 
                 }
@@ -61,12 +65,18 @@ public class Pawn extends Piece {
                 for (Square boardSquare : allBoardSquares) { //loop over all the board squares and check if there is a piece on it. we can add the square to the list if the piece is oblique
                     Piece piece = boardSquare.getSquareContent();
                     if (piece != null) {
-                        char pieceColumnLetter= piece.getPosition().getColumnLetter();
+                        char pieceColumnLetter = piece.getPosition().getColumnLetter();
                         char selectedPieceCurrentColumnLetter = super.getPosition().getColumnLetter();
                         int pieceRowNumber = piece.getPosition().getRowNumber();
                         int selectedPieceCurrentRow = super.getPosition().getRowNumber();
                         if (pieceRowNumber == selectedPieceCurrentRow + 1 && (pieceColumnLetter == selectedPieceCurrentColumnLetter + 1 || pieceColumnLetter == selectedPieceCurrentColumnLetter - 1)) {
-                            north.add(new Square(pieceRowNumber,pieceColumnLetter));
+                            north.add(new Square(pieceRowNumber, pieceColumnLetter));
+                        }
+
+                        List<Square> enPassantSquares = enPassant(allBoardSquares);
+
+                        for (Square enPassantSquare : enPassantSquares) {
+                            north.add(enPassantSquare);
                         }
                     }
 
@@ -83,13 +93,12 @@ public class Pawn extends Piece {
 
                 for (Square boardSquare : allBoardSquares) { //loop over all the board squares and check if there is a piece on it. we can add the square to the list if the piece is oblique
                     Piece piece = boardSquare.getSquareContent();
-
                     if (piece != null) {
                         char pieceColumnLetter = piece.getPosition().getColumnLetter();
                         char selectedPieceCurrentColumnLetter = super.getPosition().getColumnLetter();
                         int pieceRowNumber = piece.getPosition().getRowNumber();
                         int selectedPieceCurrentRow = super.getPosition().getRowNumber();
-                        if (pieceRowNumber == selectedPieceCurrentRow -1 && (pieceColumnLetter == selectedPieceCurrentColumnLetter + 1 || pieceColumnLetter == selectedPieceCurrentColumnLetter - 1)) {
+                        if (pieceRowNumber == selectedPieceCurrentRow - 1 && (pieceColumnLetter == selectedPieceCurrentColumnLetter + 1 || pieceColumnLetter == selectedPieceCurrentColumnLetter - 1)) {
                             south.add(new Square(pieceRowNumber, pieceColumnLetter));
                         }
                     }
@@ -105,12 +114,12 @@ public class Pawn extends Piece {
                 for (Square boardSquare : allBoardSquares) { //loop over all the board squares and check if there is a piece on it. we can add the square to the list if the piece is oblique
                     Piece piece = boardSquare.getSquareContent();
                     if (piece != null) {
-                        char pieceColumnLetter= piece.getPosition().getColumnLetter();
+                        char pieceColumnLetter = piece.getPosition().getColumnLetter();
                         char selectedPieceCurrentColumnLetter = super.getPosition().getColumnLetter();
                         int pieceRowNumber = piece.getPosition().getRowNumber();
                         int selectedPieceCurrentRow = super.getPosition().getRowNumber();
                         if (pieceRowNumber == selectedPieceCurrentRow - 1 && (pieceColumnLetter == selectedPieceCurrentColumnLetter + 1 || pieceColumnLetter == selectedPieceCurrentColumnLetter - 1)) {
-                            south.add(new Square(pieceRowNumber,pieceColumnLetter));
+                            south.add(new Square(pieceRowNumber, pieceColumnLetter));
                         }
                     }
 
@@ -131,5 +140,35 @@ public class Pawn extends Piece {
 
         return possibleSquares;
     }
+
+    public List<Square> enPassant(List<Square> allBoardSquares) {
+        List<Square> enPassantSquares = new ArrayList<>();
+
+        if (super.getPosition().getRowNumber() == 5 && super.getColor() == Color.WHITE) {
+            for (Square boardSquare : allBoardSquares) {
+                if ((boardSquare.getColumnLetter() == super.getPosition().getColumnLetter() + 1 && (boardSquare.getRowNumber() == 5))) { // we gaan al de squares links en rechts toevoegen
+                    if (boardSquare.getSquareContent() instanceof Pawn && boardSquare.getSquareContent().getColor() == Color.BLACK && boardSquare.getSquareContent().getMoves().size() == 1) { // drie checks moeten we doen, 1 we checken of we naast een pion staan. De pion moet van de tegenpartij zijn, dus de kleur moet gecontroleerd worden. Ten derde moeten we checken of de lijst van de vijandelijke pion op 0 staat(eerste move vijand)
+                        enPassantSquares.add(new Square(6, (char) (super.getPosition().getColumnLetter() + 1)));
+
+                    }
+
+                }
+                if ((boardSquare.getColumnLetter() == super.getPosition().getColumnLetter() - 1 && (boardSquare.getRowNumber() == 5))) {
+                    enPassantSquares.add(new Square(6, (char) (super.getPosition().getColumnLetter() - 1)));
+                }
+            }
+        }
+
+
+        if (super.getPosition().getRowNumber() == 4 && super.getColor() == Color.BLACK) {
+            for (Square boardSquare : allBoardSquares) {
+
+
+            }
+        }
+
+        return enPassantSquares;
+    }
+
 }
 

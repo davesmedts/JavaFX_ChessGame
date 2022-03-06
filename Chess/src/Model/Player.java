@@ -254,7 +254,6 @@ public class Player {
         int rowNumber = Character.getNumericValue(targetSquareArray[1]); // the getNumericValue method transforms the character to a numeric value.
 //        Exception handling still to do! What if no piece is found. values must match the board
 
-
         try {
             int endRowWhite = 1; // need these two attributes to check if the pawn is going to the end row
             int endRowBlack = 8;
@@ -281,7 +280,6 @@ public class Player {
                         String desiredPiece = keyboard.nextLine().toUpperCase();
                         promotePiece(desiredPiece, selectedPiece);
                     }
-
                 }
             }
             if (!isFound) {
@@ -344,22 +342,23 @@ public class Player {
         startPosition.setSquareContent(null); // Welke value gaan we dit juist geven, want nu komt dat in de lijst met captured pieces wat niet de bedoeling is
         Color kleurPiece = selectedPiece.getColor();
 
-        if (Objects.equals(desiredPieceLetter, "Q")) { // ik kon niet vergelijken met == want dan ging dieje niet in dit if statement. Enig idee hoe dat komt? wss omdat die referentie wordt vergeleken...?
+        if (desiredPieceLetter.equals("Q")) {
             pieces.add(new Queen(kleurPiece, startPosition));
             startPosition.setSquareContent(pieces.get(pieces.size() - 1));
-            startPosition.getBoardView(); // ben nog niet helemaal mee waarom ik hier dit moet doen om het te laten werken. Kunt gij mij dat eens uitleggen?
-        } else if (Objects.equals(desiredPieceLetter, "K")) {
+
+
+        } else if (desiredPieceLetter.equals("K")) {
             pieces.add(new Knight(kleurPiece, startPosition));
             startPosition.setSquareContent(pieces.get(pieces.size() - 1));
-            startPosition.getBoardView();
-        } else if (Objects.equals(desiredPieceLetter, "B")) {
+
+        } else if (desiredPieceLetter.equals("B")) {
             pieces.add(new Bishop (kleurPiece, startPosition));
             startPosition.setSquareContent(pieces.get(pieces.size() - 1));
-            startPosition.getBoardView();
-        } else if (Objects.equals(desiredPieceLetter, "R")) {
+
+        } else if (desiredPieceLetter.equals("R")) {
             pieces.add(new Rook (kleurPiece, startPosition));
             startPosition.setSquareContent(pieces.get(pieces.size() - 1));
-            startPosition.getBoardView();
+
         }
     }
 }
