@@ -47,15 +47,10 @@ public class Pawn extends Piece {
                             north.add(new Square(pieceRowNumber, pieceColumnLetter));
                         }
 
-                        List<Square> enPassantSquares = enPassant(allBoardSquares);
-
-                        for (Square enPassantSquare : enPassantSquares) {
-                            north.add(enPassantSquare);
-                        }
-
                     }
-
                 }
+//                List<Square> enPassantSquares = enPassant(allBoardSquares);
+//                north.addAll(enPassantSquares);
             }
             if (super.getMoves().size() == 0) { //only on the first move a pawn can move 2 squares
                 int newRow = row + 2;
@@ -73,16 +68,8 @@ public class Pawn extends Piece {
                             north.add(new Square(pieceRowNumber, pieceColumnLetter));
                         }
 
-                        List<Square> enPassantSquares = enPassant(allBoardSquares);
-
-                        for (Square enPassantSquare : enPassantSquares) {
-                            north.add(enPassantSquare);
-                        }
                     }
-
                 }
-
-
             }
         } else if (super.getColor() == Color.BLACK) {
             //        north
@@ -102,10 +89,9 @@ public class Pawn extends Piece {
                             south.add(new Square(pieceRowNumber, pieceColumnLetter));
                         }
                     }
-
                 }
-
             }
+
             if (super.getMoves().size() == 0) { //only on the first move a pawn can move 2 squares
                 int newRow = row - 2;
                 char newColumn = column;
@@ -149,26 +135,26 @@ public class Pawn extends Piece {
                 if ((boardSquare.getColumnLetter() == super.getPosition().getColumnLetter() + 1 && (boardSquare.getRowNumber() == 5))) { // we gaan al de squares links en rechts toevoegen
                     if (boardSquare.getSquareContent() instanceof Pawn && boardSquare.getSquareContent().getColor() == Color.BLACK && boardSquare.getSquareContent().getMoves().size() == 1) { // drie checks moeten we doen, 1 we checken of we naast een pion staan. De pion moet van de tegenpartij zijn, dus de kleur moet gecontroleerd worden. Ten derde moeten we checken of de lijst van de vijandelijke pion op 0 staat(eerste move vijand)
                         enPassantSquares.add(new Square(6, (char) (super.getPosition().getColumnLetter() + 1)));
-
                     }
-
                 }
+
                 if ((boardSquare.getColumnLetter() == super.getPosition().getColumnLetter() - 1 && (boardSquare.getRowNumber() == 5))) {
-                    enPassantSquares.add(new Square(6, (char) (super.getPosition().getColumnLetter() - 1)));
+                    if (boardSquare.getSquareContent() instanceof Pawn && boardSquare.getSquareContent().getColor() == Color.BLACK && boardSquare.getSquareContent().getMoves().size() == 1) { // drie checks moeten we doen, 1 we checken of we naast een pion staan. De pion moet van de tegenpartij zijn, dus de kleur moet gecontroleerd worden. Ten derde moeten we checken of de lijst van de vijandelijke pion op 0 staat(eerste move vijand)
+                        enPassantSquares.add(new Square(6, (char) (super.getPosition().getColumnLetter() - 1)));
+                    }
                 }
             }
-        }
 
 
-        if (super.getPosition().getRowNumber() == 4 && super.getColor() == Color.BLACK) {
-            for (Square boardSquare : allBoardSquares) {
+            if (super.getPosition().getRowNumber() == 4 && super.getColor() == Color.BLACK) {
+                for (Square boardSquare : allBoardSquares) {
 
-
+                }
             }
+
         }
-
         return enPassantSquares;
-    }
 
+    }
 }
 

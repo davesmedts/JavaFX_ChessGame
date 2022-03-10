@@ -36,7 +36,7 @@ public class Player {
         if (color == Color.WHITE) {
 //        pawns
             for (int i = 0; i < 8; i++) {
-                int pawnRow = 2;
+                int pawnRow = 2;                ;
                 char pawnColumn = (char) (65 + i);
 //              Hier moeten we de juiste squares ophalen om positie van Piece te linken aan de juiste square op het bord.
                 Square startPosition = lookupSquare(pawnColumn, pawnRow);
@@ -269,6 +269,16 @@ public class Player {
                     isFound = true;
                     Square startPosition = selectedPiece.getPosition(); // set the previous content to null because the piece is moved
                     startPosition.setSquareContent(null);
+//                    if (selectedPiece.getColor() == Color.WHITE && targetSquareObject.getSquareContent() == null && targetSquareObject.getRowNumber() == 6) { // en passant wit
+//                        Square enPassantSquare = lookupSquare(targetSquareObject.getColumnLetter(), targetSquareObject.getRowNumber() - 1);
+//                        enPassantSquare.getSquareContent().capturePiece();
+//                        enPassantSquare.setSquareContent(null);
+//                    }
+//                    if (selectedPiece.getColor() == Color.BLACK && targetSquareObject.getSquareContent() == null && targetSquareObject.getRowNumber() == 3) { // en passant zwart
+//                        Square enPassantSquare = lookupSquare(targetSquareObject.getColumnLetter(), targetSquareObject.getRowNumber() + 1);
+//                        enPassantSquare.getSquareContent().capturePiece();
+//                        enPassantSquare.setSquareContent(null);
+//                    }
                     selectedPiece.setPosition(targetSquareObject); // assigns the new square to the piece
                     targetSquareObject.setSquareContent(selectedPiece); // assigns piece to the new square
                     System.out.println(selectedPiece.getPosition());
@@ -352,11 +362,11 @@ public class Player {
             startPosition.setSquareContent(pieces.get(pieces.size() - 1));
 
         } else if (desiredPieceLetter.equals("B")) {
-            pieces.add(new Bishop (kleurPiece, startPosition));
+            pieces.add(new Bishop(kleurPiece, startPosition));
             startPosition.setSquareContent(pieces.get(pieces.size() - 1));
 
         } else if (desiredPieceLetter.equals("R")) {
-            pieces.add(new Rook (kleurPiece, startPosition));
+            pieces.add(new Rook(kleurPiece, startPosition));
             startPosition.setSquareContent(pieces.get(pieces.size() - 1));
 
         }

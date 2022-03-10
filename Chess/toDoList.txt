@@ -8,6 +8,8 @@ TO DO
 
     BUG
     - array out of bounds lijn 216 in de player klasse ook exception als je enkel 'a' intikt
+    - en passant
+    - rechtdoor capture pawn
 
 
     DESIGN CHECKS
@@ -17,3 +19,6 @@ TO DO
 - Verloop spel met winnaar en datetime
 - werken met extra bestanden voor opslag
 
+
+Vragen:
+- kruisverwijzing, piece naar square en omgekeerd. Is dit ok? Hoe op te lossen met 1 verwijzing? voorbeeld klasse player method move pawn
