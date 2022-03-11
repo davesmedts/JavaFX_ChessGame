@@ -76,15 +76,23 @@ public class MovesValidator {
         return validMoves;
     }
 
-    public List<Square> getAllPossibleMoves(Color playerColor){
+    public List<Square> getAllPossibleMoves(Color playerColor) {
         List<Square> allPossibleMoves = new ArrayList<>();
-        if(playerColor == Color.WHITE){
+        if (playerColor == Color.WHITE) {
             for (Piece whitePiece : whitePieces) {
-                allPossibleMoves.addAll(getValidMoveSquares(whitePiece));
+                if (whitePiece instanceof Pawn) {
+                    allPossibleMoves.addAll(getValidMoveSquaresPawn(whitePiece));
+                } else {
+                    allPossibleMoves.addAll(getValidMoveSquares(whitePiece));
+                }
             }
         } else {
             for (Piece blackPiece : blackPieces) {
-                allPossibleMoves.addAll(getValidMoveSquares(blackPiece));
+                if (blackPiece instanceof Pawn) {
+                    allPossibleMoves.addAll(getValidMoveSquaresPawn(blackPiece));
+                } else {
+                    allPossibleMoves.addAll(getValidMoveSquares(blackPiece));
+                }
             }
         }
         return allPossibleMoves;

@@ -165,7 +165,7 @@ public class Player {
         if (color == Color.WHITE) {
             movesValidator.setWhitePieces(pieces);
         } else {
-            movesValidator.setWhitePieces(pieces);
+            movesValidator.setBlackPieces(pieces);
         }
     }
 
@@ -351,16 +351,13 @@ public class Player {
 //        isChecked - check
         List<Square> selectedPieceNextMoves = movesValidator.getValidMoveSquares(selectedPiece); // lists the next possible moves of the piece that was just moved in this turn.
 //        King lookup
-        Square opponentKingPosition = null;
-        King opponentKing = (King) opponentKingPosition.getSquareContent();
-        for (Square square : gameBoard.getSquares()) {
-            if (square.getSquareContent() instanceof King && square.getSquareContent().getColor() != selectedPiece.getColor()) {
-                opponentKingPosition = square;
-            }
-        }
+
+        King opponentKing = kingLookup(color);
+        Square opponentKingPosition = opponentKing.getPosition();
         for (Square nextMove : selectedPieceNextMoves) { // check if position of the opponents opponentKing is within the scope of the possible next moves of the piece that has just moved.
             if (nextMove.equals(opponentKingPosition)) {
                 opponentKing.setChecked(true);
+                System.out.format("%s: is checked", player);
             }
         }
 
@@ -376,6 +373,7 @@ public class Player {
             }
             if(!kingCanEscape){
                 opponentKing.setCheckmate(true);
+                System.out.println("check mate");
             }
         }
 
@@ -405,6 +403,16 @@ public class Player {
             startPosition.setSquareContent(pieces.get(pieces.size() - 1));
 
         }
+    }
+
+    public King kingLookup(Color playerColor){
+        Piece king = null;
+        for (Square square : gameBoard.getSquares()) {
+            if (square.getSquareContent() instanceof King && square.getSquareContent().getColor() != playerColor) {
+                king = square.getSquareContent();
+            }
+        }
+        return (King) king;
     }
 }
 

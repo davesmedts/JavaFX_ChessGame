@@ -1,6 +1,5 @@
 TO DO
 
-
 - special moves
     - en passant (debuggen)
     - rokeren
