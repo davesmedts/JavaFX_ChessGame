@@ -20,6 +20,30 @@ public class King extends Piece {
         HasCastled = false;
     }
 
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public boolean isCheckmate() {
+        return isCheckmate;
+    }
+
+    public boolean isHasCastled() {
+        return HasCastled;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
+    }
+
+    public void setCheckmate(boolean checkmate) {
+        isCheckmate = checkmate;
+    }
+
+    public void setHasCastled(boolean hasCastled) {
+        HasCastled = hasCastled;
+    }
+
     @Override
     public Map<String, List<Square>> getValidMoves() {
         Map<String, List<Square>> possibleSquares = new HashMap<>();

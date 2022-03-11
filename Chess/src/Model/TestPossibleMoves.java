@@ -1,6 +1,7 @@
 package Model;
 
 import Model.ChessPieces.*;
+
 import java.util.List;
 import java.util.Map;
 
@@ -9,10 +10,10 @@ public class TestPossibleMoves {
         Player dave = new Player("Dave");
         Player mattia = new Player("mattia");
         Game chessGame = new Game(dave, mattia);
-            System.out.println(dave.getColor());
-            System.out.println(mattia.getColor());
+        System.out.println(dave.getColor());
+        System.out.println(mattia.getColor());
+        System.out.println(chessGame.getGameBoard());
         for (int i = 0; i < 15; i++) {
-            System.out.println(chessGame.getGameBoard());
             dave.selectPiece();
             System.out.println(chessGame.getGameBoard());
             mattia.selectPiece();

@@ -36,7 +36,8 @@ public class Player {
         if (color == Color.WHITE) {
 //        pawns
             for (int i = 0; i < 8; i++) {
-                int pawnRow = 2;                ;
+                int pawnRow = 2;
+                ;
                 char pawnColumn = (char) (65 + i);
 //              Hier moeten we de juiste squares ophalen om positie van Piece te linken aan de juiste square op het bord.
                 Square startPosition = lookupSquare(pawnColumn, pawnRow);
@@ -345,6 +346,40 @@ public class Player {
         }
 //        Exception handling still to do! What if no piece is found.
         ;
+
+
+//        isChecked - check
+        List<Square> selectedPieceNextMoves = movesValidator.getValidMoveSquares(selectedPiece); // lists the next possible moves of the piece that was just moved in this turn.
+//        King lookup
+        Square opponentKingPosition = null;
+        King opponentKing = (King) opponentKingPosition.getSquareContent();
+        for (Square square : gameBoard.getSquares()) {
+            if (square.getSquareContent() instanceof King && square.getSquareContent().getColor() != selectedPiece.getColor()) {
+                opponentKingPosition = square;
+            }
+        }
+        for (Square nextMove : selectedPieceNextMoves) { // check if position of the opponents opponentKing is within the scope of the possible next moves of the piece that has just moved.
+            if (nextMove.equals(opponentKingPosition)) {
+                opponentKing.setChecked(true);
+            }
+        }
+
+//        isCheckMate - check
+        if (opponentKing.isChecked()) {
+            List<Square> opponentKingNextPossibleMoves = movesValidator.getValidMoveSquares(opponentKing);
+            List<Square> nextTurnPossibleMoves = movesValidator.getAllPossibleMoves(color);
+            boolean kingCanEscape = false;
+            for (Square opponentKingNextPossibleMove : opponentKingNextPossibleMoves) {
+                if(!nextTurnPossibleMoves.contains(opponentKingNextPossibleMove)){
+                    kingCanEscape = true;
+                }
+            }
+            if(!kingCanEscape){
+                opponentKing.setCheckmate(true);
+            }
+        }
+
+
     }
 
     public void promotePiece(String desiredPieceLetter, Piece selectedPiece) {

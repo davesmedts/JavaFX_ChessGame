@@ -1,5 +1,6 @@
 package Model;
 
+import Model.ChessPieces.Pawn;
 import Model.ChessPieces.Piece;
 
 import java.util.*;
@@ -75,7 +76,19 @@ public class MovesValidator {
         return validMoves;
     }
 
-
+    public List<Square> getAllPossibleMoves(Color playerColor){
+        List<Square> allPossibleMoves = new ArrayList<>();
+        if(playerColor == Color.WHITE){
+            for (Piece whitePiece : whitePieces) {
+                allPossibleMoves.addAll(getValidMoveSquares(whitePiece));
+            }
+        } else {
+            for (Piece blackPiece : blackPieces) {
+                allPossibleMoves.addAll(getValidMoveSquares(blackPiece));
+            }
+        }
+        return allPossibleMoves;
+    }
 
 
 }
