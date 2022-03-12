@@ -345,9 +345,6 @@ public class Player {
             movePiece(validMoveSquares, selectedPiece);
         }
 //        Exception handling still to do! What if no piece is found.
-        ;
-
-
 //        isChecked - check
         List<Square> selectedPieceNextMoves = movesValidator.getValidMoveSquares(selectedPiece); // lists the next possible moves of the piece that was just moved in this turn.
 //        King lookup
@@ -357,7 +354,7 @@ public class Player {
         for (Square nextMove : selectedPieceNextMoves) { // check if position of the opponents opponentKing is within the scope of the possible next moves of the piece that has just moved.
             if (nextMove.equals(opponentKingPosition)) {
                 opponentKing.setChecked(true);
-                System.out.format("%s: is checked", player);
+                System.out.printf("%s: is checked", player);
             }
         }
 
@@ -414,6 +411,15 @@ public class Player {
         }
         return (King) king;
     }
+
+    @Override
+    public String toString() {
+        String colorValue;
+        if(color == Color.WHITE){
+            colorValue = "white";
+        } else {
+            colorValue = "black";
+        }
+        return String.format("%s, is playing %s", player, colorValue);
+    }
 }
-
-

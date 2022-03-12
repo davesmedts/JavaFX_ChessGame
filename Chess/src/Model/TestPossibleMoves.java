@@ -10,15 +10,7 @@ public class TestPossibleMoves {
         Player dave = new Player("Dave");
         Player mattia = new Player("mattia");
         Game chessGame = new Game(dave, mattia);
-        System.out.println(dave.getColor());
-        System.out.println(mattia.getColor());
-        System.out.println(chessGame.getGameBoard());
-        for (int i = 0; i < 100; i++) {
-            dave.selectPiece();
-            System.out.println(chessGame.getGameBoard());
-            mattia.selectPiece();
-            System.out.println(chessGame.getGameBoard());
-        }
+        chessGame.play();
 
 //        Piece pawn = new Pawn(Color.WHITE, new Square(2, 'A'));
 //        System.out.println("pawn");

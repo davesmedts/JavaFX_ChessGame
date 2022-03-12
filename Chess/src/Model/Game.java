@@ -11,6 +11,7 @@ public class Game {
     private LocalDateTime startTime;
     private LocalDateTime stopTime;
     private Player winner;
+    private boolean gameFinished;
 
     //constructor
     public Game(Player playerOne, Player playerTwo) {
@@ -38,6 +39,7 @@ public class Game {
 //        player who plays white always has the first turn.
         turn = Color.WHITE;
         startTime = LocalDateTime.now();
+        gameFinished = false;
 
 //        we call the initializePieces method to create all pieces and place them onto our board.
         whitePlayer.setColor(Color.WHITE);
@@ -56,5 +58,24 @@ public class Game {
 
     public Board getGameBoard() {
         return gameBoard;
+    }
+
+    public void play(){
+        System.out.println(whitePlayer);
+        System.out.println(blackPlayer);
+        System.out.println(getGameBoard());
+        while (!gameFinished){
+            if(turn == Color.WHITE){
+                whitePlayer.selectPiece();
+                turn = Color.BLACK;
+                System.out.println(getGameBoard());
+            } else {
+                blackPlayer.selectPiece();
+                turn = Color.WHITE;
+                System.out.println(getGameBoard());
+            }
+//            Hier moet nog een check komen of een stuk op checkmate staat of niet.
+//            OF vanuit een andere klasse het spel beëindigen na een checkmate.
+        }
     }
 }

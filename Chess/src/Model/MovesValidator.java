@@ -97,8 +97,6 @@ public class MovesValidator {
         }
         return allPossibleMoves;
     }
-
-
 }
 
 
