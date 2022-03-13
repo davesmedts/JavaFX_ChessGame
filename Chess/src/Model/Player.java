@@ -31,12 +31,10 @@ public class Player {
     }
 
     public void initializePieces() {
-//  Hoe krijgen we de lijst van squares beschikbaar bij Player? Er is geen link met Board.
-//        Ik heb het toegevoegd. Kan niet anders denk ik (Dave)
         if (color == Color.WHITE) {
 //        pawns
             for (int i = 0; i < 8; i++) {
-                int pawnRow = 2;
+                int pawnRow = 4;
                 ;
                 char pawnColumn = (char) (65 + i);
 //              Hier moeten we de juiste squares ophalen om positie van Piece te linken aan de juiste square op het bord.
@@ -346,12 +344,12 @@ public class Player {
         }
 //        Exception handling still to do! What if no piece is found.
 //        isChecked - check
-        List<Square> selectedPieceNextMoves = movesValidator.getValidMoveSquares(selectedPiece); // lists the next possible moves of the piece that was just moved in this turn.
+        List<Square> allNextPossibleMoves = movesValidator.getAllPossibleMoves(selectedPiece.getColor()); // lists the next possible moves of the piece that was just moved in this turn.
 //        King lookup
 
         King opponentKing = kingLookup(color);
         Square opponentKingPosition = opponentKing.getPosition();
-        for (Square nextMove : selectedPieceNextMoves) { // check if position of the opponents opponentKing is within the scope of the possible next moves of the piece that has just moved.
+        for (Square nextMove : allNextPossibleMoves) { // check if position of the opponents opponentKing is within the scope of the possible next moves of the piece that has just moved.
             if (nextMove.equals(opponentKingPosition)) {
                 opponentKing.setChecked(true);
                 System.out.printf("%s: is checked", player);

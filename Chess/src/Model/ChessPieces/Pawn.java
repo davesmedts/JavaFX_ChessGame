@@ -23,96 +23,67 @@ public class Pawn extends Piece {
         List<Square> southEast = new ArrayList<>();
         List<Square> southWest = new ArrayList<>();
 
-        //        get the current row and column of the piece that has to move
+//        get the current row and column of the piece that has to move
         char column = super.getPosition().getColumnLetter();
         int row = super.getPosition().getRowNumber();
 
         if (super.getColor() == Color.WHITE) {
 //        north
-            if (row + 1 <= 8) { // check if target is whithin the scope of the board.
+            if (row + 1 <= 8) { // check if target is within the scope of the board.
                 int newRow = row + 1;
                 char newColumn = column;
                 north.add(new Square(newRow, newColumn));
-
-                for (Square boardSquare : allBoardSquares) { //loop over all the board squares and check if there is a piece on it. we can add the square to the list if the piece is oblique
-                    Piece piece = boardSquare.getSquareContent();
-                    if (piece != null) {
-                        char pieceColumnLetter = piece.getPosition().getColumnLetter();
-                        int pieceRowNumber = piece.getPosition().getRowNumber();
-
-                        char selectedPieceCurrentColumnLetter = super.getPosition().getColumnLetter();
-                        int selectedPieceCurrentRow = super.getPosition().getRowNumber();
-
-                        if (pieceRowNumber == selectedPieceCurrentRow + 1 && (pieceColumnLetter == selectedPieceCurrentColumnLetter + 1 || pieceColumnLetter == selectedPieceCurrentColumnLetter - 1)) {
-                            north.add(new Square(pieceRowNumber, pieceColumnLetter));
-                        }
-
-                    }
-                }
-//                List<Square> enPassantSquares = enPassant(allBoardSquares);
-//                north.addAll(enPassantSquares);
             }
+//        north-east
+            if (row + 1 <= 8 && column + 1 < 65 + 8) { // check if target is within the scope of the board.
+                int newRow = row + 1;
+                char newColumn = (char) (column + 1);
+                northEast.add(new Square(newRow, newColumn));
+            }
+//        north-west
+            if (row + 1 <= 8 && column - 1 >= 65) { // check if target is within the scope of the board.
+                int newRow = row + 1;
+                char newColumn = (char) (column - 1);
+                northWest.add(new Square(newRow, newColumn));
+            }
+
+
             if (super.getMoves().size() == 0) { //only on the first move a pawn can move 2 squares
                 int newRow = row + 2;
                 char newColumn = column;
                 north.add(new Square(newRow, newColumn));
 
-                for (Square boardSquare : allBoardSquares) { //loop over all the board squares and check if there is a piece on it. we can add the square to the list if the piece is oblique
-                    Piece piece = boardSquare.getSquareContent();
-                    if (piece != null) {
-                        char pieceColumnLetter = piece.getPosition().getColumnLetter();
-                        char selectedPieceCurrentColumnLetter = super.getPosition().getColumnLetter();
-                        int pieceRowNumber = piece.getPosition().getRowNumber();
-                        int selectedPieceCurrentRow = super.getPosition().getRowNumber();
-                        if (pieceRowNumber == selectedPieceCurrentRow + 1 && (pieceColumnLetter == selectedPieceCurrentColumnLetter + 1 || pieceColumnLetter == selectedPieceCurrentColumnLetter - 1)) {
-                            north.add(new Square(pieceRowNumber, pieceColumnLetter));
-                        }
-
-                    }
-                }
             }
+
         } else if (super.getColor() == Color.BLACK) {
+
             //        north
-            if (row - 1 > 0) { // check if target is whithin the scope of the board.
+            if (row - 1 > 0) { // check if target is within the scope of the board.
                 int newRow = row - 1;
                 char newColumn = column;
                 south.add(new Square(newRow, newColumn));
 
-                for (Square boardSquare : allBoardSquares) { //loop over all the board squares and check if there is a piece on it. we can add the square to the list if the piece is oblique
-                    Piece piece = boardSquare.getSquareContent();
-                    if (piece != null) {
-                        char pieceColumnLetter = piece.getPosition().getColumnLetter();
-                        char selectedPieceCurrentColumnLetter = super.getPosition().getColumnLetter();
-                        int pieceRowNumber = piece.getPosition().getRowNumber();
-                        int selectedPieceCurrentRow = super.getPosition().getRowNumber();
-                        if (pieceRowNumber == selectedPieceCurrentRow - 1 && (pieceColumnLetter == selectedPieceCurrentColumnLetter + 1 || pieceColumnLetter == selectedPieceCurrentColumnLetter - 1)) {
-                            south.add(new Square(pieceRowNumber, pieceColumnLetter));
-                        }
-                    }
-                }
             }
+//        south-west
+            if (row - 1 >= 1 && column - 1 >= 65) { // check if target is whithin the scope of the board.
+                int newRow = row - 1;
+                char newColumn = (char) (column - 1);
+                southWest.add(new Square(newRow, newColumn));
+            }
+//        south-east
+            if (row - 1 >= 1 && column + 1 < 65 + 8) { // check if target is whithin the scope of the board.
+                int newRow = row - 1;
+                char newColumn = (char) (column + 1);
+                southEast.add(new Square(newRow, newColumn));
+            }
+
+
 
             if (super.getMoves().size() == 0) { //only on the first move a pawn can move 2 squares
                 int newRow = row - 2;
                 char newColumn = column;
                 south.add(new Square(newRow, newColumn));
-
-                for (Square boardSquare : allBoardSquares) { //loop over all the board squares and check if there is a piece on it. we can add the square to the list if the piece is oblique
-                    Piece piece = boardSquare.getSquareContent();
-                    if (piece != null) {
-                        char pieceColumnLetter = piece.getPosition().getColumnLetter();
-                        char selectedPieceCurrentColumnLetter = super.getPosition().getColumnLetter();
-                        int pieceRowNumber = piece.getPosition().getRowNumber();
-                        int selectedPieceCurrentRow = super.getPosition().getRowNumber();
-                        if (pieceRowNumber == selectedPieceCurrentRow - 1 && (pieceColumnLetter == selectedPieceCurrentColumnLetter + 1 || pieceColumnLetter == selectedPieceCurrentColumnLetter - 1)) {
-                            south.add(new Square(pieceRowNumber, pieceColumnLetter));
-                        }
-                    }
-
-                }
-
             }
-
         }
 
         possibleSquares.put("north", north);
@@ -148,10 +119,8 @@ public class Pawn extends Piece {
 
             if (super.getPosition().getRowNumber() == 4 && super.getColor() == Color.BLACK) {
                 for (Square boardSquare : allBoardSquares) {
-
                 }
             }
-
         }
         return enPassantSquares;
 

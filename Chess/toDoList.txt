@@ -1,23 +1,25 @@
 TO DO
 
-- special moves
-    - en passant (debuggen)
+- Special moves
+    - En Passant (debuggen) --> laatste move van tegenspeler checken, bug met dubbele square in lijst, capturen
     - rokeren
-    - check/checkmate
+    - check
+        - aparte methode
+        -
+    - checkmate
 
-    BUG
+- BUG
     - array out of bounds lijn 216 in de player klasse ook exception als je enkel 'a' intikt
     - en passant
     - rechtdoor capture pawn
 
-
-    DESIGN CHECKS
-    - Promoveren PAWN --> kunnen we het niet in 1 methode steken? Dus geen movePawn
-    - Schuin capturen --> kunnen we de checks niet in de movevalidatie doen?
+- DESIGN CHECKS
+    - promoveren PAWN --> kunnen we het niet in 1 methode steken? Dus geen movePawn
+    - schuin capturen --> kunnen we de checks niet in de moveValidatie doen?
 
 - Verloop spel met winnaar en datetime
-- werken met extra bestanden voor opslag
-
+- Werken met extra bestanden voor opslag
 
 Vragen:
-- kruisverwijzing, piece naar square en omgekeerd. Is dit ok? Hoe op te lossen met 1 verwijzing? voorbeeld klasse player method move pawn
+- kruisverwijzing, piece naar square en omgekeerd. Is dit ok? Hoe op te lossen met 1 verwijzing? Voorbeeld klasse player method move pawn.
+
