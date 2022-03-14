@@ -410,6 +410,23 @@ public class Player {
         return (King) king;
     }
 
+    public boolean defineCheckStatus(Color kingColor, List<Square> movesList){
+        boolean isChecked = false;
+        Piece king = null;
+        for (Square square : gameBoard.getSquares()) {
+            if (square.getSquareContent() instanceof King && square.getSquareContent().getColor() == kingColor) {
+                king = square.getSquareContent();
+            }
+        }
+        for (Square move : movesList) {
+            if(king.getPosition().equals(move)){
+                isChecked = true;
+            }
+        }
+        return isChecked;
+
+    }
+
     @Override
     public String toString() {
         String colorValue;
@@ -420,4 +437,6 @@ public class Player {
         }
         return String.format("%s, is playing %s", player, colorValue);
     }
+
+
 }
