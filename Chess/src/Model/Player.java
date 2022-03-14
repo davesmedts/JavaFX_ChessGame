@@ -220,6 +220,7 @@ public class Player {
                     if (validMoveSquares.isEmpty()) {
                         throw new IllegalPieceSelectionException("Er zijn geen mogelijke zetten beschikbaar, probeer opnieuw");
                     }
+                    System.out.println(validMoveSquares);
                     movePawn(validMoveSquares, selectedPiece);
 
                 } else {
@@ -227,6 +228,7 @@ public class Player {
                     if (validMoveSquares.isEmpty()) {
                         throw new IllegalPieceSelectionException("Er zijn geen mogelijke zetten beschikbaar, probeer opnieuw");
                     }
+                    System.out.println(validMoveSquares);
                     movePiece(validMoveSquares, selectedPiece);
                 }
             } else {
@@ -262,12 +264,13 @@ public class Player {
             if (targetSquareObject == null) {
                 throw new IllegalMoveException("Invoer niet gevonden op het bord, probeer opnieuw: ");
             }
+
             boolean isFound = false;
             for (Square validMoveSquare : validMoveSquares) {
+                Square startPosition = selectedPiece.getPosition();
                 if (validMoveSquare == targetSquareObject) {
                     isFound = true;
-                    Square startPosition = selectedPiece.getPosition(); // set the previous content to null because the piece is moved
-                    startPosition.setSquareContent(null);
+                    startPosition.setSquareContent(null);  // set the previous content to null because the piece is moved
 //                    if (selectedPiece.getColor() == Color.WHITE && targetSquareObject.getSquareContent() == null && targetSquareObject.getRowNumber() == 6) { // en passant wit
 //                        Square enPassantSquare = lookupSquare(targetSquareObject.getColumnLetter(), targetSquareObject.getRowNumber() - 1);
 //                        enPassantSquare.getSquareContent().capturePiece();
@@ -290,6 +293,14 @@ public class Player {
                         promotePiece(desiredPiece, selectedPiece);
                     }
                 }
+                King king = kingLookup(color);
+                boolean kingIsChecked = defineCheckStatus(king);
+                if (kingIsChecked) {
+                    startPosition.setSquareContent(selectedPiece); // if the king is in check, the move can't be done, so we set the content back to the initial state.
+                    throw new IllegalMoveException("Je kan deze zet niet doen omdat je jezelf dan in check gaat zetten. Probeer opnieuw: ");
+
+                }
+
             }
             if (!isFound) {
                 throw new IllegalMoveException("Invoer behoort niet tot de mogelijke zetten, probeer opnieuw: ");
@@ -299,8 +310,6 @@ public class Player {
             System.out.println(ime.getMessage());
             movePiece(validMoveSquares, selectedPiece);
         }
-//        Exception handling still to do! What if no piece is found.
-        ;
     }
 
 
@@ -315,17 +324,23 @@ public class Player {
 //        Exception handling still to do! What if no piece is found. values must match the board
         try {
             Square targetSquareObject = lookupSquare(columnLetter, rowNumber);
-            selectedPiece.setMoves(targetSquareObject); // add the move to the move list in piece
 
             if (targetSquareObject == null) {
                 throw new IllegalMoveException("Invoer niet gevonden op het bord, probeer opnieuw: ");
             }
+            King king = kingLookup(color);
+            boolean kingIsChecked = defineCheckStatus(king);
+            if (kingIsChecked) {
+                throw new IllegalMoveException("Je kan deze zet niet doen omdat je jezelf dan in check gaat zetten. Probeer opnieuw: ");
+            }
+
             boolean isFound = false;
             for (Square validMoveSquare : validMoveSquares) {
                 if (validMoveSquare == targetSquareObject) {
                     isFound = true;
                     Square startPosition = selectedPiece.getPosition(); // set the previous content to null because the piece is moved
                     startPosition.setSquareContent(null);
+                    selectedPiece.setMoves(targetSquareObject); // add the move to the move list in piece
                     selectedPiece.setPosition(targetSquareObject); // assigns the new square to the piece
                     targetSquareObject.setSquareContent(selectedPiece); // assigns piece to the new square
                     System.out.println(selectedPiece.getPosition());
@@ -344,35 +359,37 @@ public class Player {
         }
 //        Exception handling still to do! What if no piece is found.
 //        isChecked - check
-        List<Square> allNextPossibleMoves = movesValidator.getAllPossibleMoves(selectedPiece.getColor()); // lists the next possible moves of the piece that was just moved in this turn.
+        List<Square> allNextPossibleMoves = movesValidator.getAllPossibleMoves(color); // lists the next possible moves of the piece that was just moved in this turn.
 //        King lookup
-
-        King opponentKing = kingLookup(color);
-        Square opponentKingPosition = opponentKing.getPosition();
-        for (Square nextMove : allNextPossibleMoves) { // check if position of the opponents opponentKing is within the scope of the possible next moves of the piece that has just moved.
-            if (nextMove.equals(opponentKingPosition)) {
-                opponentKing.setChecked(true);
-                System.out.printf("%s: is checked", player);
-            }
+        Color opponentColor;
+        if (color == Color.WHITE) {
+            opponentColor = Color.BLACK;
+        } else {
+            opponentColor = Color.WHITE;
         }
-
+        King opponentKing = kingLookup(opponentColor);
+        boolean opponentIsChecked = defineCheckStatus(opponentKing);
+        if (opponentIsChecked) {
+            opponentKing.setChecked(true);
+            System.out.println(opponentColor.toString() + " staat check");
+        }
 //        isCheckMate - check
-        if (opponentKing.isChecked()) {
+        if (opponentIsChecked) {
             List<Square> opponentKingNextPossibleMoves = movesValidator.getValidMoveSquares(opponentKing);
-            List<Square> nextTurnPossibleMoves = movesValidator.getAllPossibleMoves(color);
+            List<Square> playerNextTurnPossibleMoves = movesValidator.getAllPossibleMoves(color);
+            List<Square> opponentNextTurnPossibleMoves = movesValidator.getAllPossibleMoves(opponentColor);
             boolean kingCanEscape = false;
             for (Square opponentKingNextPossibleMove : opponentKingNextPossibleMoves) {
-                if(!nextTurnPossibleMoves.contains(opponentKingNextPossibleMove)){
+                if (!playerNextTurnPossibleMoves.contains(opponentKingNextPossibleMove)) {
                     kingCanEscape = true;
+                    break;
                 }
             }
-            if(!kingCanEscape){
+            if (!kingCanEscape) {
                 opponentKing.setCheckmate(true);
                 System.out.println("check mate");
             }
         }
-
-
     }
 
     public void promotePiece(String desiredPieceLetter, Piece selectedPiece) {
@@ -383,7 +400,6 @@ public class Player {
         if (desiredPieceLetter.equals("Q")) {
             pieces.add(new Queen(kleurPiece, startPosition));
             startPosition.setSquareContent(pieces.get(pieces.size() - 1));
-
 
         } else if (desiredPieceLetter.equals("K")) {
             pieces.add(new Knight(kleurPiece, startPosition));
@@ -400,27 +416,29 @@ public class Player {
         }
     }
 
-    public King kingLookup(Color playerColor){
+    public King kingLookup(Color playerColor) {
         Piece king = null;
         for (Square square : gameBoard.getSquares()) {
-            if (square.getSquareContent() instanceof King && square.getSquareContent().getColor() != playerColor) {
+            if (square.getSquareContent() instanceof King && square.getSquareContent().getColor() == playerColor) {
                 king = square.getSquareContent();
             }
         }
         return (King) king;
     }
 
-    public boolean defineCheckStatus(Color kingColor, List<Square> movesList){
+    public boolean defineCheckStatus(King king) {
         boolean isChecked = false;
-        Piece king = null;
-        for (Square square : gameBoard.getSquares()) {
-            if (square.getSquareContent() instanceof King && square.getSquareContent().getColor() == kingColor) {
-                king = square.getSquareContent();
-            }
+        Square kingPosition = king.getPosition();
+        List<Square> allPossibleMoves;
+        if (king.getColor() == Color.WHITE) {
+            allPossibleMoves = movesValidator.getAllPossibleMoves(Color.BLACK);
+        } else {
+            allPossibleMoves = movesValidator.getAllPossibleMoves(Color.WHITE);
         }
-        for (Square move : movesList) {
-            if(king.getPosition().equals(move)){
+        for (Square possibleMove : allPossibleMoves) {
+            if (possibleMove.equals(kingPosition)) {
                 isChecked = true;
+                break;
             }
         }
         return isChecked;
@@ -430,7 +448,7 @@ public class Player {
     @Override
     public String toString() {
         String colorValue;
-        if(color == Color.WHITE){
+        if (color == Color.WHITE) {
             colorValue = "white";
         } else {
             colorValue = "black";

@@ -46,7 +46,6 @@ public class MovesValidator {
                 }
             }
         }
-        System.out.println(validMoves);
         return validMoves;
     }
 
@@ -74,7 +73,6 @@ public class MovesValidator {
                 }
             }
         }
-        System.out.println(validMoves);
         return validMoves;
     }
 

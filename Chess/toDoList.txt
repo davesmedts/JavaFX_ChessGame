@@ -4,7 +4,7 @@ TO DO
     - En Passant (debuggen) --> laatste move van tegenspeler checken, bug met dubbele square in lijst, capturen
     - rokeren
     - check
-        - aparte methode
+        - Bug: nadat een move geregistreerd wordt die de eigen King in check zet is het niet meer mogelijk een ander stuk te selecteren.
         -
     - checkmate
 
@@ -15,7 +15,6 @@ TO DO
 
 - DESIGN CHECKS
     - promoveren PAWN --> kunnen we het niet in 1 methode steken? Dus geen movePawn
-    - schuin capturen --> kunnen we de checks niet in de moveValidatie doen?
 
 - Verloop spel met winnaar en datetime
 - Werken met extra bestanden voor opslag
