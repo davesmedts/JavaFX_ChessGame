@@ -98,32 +98,5 @@ public class Pawn extends Piece {
         return possibleSquares;
     }
 
-    public List<Square> enPassant(List<Square> allBoardSquares) {
-        List<Square> enPassantSquares = new ArrayList<>();
-
-        if (super.getPosition().getRowNumber() == 5 && super.getColor() == Color.WHITE) {
-            for (Square boardSquare : allBoardSquares) {
-                if ((boardSquare.getColumnLetter() == super.getPosition().getColumnLetter() + 1 && (boardSquare.getRowNumber() == 5))) { // we gaan al de squares links en rechts toevoegen
-                    if (boardSquare.getSquareContent() instanceof Pawn && boardSquare.getSquareContent().getColor() == Color.BLACK && boardSquare.getSquareContent().getMoves().size() == 1) { // drie checks moeten we doen, 1 we checken of we naast een pion staan. De pion moet van de tegenpartij zijn, dus de kleur moet gecontroleerd worden. Ten derde moeten we checken of de lijst van de vijandelijke pion op 0 staat(eerste move vijand)
-                        enPassantSquares.add(new Square(6, (char) (super.getPosition().getColumnLetter() + 1)));
-                    }
-                }
-
-                if ((boardSquare.getColumnLetter() == super.getPosition().getColumnLetter() - 1 && (boardSquare.getRowNumber() == 5))) {
-                    if (boardSquare.getSquareContent() instanceof Pawn && boardSquare.getSquareContent().getColor() == Color.BLACK && boardSquare.getSquareContent().getMoves().size() == 1) { // drie checks moeten we doen, 1 we checken of we naast een pion staan. De pion moet van de tegenpartij zijn, dus de kleur moet gecontroleerd worden. Ten derde moeten we checken of de lijst van de vijandelijke pion op 0 staat(eerste move vijand)
-                        enPassantSquares.add(new Square(6, (char) (super.getPosition().getColumnLetter() - 1)));
-                    }
-                }
-            }
-
-
-            if (super.getPosition().getRowNumber() == 4 && super.getColor() == Color.BLACK) {
-                for (Square boardSquare : allBoardSquares) {
-                }
-            }
-        }
-        return enPassantSquares;
-
-    }
 }
 

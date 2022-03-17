@@ -36,7 +36,7 @@ public class MovesValidator {
                         Piece piece = boardSquare.getSquareContent();
                         if (piece != null && !pieceFound) { // check if a piece is present on the square and if any other piece were found in earlier iterations.
                             pieceFound = true;
-                            if (piece.getColor() != selectedPiece.getColor()) { //only if the piece color is the color of the opponent we are able to move to this position.
+                            if ((piece.getColor() != selectedPiece.getColor())) { //only if the piece color is the color of the opponent we are able to move to this position.
                                 validMoves.add(boardSquare);
                             }
                         } else if (!pieceFound) {
