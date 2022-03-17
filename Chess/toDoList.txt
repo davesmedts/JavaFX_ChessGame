@@ -2,10 +2,9 @@ TO DO
 
 - Special moves
     - En Passant (debuggen) --> laatste move van tegenspeler checken, bug met dubbele square in lijst, capturen
-    - rokeren
-    - check
+    - Rokeren
+    - Check
         - Bug: nadat een move geregistreerd wordt die de eigen King in check zet is het niet meer mogelijk een ander stuk te selecteren.
-        -
     - checkmate
 
 - BUG

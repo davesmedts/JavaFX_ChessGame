@@ -16,6 +16,12 @@ public class Player {
     private MovesValidator movesValidator;
     private List<Square> moves;
 
+    public Player(String player) {
+        this.player = player;
+        this.pieces = new ArrayList<>();
+        this.moves = new ArrayList<>();
+    }
+
     public List<Square> getMoves() {
         return moves;
     }
@@ -30,14 +36,10 @@ public class Player {
 //    private List<Piece> capturedPieces;
 
 
-    public Player(String player) {
-        this.player = player;
-        this.pieces = new ArrayList<>();
-    }
 
     public void initializePieces() {
         if (color == Color.WHITE) {
-////        pawns
+//        pawns
             for (int i = 0; i < 8; i++) {
                 int pawnRow = 4;
                 char pawnColumn = (char) (65 + i);
@@ -148,7 +150,7 @@ public class Player {
             startPosition = lookupSquare(rookTwoColumn, rookRow);
             pieces.add(new Rook(Color.BLACK, startPosition));
             startPosition.setSquareContent(pieces.get(pieces.size() - 1));
-//
+
 
 //        bishops
             char bishopOneColumn = 'C';
@@ -454,7 +456,6 @@ public class Player {
             }
         }
         return isChecked;
-
     }
 
 //    public boolean defineCheckMateStatus(King opponentKing) {
