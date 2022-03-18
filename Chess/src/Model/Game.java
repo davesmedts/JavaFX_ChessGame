@@ -63,24 +63,24 @@ public class Game {
     public void play() {
         System.out.printf("%s, you are playing white", whitePlayer);
         System.out.printf("%n%s, you are playing black", blackPlayer);
+        System.out.println(getGameBoard());
         while (!gameFinished) {
-            System.out.println(getGameBoard());
             if (turn == Color.WHITE) {
                 whitePlayer.selectPiece();
                 turn = Color.BLACK;
+                if (whitePlayer.isWinner()) {
+                    gameFinished = true;
+                    System.out.printf("Game Over! %s wins!", whitePlayer);
+                }
             } else {
                 blackPlayer.selectPiece();
                 turn = Color.WHITE;
+                if (blackPlayer.isWinner()) {
+                    gameFinished = true;
+                    System.out.printf("Game Over! %s wins!", blackPlayer);
+                }
             }
-
-            if (whitePlayer.isWinner()) {
-                gameFinished = true;
-                System.out.printf("Game Over! %s wins!", whitePlayer);
-            }
-            if (blackPlayer.isWinner()) {
-                gameFinished = true;
-                System.out.printf("Game Over! %s wins!", blackPlayer);
-            }
+            System.out.println(getGameBoard());
         }
     }
 }

@@ -252,8 +252,6 @@ public class Player {
             System.out.println("Kolom of rij staat niet op het bord of bevat geen eigen piece, Probeer opnieuw iets te selecteren");
             selectPiece();
         }
-        //
-
     }
 
     public void movePawn(List<Square> validMoveSquares, Piece selectedPiece) {
@@ -309,9 +307,7 @@ public class Player {
                 if (kingIsChecked) {
                     startPosition.setSquareContent(selectedPiece); // if the king is in check, the move can't be done, so we set the content back to the initial state.
                     throw new IllegalMoveException("Je kan deze zet niet doen omdat je jezelf dan in check gaat zetten. Probeer opnieuw: ");
-
                 }
-
             }
             if (!isFound) {
                 throw new IllegalMoveException("Invoer behoort niet tot de mogelijke zetten, probeer opnieuw: ");
@@ -355,7 +351,7 @@ public class Player {
                     selectedPiece.setMoves(targetSquareObject); // add the move to the move list in piece
                     selectedPiece.setPosition(targetSquareObject); // assigns the new square to the piece
                     targetSquareObject.setSquareContent(selectedPiece); // assigns piece to the new square
-                    System.out.println(selectedPiece.getPosition());
+//                    System.out.println(selectedPiece.getPosition());
                     if (targetSquareObject.getSquareContent() != null && targetSquareObject.getSquareContent().getColor() != selectedPiece.getColor()) {
                         targetSquareObject.getSquareContent().capturePiece();
                         moves.add(targetSquareObject);
@@ -384,8 +380,6 @@ public class Player {
         boolean opponentIsChecked = defineCheckStatus(opponentKing);
         if (opponentIsChecked) {
             opponentKing.setChecked(true);
-        } else {
-            opponentIsChecked = false;
         }
 
 //        isCheckMate - check
