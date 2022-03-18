@@ -15,11 +15,17 @@ public class Player {
     private Board gameBoard;
     private MovesValidator movesValidator;
     private List<Square> moves;
+    private boolean isWinner;
 
     public Player(String player) {
         this.player = player;
         this.pieces = new ArrayList<>();
         this.moves = new ArrayList<>();
+        this.isWinner = false;
+    }
+
+    public boolean isWinner() {
+        return isWinner;
     }
 
     public List<Square> getMoves() {
@@ -36,11 +42,10 @@ public class Player {
 //    private List<Piece> capturedPieces;
 
 
-
     public void initializePieces() {
         if (color == Color.WHITE) {
 //        pawns
-            for (int i = 0; i < 8; i++) {
+            for (int i = 0; i < 1; i++) {
                 int pawnRow = 4;
                 char pawnColumn = (char) (65 + i);
 //              Hier moeten we de juiste squares ophalen om positie van Piece te linken aan de juiste square op het bord.
@@ -102,7 +107,7 @@ public class Player {
 
         } else { // for the black Pieces we do the same as above.
 //        pawns
-            for (int i = 0; i < 8; i++) {
+            for (int i = 0; i < 5; i++) {
                 int pawnRow = 7;
                 char pawnColumn = (char) (65 + i);
                 Square startPosition = lookupSquare(pawnColumn, pawnRow);
@@ -379,15 +384,22 @@ public class Player {
         boolean opponentIsChecked = defineCheckStatus(opponentKing);
         if (opponentIsChecked) {
             opponentKing.setChecked(true);
-            System.out.println(opponentColor.toString() + " staat check");
+        } else {
+            opponentIsChecked = false;
         }
 
 //        isCheckMate - check
-//        boolean isCheckMate = defineCheckMateStatus(opponentKing);
-//        if(isCheckMate){
-//            king.setCheckmate(true);
-//            System.out.println();
-//        }
+        boolean isCheckMate = defineCheckMateStatus(opponentKing);
+        if (isCheckMate) {
+            king.setCheckmate(true);
+            isWinner = true;
+        }
+
+        if(opponentIsChecked && !isCheckMate){
+            System.out.println(opponentColor.toString() + " staat check");
+        } else if (isCheckMate) {
+            System.out.println("Check mate!");
+        }
 //        if (opponentIsChecked) {
 //            List<Square> opponentKingNextPossibleMoves = movesValidator.getValidMoveSquares(opponentKing);
 //            List<Square> playerNextTurnPossibleMoves = movesValidator.getAllPossibleMoves(color);
@@ -458,30 +470,57 @@ public class Player {
         return isChecked;
     }
 
-//    public boolean defineCheckMateStatus(King opponentKing) {
-//        boolean checkMate = true;
-//        for (Piece piece : pieces) {
-//            Square originalPosition = piece.getPosition();
-//            List<Square> validMovesPiece = movesValidator.
-//                if (!defineCheckStatus(king)) {
-//                    checkMate = false;
-//                    break;
-//                }
-//            }
-//            piece.setPosition(originalPosition);
-//        }
-//        return checkMate;
-//    }
+    public boolean defineCheckMateStatus(King opponentKing) {
+        boolean checkMate = true;
+        List<Piece> opponentPieces = new ArrayList<>();
+        if (color == Color.WHITE) {
+            opponentPieces = movesValidator.getBlackPieces();
+        } else {
+            opponentPieces = movesValidator.getWhitePieces();
+        }
+        for (Piece opponentPiece : opponentPieces) {
+            List<Square> validMovesPiece;
+            Square originalPosition = opponentPiece.getPosition();
+            if (opponentPiece instanceof Pawn) {
+                validMovesPiece = movesValidator.getValidMoveSquaresPawn(opponentPiece);
+            } else {
+                validMovesPiece = movesValidator.getValidMoveSquares(opponentPiece);
+            }
+            for (Square validMove : validMovesPiece) {
+                boolean isChecked;
+                if (validMove.getSquareContent() == null) {
+                    opponentPiece.setPosition(validMove);
+                    validMove.setSquareContent(opponentPiece);
+
+                    isChecked = defineCheckStatus(opponentKing);
+
+                    opponentPiece.setPosition(originalPosition);
+                    validMove.setSquareContent(null);
+
+                } else {
+                    Piece originalContent = validMove.getSquareContent();
+                    opponentPiece.setPosition(validMove);
+                    validMove.setSquareContent(opponentPiece);
+
+                    isChecked = defineCheckStatus(opponentKing);
+
+                    validMove.setSquareContent(originalContent);
+                    opponentPiece.setPosition(originalPosition);
+                }
+
+                if (!isChecked) {
+                    checkMate = false;
+                    break;
+                }
+            }
+        }
+
+        return checkMate;
+    }
 
     @Override
     public String toString() {
-        String colorValue;
-        if (color == Color.WHITE) {
-            colorValue = "white";
-        } else {
-            colorValue = "black";
-        }
-        return String.format("%s, is playing %s", player, colorValue);
+        return player;
     }
 
 

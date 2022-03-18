@@ -18,7 +18,7 @@ public class Game {
         // creating Random boolean that can be used to randomly define who plays black or white
         Random rd = new Random();
         boolean playerOneIsBlack = rd.nextBoolean();
-        if(playerOneIsBlack){
+        if (playerOneIsBlack) {
             blackPlayer = playerOne;
             whitePlayer = playerTwo;
         } else {
@@ -31,7 +31,7 @@ public class Game {
         blackPlayer.setGameBoard(gameBoard);
 
         // Create the movesValidator and assign it to the board and the players
-        MovesValidator movesValidator= gameBoard.createMovesValidator();
+        MovesValidator movesValidator = gameBoard.createMovesValidator();
         whitePlayer.setMovesValidator(movesValidator);
         blackPlayer.setMovesValidator(movesValidator);
 
@@ -60,22 +60,27 @@ public class Game {
         return gameBoard;
     }
 
-    public void play(){
-        System.out.println(whitePlayer);
-        System.out.println(blackPlayer);
-        System.out.println(getGameBoard());
-        while (!gameFinished){
-            if(turn == Color.WHITE){
+    public void play() {
+        System.out.printf("%s, you are playing white", whitePlayer);
+        System.out.printf("%n%s, you are playing black", blackPlayer);
+        while (!gameFinished) {
+            System.out.println(getGameBoard());
+            if (turn == Color.WHITE) {
                 whitePlayer.selectPiece();
                 turn = Color.BLACK;
-                System.out.println(getGameBoard());
             } else {
                 blackPlayer.selectPiece();
                 turn = Color.WHITE;
-                System.out.println(getGameBoard());
             }
-//            Hier moet nog een check komen of een stuk op checkmate staat of niet.
-//            OF vanuit een andere klasse het spel beëindigen na een checkmate.
+
+            if (whitePlayer.isWinner()) {
+                gameFinished = true;
+                System.out.printf("Game Over! %s wins!", whitePlayer);
+            }
+            if (blackPlayer.isWinner()) {
+                gameFinished = true;
+                System.out.printf("Game Over! %s wins!", blackPlayer);
+            }
         }
     }
 }

@@ -22,6 +22,13 @@ public class MovesValidator {
         this.blackPieces = blackPieces;
     }
 
+    public List<Piece> getWhitePieces() {
+        return whitePieces;
+    }
+
+    public List<Piece> getBlackPieces() {
+        return blackPieces;
+    }
 
     public List<Square> getValidMoveSquares(Piece selectedPiece) {
         List<Square> validMoves = new ArrayList<>(); // list to return
