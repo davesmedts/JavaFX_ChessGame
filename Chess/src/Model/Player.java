@@ -248,8 +248,7 @@ public class Player {
         } catch (IllegalPieceSelectionException ex) {
             System.out.println(ex.getMessage());
             selectPiece(player);
-        }
-        catch (NullPointerException ex) {
+        } catch (NullPointerException ex) {
             System.out.println("Kolom of rij staat niet op het bord of bevat geen eigen piece, Probeer opnieuw iets te selecteren");
             selectPiece(player);
         }
@@ -281,16 +280,25 @@ public class Player {
                 Square startPosition = selectedPiece.getPosition();
                 if (validMoveSquare == targetSquareObject) {
                     isFound = true;
-                    startPosition.setSquareContent(null);  // set the previous content to null because the piece is moved
-                    if (selectedPiece.getColor() == Color.WHITE && targetSquareObject.getSquareContent() == null && targetSquareObject.getRowNumber() == 6) { // en passant wit
-                        Square enPassantSquare = lookupSquare(targetSquareObject.getColumnLetter(), targetSquareObject.getRowNumber() - 1);
-                        enPassantSquare.getSquareContent().capturePiece();
-                        enPassantSquare.setSquareContent(null);
+                    startPosition.setSquareContent(null);// set the previous content to null because the piece is moved
+                    boolean enPassant = false;
+                    int startPositionCheckColumn = startPosition.getColumnLetter();
+                    char startPositionCheckRow = (char) startPosition.getRowNumber();
+
+                    if ((startPositionCheckColumn + 1 == columnLetter && startPositionCheckRow + 1 == rowNumber) || (startPositionCheckColumn - 1 == columnLetter && startPositionCheckRow + 1 == rowNumber)) { // be sure that we only go in the code below if we want an enPassant
+                        if (selectedPiece.getColor() == Color.WHITE && targetSquareObject.getSquareContent() == null && targetSquareObject.getRowNumber() == 6) { // en passant wit
+                            Square enPassantSquare = lookupSquare(targetSquareObject.getColumnLetter(), targetSquareObject.getRowNumber() - 1);
+                            enPassantSquare.getSquareContent().capturePiece();
+                            enPassantSquare.setSquareContent(null);
+                        }
                     }
-                    if (selectedPiece.getColor() == Color.BLACK && targetSquareObject.getSquareContent() == null && targetSquareObject.getRowNumber() == 3) { // en passant zwart
-                        Square enPassantSquare = lookupSquare(targetSquareObject.getColumnLetter(), targetSquareObject.getRowNumber() + 1);
-                        enPassantSquare.getSquareContent().capturePiece();
-                        enPassantSquare.setSquareContent(null);
+
+                    if ((startPositionCheckColumn + 1 == columnLetter && startPositionCheckRow - 1 == rowNumber) || (startPositionCheckColumn - 1 == columnLetter && startPositionCheckRow - 1 == rowNumber)) {
+                        if (selectedPiece.getColor() == Color.BLACK && targetSquareObject.getSquareContent() == null && targetSquareObject.getRowNumber() == 5) { // en passant zwart
+                            Square enPassantSquare = lookupSquare(targetSquareObject.getColumnLetter(), targetSquareObject.getRowNumber() + 1);
+                            enPassantSquare.getSquareContent().capturePiece();
+                            enPassantSquare.setSquareContent(null);
+                        }
                     }
                     selectedPiece.setPosition(targetSquareObject); // assigns the new square to the piece
                     targetSquareObject.setSquareContent(selectedPiece); // assigns piece to the new square
@@ -392,7 +400,7 @@ public class Player {
             isWinner = true;
         }
 
-        if(opponentIsChecked && !isCheckMate){
+        if (opponentIsChecked && !isCheckMate) {
             System.out.println(opponentColor.toString() + " staat check");
         } else if (isCheckMate) {
             System.out.println("Check mate!");

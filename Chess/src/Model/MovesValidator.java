@@ -73,7 +73,7 @@ public class MovesValidator {
                             }
                         } else if (selectedPiece.getPosition().getColumnLetter() == boardSquare.getColumnLetter()) {
                             validMoves.add(boardSquare);
-                        } else if (selectedPiece.getPosition().getRowNumber() == 5 || selectedPiece.getPosition().getRowNumber() == 4) { // columnletters don't match && row is 4 or 5
+                        } else if (selectedPiece.getPosition().getRowNumber() == 5 || selectedPiece.getPosition().getRowNumber() == 6) { // columnletters don't match && row is 4 or 5
                             List<Square> squaresEnemyPlayer = player.getMoves(); // get the last move of the list
                             int amountSquares = squaresEnemyPlayer.size();
                             Square lastMoveEnemyPlayer = null;
@@ -136,25 +136,29 @@ public class MovesValidator {
         }
 
 
-        if (selectedPiecePosition.getRowNumber() == 4 && selectedPiece.getColor() == Color.BLACK) {
+        if (selectedPiecePosition.getRowNumber() == 6 && selectedPiece.getColor() == Color.BLACK) {
             for (Square boardSquare : allBoardSquares) {
-                if ((boardSquare.getColumnLetter() == selectedPiecePosition.getColumnLetter() + 1 && (boardSquare.getRowNumber() == 4))) { // we gaan al de squares links en rechts toevoegen
-                    if (boardSquare.getSquareContent() instanceof Pawn && boardSquare.getSquareContent().getColor() == Color.WHITE && boardSquare.getSquareContent().getMoves().size() == 1 && boardSquare.equals(lastMoveEnemyPlayer)) { // drie checks moeten we doen, 1 we checken of we naast een pion staan. De pion moet van de tegenpartij zijn, dus de kleur moet gecontroleerd worden. Ten derde moeten we checken of de lijst van de vijandelijke pion op 0 staat(eerste move vijand)
-                        Square validEnPassant = new Square(3, (char) (selectedPiecePosition.getColumnLetter() + 1));
-                        for (Square square : allBoardSquares) {
-                            if (square.equals(validEnPassant)) {
-                                enPassantSquares.add(square);
+                if ((boardSquare.getColumnLetter() == selectedPiecePosition.getColumnLetter() + 1 && (boardSquare.getRowNumber() == 6))) { // we gaan al de squares links en rechts toevoegen
+                    if (lastMoveEnemyPlayer.getColumnLetter() - 1 == selectedPiecePosition.getColumnLetter()) {
+                        if (boardSquare.getSquareContent() instanceof Pawn && boardSquare.getSquareContent().getColor() == Color.WHITE && boardSquare.getSquareContent().getMoves().size() == 1) { // drie checks moeten we doen, 1 we checken of we naast een pion staan. De pion moet van de tegenpartij zijn, dus de kleur moet gecontroleerd worden. Ten derde moeten we checken of de lijst van de vijandelijke pion op 0 staat(eerste move vijand)
+                            Square validEnPassant = new Square(5, (char) (selectedPiecePosition.getColumnLetter() + 1));
+                            for (Square square : allBoardSquares) {
+                                if (square.equals(validEnPassant)) {
+                                    enPassantSquares.add(square);
+                                }
                             }
                         }
                     }
                 }
 
-                if ((boardSquare.getColumnLetter() == selectedPiecePosition.getColumnLetter() - 1 && (boardSquare.getRowNumber() == 4))) {
-                    if (boardSquare.getSquareContent() instanceof Pawn && boardSquare.getSquareContent().getColor() == Color.WHITE && boardSquare.getSquareContent().getMoves().size() == 1 && boardSquare.equals(lastMoveEnemyPlayer)) { // drie checks moeten we doen, 1 we checken of we naast een pion staan. De pion moet van de tegenpartij zijn, dus de kleur moet gecontroleerd worden. Ten derde moeten we checken of de lijst van de vijandelijke pion op 0 staat(eerste move vijand)
-                        Square validEnPassant = new Square(3, (char) (selectedPiecePosition.getColumnLetter() - 1));
-                        for (Square square : allBoardSquares) {
-                            if (square.equals(validEnPassant)) {
-                                enPassantSquares.add(square);
+                if ((boardSquare.getColumnLetter() == selectedPiecePosition.getColumnLetter() - 1 && (boardSquare.getRowNumber() == 6))) {
+                    if (lastMoveEnemyPlayer.getColumnLetter() + 1 == selectedPiecePosition.getColumnLetter()) {
+                        if (boardSquare.getSquareContent() instanceof Pawn && boardSquare.getSquareContent().getColor() == Color.WHITE && boardSquare.getSquareContent().getMoves().size() == 1) { // drie checks moeten we doen, 1 we checken of we naast een pion staan. De pion moet van de tegenpartij zijn, dus de kleur moet gecontroleerd worden. Ten derde moeten we checken of de lijst van de vijandelijke pion op 0 staat(eerste move vijand)
+                            Square validEnPassant = new Square(5, (char) (selectedPiecePosition.getColumnLetter() - 1));
+                            for (Square square : allBoardSquares) {
+                                if (square.equals(validEnPassant)) {
+                                    enPassantSquares.add(square);
+                                }
                             }
                         }
                     }
@@ -214,7 +218,6 @@ public class MovesValidator {
                         Square validEnPassant = new Square(6, (char) (selectedPiecePosition.getColumnLetter() - 1));
                         for (Square square : allBoardSquares) {
                             if (square.equals(validEnPassant)) {
-
                                 enPassantSquares.add(square);
                             }
                         }
@@ -222,6 +225,7 @@ public class MovesValidator {
                 }
             }
         }
+
         return enPassantSquares;
     }
 
