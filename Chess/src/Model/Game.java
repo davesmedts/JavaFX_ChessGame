@@ -66,14 +66,14 @@ public class Game {
         System.out.println(getGameBoard());
         while (!gameFinished) {
             if (turn == Color.WHITE) {
-                whitePlayer.selectPiece();
+                whitePlayer.selectPiece(blackPlayer);
                 turn = Color.BLACK;
                 if (whitePlayer.isWinner()) {
                     gameFinished = true;
                     System.out.printf("Game Over! %s wins!", whitePlayer);
                 }
             } else {
-                blackPlayer.selectPiece();
+                blackPlayer.selectPiece(whitePlayer);
                 turn = Color.WHITE;
                 if (blackPlayer.isWinner()) {
                     gameFinished = true;

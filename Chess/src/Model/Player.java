@@ -45,7 +45,7 @@ public class Player {
     public void initializePieces() {
         if (color == Color.WHITE) {
 //        pawns
-            for (int i = 0; i < 1; i++) {
+            for (int i = 0; i < 8; i++) {
                 int pawnRow = 4;
                 char pawnColumn = (char) (65 + i);
 //              Hier moeten we de juiste squares ophalen om positie van Piece te linken aan de juiste square op het bord.
@@ -107,7 +107,7 @@ public class Player {
 
         } else { // for the black Pieces we do the same as above.
 //        pawns
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < 8; i++) {
                 int pawnRow = 7;
                 char pawnColumn = (char) (65 + i);
                 Square startPosition = lookupSquare(pawnColumn, pawnRow);
@@ -213,9 +213,9 @@ public class Player {
         this.gameBoard = gameBoard;
     }
 
-    public void selectPiece() {
+    public void selectPiece(Player player) {
         Scanner keyboard = new Scanner(System.in);
-        System.out.println(player + ": please enter column and row of the piece:");
+        System.out.println(this.player + ": please enter column and row of the piece:");
         String startSquare = keyboard.nextLine().toUpperCase();
         char[] startSquareArray = startSquare.toCharArray();
         char columnLetter = startSquareArray[0];
@@ -227,7 +227,7 @@ public class Player {
             Piece selectedPiece = lookupPiece(columnLetter, rowNumber);
             if (selectedPiece.getColor() == color) {
                 if (selectedPiece instanceof Pawn) {
-                    List<Square> validMoveSquares = movesValidator.getValidMoveSquaresPawn(selectedPiece); // we put all the valid square values in a list
+                    List<Square> validMoveSquares = movesValidator.getValidMoveSquaresPawn(selectedPiece, player); // we put all the valid square values in a list
                     if (validMoveSquares.isEmpty()) {
                         throw new IllegalPieceSelectionException("Er zijn geen mogelijke zetten beschikbaar, probeer opnieuw");
                     }
@@ -247,10 +247,11 @@ public class Player {
             }
         } catch (IllegalPieceSelectionException ex) {
             System.out.println(ex.getMessage());
-            selectPiece();
-        } catch (NullPointerException ex) {
+            selectPiece(player);
+        }
+        catch (NullPointerException ex) {
             System.out.println("Kolom of rij staat niet op het bord of bevat geen eigen piece, Probeer opnieuw iets te selecteren");
-            selectPiece();
+            selectPiece(player);
         }
     }
 
@@ -268,6 +269,7 @@ public class Player {
             int endRowWhite = 1; // need these two attributes to check if the pawn is going to the end row
             int endRowBlack = 8;
             Square targetSquareObject = lookupSquare(columnLetter, rowNumber);
+            moves.add(targetSquareObject);
             selectedPiece.setMoves(targetSquareObject); // add the move to the move list in piece
 
             if (targetSquareObject == null) {
@@ -280,21 +282,22 @@ public class Player {
                 if (validMoveSquare == targetSquareObject) {
                     isFound = true;
                     startPosition.setSquareContent(null);  // set the previous content to null because the piece is moved
-//                    if (selectedPiece.getColor() == Color.WHITE && targetSquareObject.getSquareContent() == null && targetSquareObject.getRowNumber() == 6) { // en passant wit
-//                        Square enPassantSquare = lookupSquare(targetSquareObject.getColumnLetter(), targetSquareObject.getRowNumber() - 1);
-//                        enPassantSquare.getSquareContent().capturePiece();
-//                        enPassantSquare.setSquareContent(null);
-//                    }
-//                    if (selectedPiece.getColor() == Color.BLACK && targetSquareObject.getSquareContent() == null && targetSquareObject.getRowNumber() == 3) { // en passant zwart
-//                        Square enPassantSquare = lookupSquare(targetSquareObject.getColumnLetter(), targetSquareObject.getRowNumber() + 1);
-//                        enPassantSquare.getSquareContent().capturePiece();
-//                        enPassantSquare.setSquareContent(null);
-//                    }
+                    if (selectedPiece.getColor() == Color.WHITE && targetSquareObject.getSquareContent() == null && targetSquareObject.getRowNumber() == 6) { // en passant wit
+                        Square enPassantSquare = lookupSquare(targetSquareObject.getColumnLetter(), targetSquareObject.getRowNumber() - 1);
+                        enPassantSquare.getSquareContent().capturePiece();
+                        enPassantSquare.setSquareContent(null);
+                    }
+                    if (selectedPiece.getColor() == Color.BLACK && targetSquareObject.getSquareContent() == null && targetSquareObject.getRowNumber() == 3) { // en passant zwart
+                        Square enPassantSquare = lookupSquare(targetSquareObject.getColumnLetter(), targetSquareObject.getRowNumber() + 1);
+                        enPassantSquare.getSquareContent().capturePiece();
+                        enPassantSquare.setSquareContent(null);
+                    }
                     selectedPiece.setPosition(targetSquareObject); // assigns the new square to the piece
                     targetSquareObject.setSquareContent(selectedPiece); // assigns piece to the new square
                     System.out.println(selectedPiece.getPosition());
                     if (targetSquareObject.getSquareContent() != null && targetSquareObject.getSquareContent().getColor() != selectedPiece.getColor()) {
                         targetSquareObject.getSquareContent().capturePiece();
+
                     }
                     if (rowNumber == endRowBlack || rowNumber == endRowWhite) { // we check if the rownumber that the user gave in is the same as the endrow for the color
                         System.out.println("U kan uw pion promoveren. Geef de letter van het stuk in (Q,K,B,R):");
@@ -302,12 +305,12 @@ public class Player {
                         promotePiece(desiredPiece, selectedPiece);
                     }
                 }
-                King king = kingLookup(color);
-                boolean kingIsChecked = defineCheckStatus(king);
-                if (kingIsChecked) {
-                    startPosition.setSquareContent(selectedPiece); // if the king is in check, the move can't be done, so we set the content back to the initial state.
-                    throw new IllegalMoveException("Je kan deze zet niet doen omdat je jezelf dan in check gaat zetten. Probeer opnieuw: ");
-                }
+//                King king = kingLookup(color);
+//                boolean kingIsChecked = defineCheckStatus(king);
+//                if (kingIsChecked) {
+//                    startPosition.setSquareContent(selectedPiece); // if the king is in check, the move can't be done, so we set the content back to the initial state.
+//                    throw new IllegalMoveException("Je kan deze zet niet doen omdat je jezelf dan in check gaat zetten. Probeer opnieuw: ");
+//                }
             }
             if (!isFound) {
                 throw new IllegalMoveException("Invoer behoort niet tot de mogelijke zetten, probeer opnieuw: ");
@@ -332,6 +335,7 @@ public class Player {
         King king = null;
         try {
             Square targetSquareObject = lookupSquare(columnLetter, rowNumber);
+            moves.add(targetSquareObject);
 
             if (targetSquareObject == null) {
                 throw new IllegalMoveException("Invoer niet gevonden op het bord, probeer opnieuw: ");
@@ -354,7 +358,6 @@ public class Player {
 //                    System.out.println(selectedPiece.getPosition());
                     if (targetSquareObject.getSquareContent() != null && targetSquareObject.getSquareContent().getColor() != selectedPiece.getColor()) {
                         targetSquareObject.getSquareContent().capturePiece();
-                        moves.add(targetSquareObject);
                     }
                 }
             }
