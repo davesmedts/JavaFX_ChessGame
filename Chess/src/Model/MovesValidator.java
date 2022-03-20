@@ -3,6 +3,7 @@ package Model;
 import Model.ChessPieces.Pawn;
 import Model.ChessPieces.Piece;
 
+import javax.print.attribute.standard.MediaSize;
 import java.util.*;
 
 public class MovesValidator {
@@ -73,19 +74,24 @@ public class MovesValidator {
                             }
                         } else if (selectedPiece.getPosition().getColumnLetter() == boardSquare.getColumnLetter()) {
                             validMoves.add(boardSquare);
-                        } else if (selectedPiece.getPosition().getRowNumber() == 5 || selectedPiece.getPosition().getRowNumber() == 6) { // columnletters don't match && row is 4 or 5
+                        } else if (selectedPiece.getPosition().getRowNumber() == 5 || selectedPiece.getPosition().getRowNumber() == 6) { // columnletters don't match && row is 6 or 5
                             List<Square> squaresEnemyPlayer = player.getMoves(); // get the last move of the list
                             int amountSquares = squaresEnemyPlayer.size();
                             Square lastMoveEnemyPlayer = null;
                             if (amountSquares != 0) {
-                                lastMoveEnemyPlayer = squaresEnemyPlayer.get(amountSquares - 1);
+                                lastMoveEnemyPlayer = squaresEnemyPlayer.get(amountSquares - 1); // you need to use this list because you can only do enPassant on the last move from the enemy
                                 int lastMoveEnemyPlayerRownumber = lastMoveEnemyPlayer.getRowNumber();
                                 char lastMoveEnemyPlayerColumnLetter = lastMoveEnemyPlayer.getColumnLetter();
 
                                 if (selectedPiece.getColor().equals(Color.WHITE)) {
-                                    lastMoveEnemyPlayer = new Square(lastMoveEnemyPlayerRownumber + 1, lastMoveEnemyPlayerColumnLetter); // the last move of the enemy is to row 5 , but you need to capture by going to row 6
+                                    lastMoveEnemyPlayer = new Square(lastMoveEnemyPlayerRownumber + 1, lastMoveEnemyPlayerColumnLetter);
+//                                 This calculation is necessary because we only need to do the enPassant method for the
+//                                 last move of the enemyPlayer, we need to do this calculation because the enemy Pawn has moved
+//                                 two squares instead one. But the selectedPiece can only move oblique and take the pawn on the original position
+//                                 if we don't do this calculation then we will add two times the same square to the list because we will run two times the enPassant method
+
                                 } else
-                                    lastMoveEnemyPlayer = new Square(lastMoveEnemyPlayerRownumber -1 , lastMoveEnemyPlayerColumnLetter);
+                                    lastMoveEnemyPlayer = new Square(lastMoveEnemyPlayerRownumber - 1, lastMoveEnemyPlayerColumnLetter);
                             }
 
                             if (possibleMove.equals(lastMoveEnemyPlayer)) {
@@ -110,7 +116,7 @@ public class MovesValidator {
         if (selectedPiecePosition.getRowNumber() == 5 && selectedPiece.getColor() == Color.WHITE) {
             for (Square boardSquare : allBoardSquares) {
                 if ((boardSquare.getColumnLetter() == selectedPiecePosition.getColumnLetter() + 1 && (boardSquare.getRowNumber() == 5))) { // we gaan al de squares links en rechts toevoegen
-                    if (lastMoveEnemyPlayer.getColumnLetter() - 1 == selectedPiecePosition.getColumnLetter()) { //niet al de vakken links en rechts toevoegen
+                    if (lastMoveEnemyPlayer.getColumnLetter() - 1 == selectedPiecePosition.getColumnLetter()) { //niet al de vakken links en rechts toevoegen in de lijst
                         if (boardSquare.getSquareContent() instanceof Pawn && boardSquare.getSquareContent().getColor() == Color.BLACK && boardSquare.getSquareContent().getMoves().size() == 1) { // drie checks moeten we doen, 1 we checken of we naast een pion staan. De pion moet van de tegenpartij zijn, dus de kleur moet gecontroleerd worden. Ten derde moeten we checken of de lijst van de vijandelijke pion op 0 staat(eerste move vijand)
                             Square validEnPassant = new Square(6, (char) (selectedPiecePosition.getColumnLetter() + 1));
                             for (Square square : allBoardSquares) {
