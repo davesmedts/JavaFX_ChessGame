@@ -82,7 +82,10 @@ public class MovesValidator {
                                 int lastMoveEnemyPlayerRownumber = lastMoveEnemyPlayer.getRowNumber();
                                 char lastMoveEnemyPlayerColumnLetter = lastMoveEnemyPlayer.getColumnLetter();
 
-                                lastMoveEnemyPlayer = new Square(lastMoveEnemyPlayerRownumber + 1, lastMoveEnemyPlayerColumnLetter); // the last move of the enemy is to row 5 , but you need to capture by going to row 6
+                                if (selectedPiece.getColor().equals(Color.WHITE)) {
+                                    lastMoveEnemyPlayer = new Square(lastMoveEnemyPlayerRownumber + 1, lastMoveEnemyPlayerColumnLetter); // the last move of the enemy is to row 5 , but you need to capture by going to row 6
+                                } else
+                                    lastMoveEnemyPlayer = new Square(lastMoveEnemyPlayerRownumber -1 , lastMoveEnemyPlayerColumnLetter);
                             }
 
                             if (possibleMove.equals(lastMoveEnemyPlayer)) {
