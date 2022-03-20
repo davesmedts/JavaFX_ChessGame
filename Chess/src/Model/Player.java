@@ -471,11 +471,12 @@ public class Player {
         } else {
             allPossibleMoves = movesValidator.getAllPossibleMoves(Color.WHITE);
         }
-        for (Square possibleMove : allPossibleMoves) {
-            if (possibleMove.equals(kingPosition)) {
-                isChecked = true;
-                break;
-            }
+
+            for (Square possibleMove : allPossibleMoves) {
+                if (possibleMove.equals(kingPosition)) {
+                    isChecked = true;
+                    break;
+                }
         }
         return isChecked;
     }
@@ -515,6 +516,7 @@ public class Player {
 //  Queen position op null zetten?
 
                     isChecked = defineCheckStatus(opponentKing);
+
 
                     validMove.setSquareContent(originalContent);
                     originalContent.setPosition(validMove);
