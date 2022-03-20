@@ -28,6 +28,10 @@ public class Rook extends Piece {
         List<Square> southEast = new ArrayList<>();
         List<Square> southWest = new ArrayList<>();
 
+        if(super.getPosition() == null){
+            return possibleSquares;
+        }
+
         //        get the current row and column of the piece that has to move
         char column = super.getPosition().getColumnLetter();
         int row = super.getPosition().getRowNumber();

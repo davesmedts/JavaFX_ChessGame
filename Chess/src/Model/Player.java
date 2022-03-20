@@ -45,7 +45,7 @@ public class Player {
     public void initializePieces() {
         if (color == Color.WHITE) {
 //        pawns
-            for (int i = 0; i < 8; i++) {
+            for (int i = 0; i < 5; i++) {
                 int pawnRow = 4;
                 char pawnColumn = (char) (65 + i);
 //              Hier moeten we de juiste squares ophalen om positie van Piece te linken aan de juiste square op het bord.
@@ -107,7 +107,7 @@ public class Player {
 
         } else { // for the black Pieces we do the same as above.
 //        pawns
-            for (int i = 0; i < 8; i++) {
+            for (int i = 0; i < 5; i++) {
                 int pawnRow = 7;
                 char pawnColumn = (char) (65 + i);
                 Square startPosition = lookupSquare(pawnColumn, pawnRow);
@@ -222,7 +222,6 @@ public class Player {
         int rowNumber = Character.getNumericValue(startSquareArray[1]); // TO DO IK KRIJG NEN ARRAY OUT OF BOUNDS EXCEPTION ALS IK ENKEL DE LETTER A INGEEF
 //        Exception handling still to do! What if no piece is found. values must match the board
 
-
         try {
             Piece selectedPiece = lookupPiece(columnLetter, rowNumber);
             if (selectedPiece.getColor() == color) {
@@ -248,9 +247,9 @@ public class Player {
         } catch (IllegalPieceSelectionException ex) {
             System.out.println(ex.getMessage());
             selectPiece(player);
-        } catch (NullPointerException ex) {
-            System.out.println("Kolom of rij staat niet op het bord of bevat geen eigen piece, Probeer opnieuw iets te selecteren");
-            selectPiece(player);
+//        } catch (NullPointerException ex) {
+//            System.out.println("Kolom of rij staat niet op het bord of bevat geen eigen piece, Probeer opnieuw iets te selecteren");
+//            selectPiece(player);
         }
     }
 
@@ -343,15 +342,9 @@ public class Player {
         King king = null;
         try {
             Square targetSquareObject = lookupSquare(columnLetter, rowNumber);
-            moves.add(targetSquareObject);
 
             if (targetSquareObject == null) {
                 throw new IllegalMoveException("Invoer niet gevonden op het bord, probeer opnieuw: ");
-            }
-            king = kingLookup(color);
-            boolean kingIsChecked = defineCheckStatus(king);
-            if (kingIsChecked) {
-                throw new IllegalMoveException("Je kan deze zet niet doen omdat je jezelf dan in check gaat zetten. Probeer opnieuw: ");
             }
 
             boolean isFound = false;
@@ -372,10 +365,19 @@ public class Player {
             if (!isFound) {
                 throw new IllegalMoveException("Invoer behoort niet tot de mogelijke zetten, probeer opnieuw: ");
             }
+            king = kingLookup(color);
+            boolean kingIsChecked = defineCheckStatus(king);
+            if (kingIsChecked) {
+                throw new IllegalMoveException("Je kan deze zet niet doen omdat je jezelf dan in check gaat zetten. Probeer opnieuw: ");
+            } else {
+                king.setChecked(false);
+            }
+            moves.add(targetSquareObject);
 
         } catch (IllegalMoveException ime) {
             System.out.println(ime.getMessage());
-            movePiece(validMoveSquares, selectedPiece);
+//            movePiece(validMoveSquares, selectedPiece);
+            selectPiece(this);
         }
 //        Exception handling still to do! What if no piece is found.
 //        isChecked - check
@@ -387,10 +389,13 @@ public class Player {
         } else {
             opponentColor = Color.WHITE;
         }
+
         King opponentKing = kingLookup(opponentColor);
         boolean opponentIsChecked = defineCheckStatus(opponentKing);
         if (opponentIsChecked) {
             opponentKing.setChecked(true);
+        } else {
+            opponentKing.setChecked(false);
         }
 
 //        isCheckMate - check
@@ -506,11 +511,15 @@ public class Player {
                     Piece originalContent = validMove.getSquareContent();
                     opponentPiece.setPosition(validMove);
                     validMove.setSquareContent(opponentPiece);
+                    originalContent.setPosition(null);
+//  Queen position op null zetten?
 
                     isChecked = defineCheckStatus(opponentKing);
 
                     validMove.setSquareContent(originalContent);
+                    originalContent.setPosition(validMove);
                     opponentPiece.setPosition(originalPosition);
+                    originalPosition.setSquareContent(opponentPiece);
                 }
 
                 if (!isChecked) {
@@ -527,6 +536,4 @@ public class Player {
     public String toString() {
         return player;
     }
-
-
 }

@@ -12,6 +12,7 @@ TO DO
     - en passant
     - rechtdoor capture pawn
     - pawn kan springen bij eerste move?
+    - player, catch illegalMoveException verwijzen naar selectPiece()
 
 - DESIGN CHECKS
     - promoveren PAWN --> kunnen we het niet in 1 methode steken? Dus geen movePawn

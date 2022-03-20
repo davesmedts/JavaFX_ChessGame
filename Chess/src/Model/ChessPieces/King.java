@@ -36,6 +36,8 @@ public class King extends Piece {
         isChecked = checked;
     }
 
+
+
     public void setCheckmate(boolean checkmate) {
         isCheckmate = checkmate;
     }
