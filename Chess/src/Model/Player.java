@@ -247,9 +247,9 @@ public class Player {
         } catch (IllegalPieceSelectionException ex) {
             System.out.println(ex.getMessage());
             selectPiece(player);
-//        } catch (NullPointerException ex) {
-//            System.out.println("Kolom of rij staat niet op het bord of bevat geen eigen piece, Probeer opnieuw iets te selecteren");
-//            selectPiece(player);
+        } catch (NullPointerException ex) {
+            System.out.println("Kolom of rij staat niet op het bord of bevat geen eigen piece, Probeer opnieuw iets te selecteren");
+            selectPiece(player);
         }
     }
 
@@ -353,13 +353,13 @@ public class Player {
                     isFound = true;
                     Square startPosition = selectedPiece.getPosition(); // set the previous content to null because the piece is moved
                     startPosition.setSquareContent(null);
+                    if (targetSquareObject.getSquareContent() != null && targetSquareObject.getSquareContent().getColor() != selectedPiece.getColor()) {
+                        targetSquareObject.getSquareContent().capturePiece();
+                    }
                     selectedPiece.setMoves(targetSquareObject); // add the move to the move list in piece
                     selectedPiece.setPosition(targetSquareObject); // assigns the new square to the piece
                     targetSquareObject.setSquareContent(selectedPiece); // assigns piece to the new square
 //                    System.out.println(selectedPiece.getPosition());
-                    if (targetSquareObject.getSquareContent() != null && targetSquareObject.getSquareContent().getColor() != selectedPiece.getColor()) {
-                        targetSquareObject.getSquareContent().capturePiece();
-                    }
                 }
             }
             if (!isFound) {
@@ -381,7 +381,6 @@ public class Player {
         }
 //        Exception handling still to do! What if no piece is found.
 //        isChecked - check
-        List<Square> allNextPossibleMoves = movesValidator.getAllPossibleMoves(color); // lists the next possible moves of the piece that was just moved in this turn.
 //        King lookup
         Color opponentColor;
         if (color == Color.WHITE) {
@@ -410,22 +409,6 @@ public class Player {
         } else if (isCheckMate) {
             System.out.println("Check mate!");
         }
-//        if (opponentIsChecked) {
-//            List<Square> opponentKingNextPossibleMoves = movesValidator.getValidMoveSquares(opponentKing);
-//            List<Square> playerNextTurnPossibleMoves = movesValidator.getAllPossibleMoves(color);
-//            List<Square> opponentNextTurnPossibleMoves = movesValidator.getAllPossibleMoves(opponentColor);
-//            boolean kingCanEscape = false;
-//            for (Square opponentKingNextPossibleMove : opponentKingNextPossibleMoves) {
-//                if (!playerNextTurnPossibleMoves.contains(opponentKingNextPossibleMove)) {
-//                    kingCanEscape = true;
-//                    break;
-//                }
-//            }
-//            if (!kingCanEscape) {
-//                opponentKing.setCheckmate(true);
-//                System.out.println("check mate");
-//            }
-//        }
     }
 
     public void promotePiece(String desiredPieceLetter, Piece selectedPiece) {
@@ -513,10 +496,8 @@ public class Player {
                     opponentPiece.setPosition(validMove);
                     validMove.setSquareContent(opponentPiece);
                     originalContent.setPosition(null);
-//  Queen position op null zetten?
 
                     isChecked = defineCheckStatus(opponentKing);
-
 
                     validMove.setSquareContent(originalContent);
                     originalContent.setPosition(validMove);

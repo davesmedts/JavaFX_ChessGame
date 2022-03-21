@@ -3,7 +3,6 @@ package Model;
 import Model.ChessPieces.Pawn;
 import Model.ChessPieces.Piece;
 
-import javax.print.attribute.standard.MediaSize;
 import java.util.*;
 
 public class MovesValidator {
