@@ -3,6 +3,7 @@ package Model;
 import Exceptions.*;
 import Model.ChessPieces.*;
 
+import java.sql.Array;
 import java.util.*;
 
 public class Player {
@@ -241,6 +242,42 @@ public class Player {
                     System.out.println(validMoveSquares);
                     movePiece(validMoveSquares, selectedPiece);
                 }
+
+                if (selectedPiece instanceof King && selectedPiece.getMoves().size() == 0) {  // initializing castling method, first check if it is instance of king and if king hasn't moved yet
+
+                    if (color.equals(Color.WHITE)) {
+                        Piece a1 = lookupPiece('a', 1);
+                        Piece b1 = lookupPiece('b', 1);
+                        Piece c1 = lookupPiece('c', 1);
+                        Piece d1 = lookupPiece('d', 1);
+                        Piece f1 = lookupPiece('f', 1);
+                        Piece g1 = lookupPiece('g', 1);
+                        Piece h1 = lookupPiece('h', 1);
+
+                        if (a1 instanceof Rook && a1.getMoves().size() == 0) {
+                            if (b1.equals(null) && c1.equals(null) && d1.equals(null)) {
+                                System.out.println(" Typ 'rokeren' als u wilt rokeren");
+                                String response = keyboard.nextLine();
+                                if (response.equals("rokeren")) {
+                                    List<Square> leftCastleCheck = new ArrayList<>();
+                                    leftCastleCheck.add(selectedPiece.getPosition());
+                                    leftCastleCheck.add(d1.getPosition());
+                                    leftCastleCheck.add(c1.getPosition()); // c1 add to the list
+
+                                    for (Square square : leftCastleCheck) {
+                                        moveCheckSimulation((King) selectedPiece, square);
+
+
+                                    }
+
+                                }
+                            }
+
+                        }
+                    }
+
+                }
+
             } else {
                 throw new IllegalPieceSelectionException("niet de juiste kleur");
             }
@@ -252,6 +289,72 @@ public class Player {
             selectPiece(player);
         }
     }
+
+    public boolean moveCheckSimulation(King ownKing, Square targetSquare) {
+
+
+        Square startPosition = ownKing.getPosition(); // set the previous content to null because the piece is moved
+        startPosition.setSquareContent(null);
+
+        ownKing.setPosition(targetSquare); // assigns the new square to the piece
+        targetSquare.setSquareContent(ownKing); // assigns piece to the new square
+//                    System.out.println(selectedPiece.getPosition());
+
+
+        boolean isChecked = false;
+        List<Piece> opponentPieces = new ArrayList<>();
+        if (color == Color.WHITE) {
+            opponentPieces = movesValidator.getBlackPieces();
+        } else {
+            opponentPieces = movesValidator.getWhitePieces();
+        }
+        for (Piece opponentPiece : opponentPieces) {
+            List<Square> validMovesPiece;
+            Square originalPosition = opponentPiece.getPosition();
+            if (opponentPiece instanceof Pawn) {
+                validMovesPiece = movesValidator.getValidMoveSquaresPawn(opponentPiece);
+            } else {
+                validMovesPiece = movesValidator.getValidMoveSquares(opponentPiece);
+            }
+            for (Square validMove : validMovesPiece) {
+                if (validMove.getSquareContent() == null) {
+                    opponentPiece.setPosition(validMove);
+                    validMove.setSquareContent(opponentPiece);
+
+                    isChecked = defineCheckStatus(ownKing);
+
+                    opponentPiece.setPosition(originalPosition);
+                    validMove.setSquareContent(null);
+
+                } else {
+                    Piece originalContent = validMove.getSquareContent();
+                    opponentPiece.setPosition(validMove);
+                    validMove.setSquareContent(opponentPiece);
+                    originalContent.setPosition(null);
+
+                    isChecked = defineCheckStatus(ownKing);
+
+                    validMove.setSquareContent(originalContent);
+                    originalContent.setPosition(validMove);
+                    opponentPiece.setPosition(originalPosition);
+                    originalPosition.setSquareContent(opponentPiece);
+                }
+
+                if (isChecked) {
+                    isChecked = true;
+                    break;
+                }
+            }
+        }
+
+
+        startPosition.setSquareContent(ownKing);
+        ownKing.setPosition(startPosition);
+
+        return isChecked;
+
+    }
+
 
     public void movePawn(List<Square> validMoveSquares, Piece selectedPiece) {
         Scanner keyboard = new Scanner(System.in);
@@ -455,11 +558,11 @@ public class Player {
             allPossibleMoves = movesValidator.getAllPossibleMoves(Color.WHITE);
         }
 
-            for (Square possibleMove : allPossibleMoves) {
-                if (possibleMove.equals(kingPosition)) {
-                    isChecked = true;
-                    break;
-                }
+        for (Square possibleMove : allPossibleMoves) {
+            if (possibleMove.equals(kingPosition)) {
+                isChecked = true;
+                break;
+            }
         }
         return isChecked;
     }
