@@ -10,6 +10,7 @@ TO DO
     - array out of bounds lijn 216 in de player klasse ook exception als je enkel 'a' intikt
     - pawn kan springen bij eerste move?
     - player, catch illegalMoveException verwijzen naar selectPiece()
+    - situatie: black staat in check en kan nog steeds een move doen zonder dat de checkStatus ongedaan wordt gemaakt.
 
 - DESIGN CHECKS
     - promoveren PAWN --> kunnen we het niet in 1 methode steken? Dus geen movePawn
