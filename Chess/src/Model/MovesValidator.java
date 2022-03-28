@@ -111,7 +111,6 @@ public class MovesValidator {
         List<Square> enPassantSquares = new ArrayList<>();
         Square selectedPiecePosition = selectedPiece.getPosition();
 
-
         if (selectedPiecePosition.getRowNumber() == 5 && selectedPiece.getColor() == Color.WHITE) {
             for (Square boardSquare : allBoardSquares) {
                 if ((boardSquare.getColumnLetter() == selectedPiecePosition.getColumnLetter() + 1 && (boardSquare.getRowNumber() == 5))) { // we gaan al de squares links en rechts toevoegen

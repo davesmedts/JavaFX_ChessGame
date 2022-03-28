@@ -1,7 +1,6 @@
 TO DO
 
 - Special moves
-    - En Passant (debuggen) --> laatste move van tegenspeler checken, bug met dubbele square in lijst, capturen
     - Rokeren
     - Check
         - Bug: nadat een move geregistreerd wordt die de eigen King in check zet is het niet meer mogelijk een ander stuk te selecteren.
@@ -9,10 +8,9 @@ TO DO
 
 - BUG
     - array out of bounds lijn 216 in de player klasse ook exception als je enkel 'a' intikt
-    - en passant
-    - rechtdoor capture pawn
     - pawn kan springen bij eerste move?
     - player, catch illegalMoveException verwijzen naar selectPiece()
+    - situatie: black staat in check en kan nog steeds een move doen zonder dat de checkStatus ongedaan wordt gemaakt.
 
 - DESIGN CHECKS
     - promoveren PAWN --> kunnen we het niet in 1 methode steken? Dus geen movePawn
