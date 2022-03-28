@@ -247,9 +247,9 @@ public class Player {
         } catch (IllegalPieceSelectionException ex) {
             System.out.println(ex.getMessage());
             selectPiece(player);
-//        } catch (NullPointerException ex) {
-//            System.out.println("Kolom of rij staat niet op het bord of bevat geen eigen piece, Probeer opnieuw iets te selecteren");
-//            selectPiece(player);
+        } catch (NullPointerException ex) {
+            System.out.println("Kolom of rij staat niet op het bord of bevat geen eigen piece, Probeer opnieuw iets te selecteren");
+            selectPiece(player);
         }
     }
 
