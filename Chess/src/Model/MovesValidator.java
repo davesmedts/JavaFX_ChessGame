@@ -1,7 +1,9 @@
 package Model;
 
+import Model.ChessPieces.King;
 import Model.ChessPieces.Pawn;
 import Model.ChessPieces.Piece;
+import Model.ChessPieces.Rook;
 
 import java.util.*;
 
@@ -53,6 +55,9 @@ public class MovesValidator {
                 }
             }
         }
+        if(selectedPiece instanceof King){
+            validMoves.addAll(getCastlingSquares(selectedPiece));
+        }
         return validMoves;
     }
 
@@ -95,7 +100,6 @@ public class MovesValidator {
 
                             if (possibleMove.equals(lastMoveEnemyPlayer)) {
                                 validMoves.addAll(enPassant(selectedPiece, lastMoveEnemyPlayer));
-
                             }
                         }
                     }
@@ -104,6 +108,88 @@ public class MovesValidator {
 
         }
         return validMoves;
+    }
+
+    public Square lookupSquare(char columnLetter, int rowNumber) {
+        Square matchedSquare = null;
+        for (Square square : allBoardSquares) {
+            if (columnLetter == square.getColumnLetter() && rowNumber == square.getRowNumber()) {
+                matchedSquare = square;
+            }
+        }
+        return matchedSquare;
+    }
+
+    public Piece lookupPiece(char columnLetter, int rowNumber) {
+        Piece matchedPiece = null;
+        for (Square square : allBoardSquares) {
+            if (columnLetter == square.getColumnLetter() && rowNumber == square.getRowNumber()) {
+                matchedPiece = square.getSquareContent();
+            }
+        }
+        return matchedPiece;
+    }
+
+
+    public List<Square> getCastlingSquares(Piece king) {
+        List<Square> castleMoves = new ArrayList<>();
+        if (king.getColor() == Color.WHITE) {
+            Square a1 = lookupSquare('A', 1);
+            Square b1 = lookupSquare('B', 1);
+            Square c1 = lookupSquare('C', 1);
+            Square d1 = lookupSquare('D', 1);
+            Square f1 = lookupSquare('F', 1);
+            Square g1 = lookupSquare('G', 1);
+            Square h1 = lookupSquare('H', 1);
+
+
+            if (a1.getSquareContent() instanceof Rook && a1.getSquareContent().getMoves().size() == 0) {
+                if (b1.getSquareContent() == null && c1.getSquareContent() == null && d1.getSquareContent() == null) {
+
+                    List<Square> leftCastleCheck = new ArrayList<>();
+                    leftCastleCheck.add(king.getPosition()); // we moeten selectedPiece dan ook gaan meegeven
+                    leftCastleCheck.add(d1);
+                    leftCastleCheck.add(c1); // c1 add to the list
+
+                    boolean check = false;
+                    for (Square square : leftCastleCheck) {
+                        if (moveCheckSimulation((King) king, square)) {
+                            check = true; // if the boolean is changed to true, we never change it back within this loop
+                        } else {
+                            break; // if the king is in check on one of the squares then we break out of this loop and go to the next statement
+                        }
+                    }
+                    if (!check) {
+                        castleMoves.add(lookupSquare('C', 1)); // left castling move: kings always moves to C1
+                    }
+                }
+            }
+
+
+            if (h1.getSquareContent() instanceof Rook && h1.getSquareContent().getMoves().size() == 0) {
+                if (f1.getSquareContent() == null && g1.getSquareContent() == null) {
+
+                    List<Square> rightCastleCheck = new ArrayList<>();
+                    rightCastleCheck.add(king.getPosition()); // we moeten selectedPiece dan ook gaan meegeven
+                    rightCastleCheck.add(f1);
+                    rightCastleCheck.add(g1); // c1 add to the list
+                    boolean check = false;
+
+
+                    for (Square square : rightCastleCheck) {
+                        if (moveCheckSimulation((King) king, square)) {
+                            check = true; // if the boolean is changed to true, we never change it back within this loop
+                        } else {
+                            break; // if the king is in check on one of the squares then we break out of this loop and go to the next statement
+                        }
+                    }
+                    if (!check) {
+                        castleMoves.add(lookupSquare('G', 1)); // left castling move: kings always moves to G1
+                    }
+                }
+            }
+        }
+        return castleMoves;
     }
 
 
@@ -141,7 +227,6 @@ public class MovesValidator {
                 }
             }
         }
-
 
         if (selectedPiecePosition.getRowNumber() == 6 && selectedPiece.getColor() == Color.BLACK) {
             for (Square boardSquare : allBoardSquares) {
@@ -257,6 +342,82 @@ public class MovesValidator {
             }
         }
         return allPossibleMoves;
+    }
+
+    public boolean defineCheckStatus(King king) {
+        boolean isChecked = false;
+        Square kingPosition = king.getPosition();
+        List<Square> allPossibleMoves;
+        if (king.getColor() == Color.WHITE) {
+            allPossibleMoves = getAllPossibleMoves(Color.BLACK);
+        } else {
+            allPossibleMoves = getAllPossibleMoves(Color.WHITE);
+        }
+
+        for (Square possibleMove : allPossibleMoves) {
+            if (possibleMove.equals(kingPosition)) {
+                isChecked = true;
+                break;
+            }
+        }
+        return isChecked;
+    }
+
+    public boolean moveCheckSimulation(King ownKing, Square targetSquare) {
+        Square startPosition = ownKing.getPosition(); // set the previous content to null because the piece is moved
+        startPosition.setSquareContent(null);
+
+        ownKing.setPosition(targetSquare); // assigns the new square to the piece
+        targetSquare.setSquareContent(ownKing); // assigns piece to the new square
+//                    System.out.println(selectedPiece.getPosition());
+        boolean isChecked = false;
+        List<Piece> opponentPieces = new ArrayList<>();
+        if (ownKing.getColor() == Color.WHITE) {
+            opponentPieces = getBlackPieces();
+        } else {
+            opponentPieces = getWhitePieces();
+        }
+        for (Piece opponentPiece : opponentPieces) {
+            List<Square> validMovesPiece;
+            Square originalPosition = opponentPiece.getPosition();
+            if (opponentPiece instanceof Pawn) {
+                validMovesPiece = getValidMoveSquaresPawn(opponentPiece);
+            } else {
+                validMovesPiece = getValidMoveSquares(opponentPiece);
+            }
+            for (Square validMove : validMovesPiece) {
+                if (validMove.getSquareContent() == null) {
+                    opponentPiece.setPosition(validMove);
+                    validMove.setSquareContent(opponentPiece);
+
+                    isChecked = defineCheckStatus(ownKing);
+
+                    opponentPiece.setPosition(originalPosition);
+                    validMove.setSquareContent(null);
+
+                } else {
+                    Piece originalContent = validMove.getSquareContent();
+                    opponentPiece.setPosition(validMove);
+                    validMove.setSquareContent(opponentPiece);
+                    originalContent.setPosition(null);
+
+                    isChecked = defineCheckStatus(ownKing);
+
+                    validMove.setSquareContent(originalContent);
+                    originalContent.setPosition(validMove);
+                    opponentPiece.setPosition(originalPosition);
+                    originalPosition.setSquareContent(opponentPiece);
+                }
+
+                if (isChecked) {
+                    break;
+                }
+            }
+        }
+        startPosition.setSquareContent(ownKing);
+        ownKing.setPosition(startPosition);
+
+        return isChecked;
     }
 }
 
