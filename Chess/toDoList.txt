@@ -23,3 +23,7 @@ TO DO
 Vragen:
 - kruisverwijzing, piece naar square en omgekeerd. Is dit ok? Hoe op te lossen met 1 verwijzing? Voorbeeld klasse player method move pawn.
 
+
+
+
+
