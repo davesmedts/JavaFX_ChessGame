@@ -1,10 +1,5 @@
 package Model;
 
-import Model.ChessPieces.*;
-
-import java.util.List;
-import java.util.Map;
-
 public class TestPossibleMoves {
     public static void main(String[] args) {
         Player dave = new Player("Dave");

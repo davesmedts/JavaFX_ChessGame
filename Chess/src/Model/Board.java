@@ -1,7 +1,6 @@
 package Model;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Board {
@@ -55,10 +54,5 @@ public class Board {
 
     public List<Square> getSquares() {
         return squares;
-    }
-
-    public static void main(String[] args) {
-        Board gameBoard = new Board();
-        System.out.println(gameBoard);
     }
 }

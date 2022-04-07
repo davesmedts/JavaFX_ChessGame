@@ -1,8 +1,8 @@
 package Model;
 
-import Model.ChessPieces.King;
 import Model.ChessPieces.Pawn;
 import Model.ChessPieces.Piece;
+import Model.ChessPieces.King;
 import Model.ChessPieces.Rook;
 
 import java.util.*;
@@ -345,7 +345,7 @@ public class MovesValidator {
     }
 
     public boolean defineCheckStatus(King king) {
-        boolean isChecked = false;
+        boolean kingIsChecked = false;
         Square kingPosition = king.getPosition();
         List<Square> allPossibleMoves;
         if (king.getColor() == Color.WHITE) {
@@ -356,11 +356,11 @@ public class MovesValidator {
 
         for (Square possibleMove : allPossibleMoves) {
             if (possibleMove.equals(kingPosition)) {
-                isChecked = true;
+                kingIsChecked = true;
                 break;
             }
         }
-        return isChecked;
+        return kingIsChecked;
     }
 
     public boolean moveCheckSimulation(King ownKing, Square targetSquare) {

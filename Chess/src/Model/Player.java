@@ -469,15 +469,17 @@ public class Player {
         }
 
 //        isCheckMate - check
-        boolean isCheckMate = defineCheckMateStatus(opponentKing);
-        if (isCheckMate) {
-            king.setCheckmate(true);
-            isWinner = true;
+        if(opponentKing.isChecked()){
+            boolean isCheckMate = defineCheckMateStatus(opponentKing);
+            if (isCheckMate) {
+                opponentKing.setCheckmate(true);
+                isWinner = true;
+            }
         }
 
-        if (opponentIsChecked && !isCheckMate) {
+        if (opponentIsChecked && !opponentKing.isCheckmate()) {
             System.out.println(opponentColor + " staat schaak");
-        } else if (isCheckMate) {
+        } else if (opponentKing.isCheckmate()) {
             System.out.println("Schaakmat!");
         }
     }
@@ -566,6 +568,9 @@ public class Player {
                     checkMate = false;
                     break;
                 }
+            }
+            if(!checkMate){
+                break;
             }
         }
         return checkMate;
