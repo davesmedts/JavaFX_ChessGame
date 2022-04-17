@@ -1,5 +1,6 @@
-package view.loadGameView;
+package view.newGameView;
 
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -13,8 +14,7 @@ public class LoadGameView extends BorderPane {
     private VBox leftContainer;
 
     private Button homeBtn;
-    private Button stopSpelBtn;
-    private Button opslaanBtn;
+    private Button startSpel;
 
     private MenuItem afsluiten;
     private MenuItem opslaan;
@@ -29,6 +29,13 @@ public class LoadGameView extends BorderPane {
     private ImageView settingsIcon;
 
     private Label statusBarText;
+    private Label description;
+    private Label naamPlayerWhite;
+    private Label naamPlayerBlack;
+
+    private TextField tekstPlayerWhite;
+    private TextField tekstPlayerBlack;
+
 
 
     public LoadGameView() {
@@ -40,6 +47,13 @@ public class LoadGameView extends BorderPane {
 //        mainContainerNodes
         this.mainContainer = new VBox();
         this.chessLogo = new ImageView("/applicationLogoSmall.png");
+        this.description = new Label("Voer hier de naam van de spelers in");
+        this.naamPlayerWhite = new Label("Speler 1:");
+        this.naamPlayerBlack = new Label("Speler 2");
+        this.tekstPlayerWhite = new TextField();
+        this.tekstPlayerBlack = new TextField();
+        this.startSpel = new Button("Start spel");
+
 //        menuNodes
         this.afsluiten = new MenuItem("afsluiten");
         this.openen = new MenuItem("openen");
@@ -50,8 +64,6 @@ public class LoadGameView extends BorderPane {
 //        left area nodes
         this.leftContainer = new VBox();
         this.homeBtn = new Button("Home page");
-        this.opslaanBtn = new Button("opslaan");
-        this.stopSpelBtn = new Button("Stop spel");
 
 //        Icons on the right part of the screen
         this.helpIconsContainer = new HBox();
@@ -59,12 +71,15 @@ public class LoadGameView extends BorderPane {
         this.settingsIcon = new ImageView("/infoIcon.png");
         this.infoIcon = new ImageView("/settingsIcon.png");
 
+
+
+
 //        statusbar
         //        statusbar
         this.statusBarText = new Label("designed and build with by Dave Smedts and Mattia Verreydt");
 
-
     }
+
 
     private void layoutNodes() {
 
@@ -75,11 +90,17 @@ public class LoadGameView extends BorderPane {
         this.setTop(menuBar);
 
 //        MainContainerContent
+        this.tekstPlayerWhite.setMaxWidth(150);
+        this.tekstPlayerBlack.setMaxWidth(150);
+        mainContainer.getChildren().addAll(description,naamPlayerWhite,tekstPlayerWhite, naamPlayerBlack, tekstPlayerBlack, startSpel);
+        mainContainer.setAlignment(Pos.CENTER);
+        mainContainer.setSpacing(25);
         this.setCenter(mainContainer);
 
 //        leftArea
-        leftContainer.getChildren().addAll(chessLogo, homeBtn, opslaanBtn, stopSpelBtn);
-        this.setCenter(leftContainer);
+        leftContainer.getChildren().addAll(chessLogo, homeBtn);
+        this.setLeft(leftContainer);
+        leftContainer.setSpacing(25);
 
 //      HelpIcons
         helpIconsContainer.getChildren().addAll(settingsIcon, helpIcon, infoIcon);
@@ -89,4 +110,5 @@ public class LoadGameView extends BorderPane {
         this.setBottom(statusBarText);
 
     }
+
 }

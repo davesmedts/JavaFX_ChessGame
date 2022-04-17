@@ -8,13 +8,13 @@ import javafx.scene.layout.VBox;
 
 
 public class RankingView extends BorderPane {
-    private VBox mainContainer;
+    private HBox mainContainer;
     private HBox helpIconsContainer;
     private VBox leftContainer;
 
     private Button homeBtn;
-    private Button stopSpelBtn;
-    private Button opslaanBtn;
+    private Button stopSpelBtn; // waarom zit dat erin? het zijn de rankings?
+    private Button opslaanBtn; // waarom zit dat erin? het zijn de rankings?
 
     private MenuItem afsluiten;
     private MenuItem opslaan;
@@ -29,6 +29,10 @@ public class RankingView extends BorderPane {
     private ImageView settingsIcon;
 
     private Label statusBarText;
+    private Label datum;
+    private Label playerWhite;
+    private Label playerBlack;
+    private Label winnaar;
 
 
     public RankingView() {
@@ -38,8 +42,9 @@ public class RankingView extends BorderPane {
 
     private void initialiseNodes() {
 //        mainContainerNodes
-        this.mainContainer = new VBox();
+        this.mainContainer = new HBox();
         this.chessLogo = new ImageView("/applicationLogoSmall.png");
+
 //        menuNodes
         this.afsluiten = new MenuItem("afsluiten");
         this.openen = new MenuItem("openen");
@@ -59,6 +64,12 @@ public class RankingView extends BorderPane {
         this.settingsIcon = new ImageView("/infoIcon.png");
         this.infoIcon = new ImageView("/settingsIcon.png");
 
+        // labels of the ranking
+        this.datum = new Label("datum");
+        this.playerWhite = new Label("Player White");
+        this.playerBlack = new Label("Player Black");
+        this.winnaar = new Label("Winnaar");
+
         //        statusbar
         this.statusBarText = new Label("designed and build with by Dave Smedts and Mattia Verreydt");
 
@@ -74,11 +85,13 @@ public class RankingView extends BorderPane {
         this.setTop(menuBar);
 
 //        MainContainerContent
+        mainContainer.getChildren().addAll(datum,playerWhite,playerBlack,winnaar);
         this.setCenter(mainContainer);
+
 
 //        leftArea
         leftContainer.getChildren().addAll(chessLogo, homeBtn, opslaanBtn, stopSpelBtn);
-        this.setCenter(leftContainer);
+        this.setLeft(leftContainer);
 
 //      HelpIcons
         helpIconsContainer.getChildren().addAll(settingsIcon, helpIcon, infoIcon);

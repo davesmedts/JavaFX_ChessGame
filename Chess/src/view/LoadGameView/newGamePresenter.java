@@ -1,4 +1,4 @@
-package view.newGameView;
+package view.LoadGameView;
 
 import Model.Model;
 

@@ -403,6 +403,7 @@ public class Player {
             boolean isFound = false;
             Square startPosition = selectedPiece.getPosition(); // set the previous content to null because the piece is moved
             for (Square validMoveSquare : validMoveSquares) {
+
                 if (validMoveSquare == targetSquareObject) {
                     isFound = true;
                     startPosition.setSquareContent(null);
@@ -461,12 +462,16 @@ public class Player {
         }
 
         King opponentKing = kingLookup(opponentColor);
+
         boolean opponentIsChecked = movesValidator.defineCheckStatus(opponentKing);
+
+
+
         if (opponentIsChecked) {
             opponentKing.setChecked(true);
         } else {
             opponentKing.setChecked(false);
-        }
+        } // het is in deze methode dat de fout gebeurt
 
 //        isCheckMate - check
         if(opponentKing.isChecked()){
@@ -569,6 +574,10 @@ public class Player {
                     break;
                 }
             }
+            if(!checkMate){
+                break;
+            }
+
             if(!checkMate){
                 break;
             }

@@ -89,4 +89,10 @@ public class homeView extends BorderPane {
 //        statusbar
         this.setBottom(statusBarText);
     }
+
+    public Button getNewGameBtn() {
+        return newGameBtn;
+    }
+
+
 }

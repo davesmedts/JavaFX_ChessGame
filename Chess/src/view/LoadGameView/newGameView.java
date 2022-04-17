@@ -1,4 +1,4 @@
-package view.newGameView;
+package view.LoadGameView;
 
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
@@ -13,8 +13,9 @@ public class newGameView extends BorderPane {
     private VBox leftContainer;
 
     private Button homeBtn;
-    private Button stopSpelBtn;
-    private Button opslaanBtn;
+    private Button nieuwSpel;
+    private Button hervatSpel;
+    private Button rangschikking;
 
     private MenuItem afsluiten;
     private MenuItem opslaan;
@@ -29,6 +30,7 @@ public class newGameView extends BorderPane {
     private ImageView settingsIcon;
 
     private Label statusBarText;
+    private Label welkomTekst;
 
 
     public newGameView() {
@@ -40,6 +42,14 @@ public class newGameView extends BorderPane {
 //        mainContainerNodes
         this.mainContainer = new VBox();
         this.chessLogo = new ImageView("/applicationLogoSmall.png");
+        this.welkomTekst = new Label("Welkom bij Chess");
+        this.nieuwSpel = new Button("Nieuw spel");
+        this.hervatSpel = new Button("Hervat spel");
+        this.rangschikking = new Button("Rangschikking");
+
+
+
+
 //        menuNodes
         this.afsluiten = new MenuItem("afsluiten");
         this.openen = new MenuItem("openen");
@@ -50,8 +60,6 @@ public class newGameView extends BorderPane {
 //        left area nodes
         this.leftContainer = new VBox();
         this.homeBtn = new Button("Home page");
-        this.opslaanBtn = new Button("opslaan");
-        this.stopSpelBtn = new Button("Stop spel");
 
 //        Icons on the right part of the screen
         this.helpIconsContainer = new HBox();
@@ -60,6 +68,8 @@ public class newGameView extends BorderPane {
         this.infoIcon = new ImageView("/settingsIcon.png");
 //        statusbar
         this.statusBarText = new Label("designed and build with by Dave Smedts and Mattia Verreydt");
+
+
 
 
     }
@@ -73,11 +83,12 @@ public class newGameView extends BorderPane {
         this.setTop(menuBar);
 
 //        MainContainerContent
+        mainContainer.getChildren().addAll(nieuwSpel,hervatSpel,rangschikking);
         this.setCenter(mainContainer);
 
 //        leftArea
-        leftContainer.getChildren().addAll(chessLogo, homeBtn, opslaanBtn, stopSpelBtn);
-        this.setCenter(leftContainer);
+        leftContainer.getChildren().addAll(chessLogo, homeBtn);
+        this.setLeft(leftContainer);
 
 //      HelpIcons
         helpIconsContainer.getChildren().addAll(settingsIcon, helpIcon, infoIcon);

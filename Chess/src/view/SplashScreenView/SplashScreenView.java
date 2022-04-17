@@ -1,16 +1,14 @@
 package view.SplashScreenView;
 
-import javafx.scene.control.Button;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
+import javafx.geometry.Pos;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
 
 public class SplashScreenView extends BorderPane {
-    private VBox mainContainer;
+    private VBox mainContainer; // waarom gebruiken wij VBox en geen grid?
     private VBox leftContainer;
 
     private Button homeBtn;
@@ -22,6 +20,8 @@ public class SplashScreenView extends BorderPane {
     private ImageView chessLogo;
     private ImageView splashScreenImage;
 
+    private Label contentCreators;
+
 
     public SplashScreenView() {
         this.initialiseNodes();
@@ -31,7 +31,6 @@ public class SplashScreenView extends BorderPane {
     private void initialiseNodes() {
 //        mainContainerNodes
         this.mainContainer = new VBox();
-        this.splashScreenImage = new ImageView("/splashScreenImage.jpg");
 //        menuNodes
         this.afsluiten = new MenuItem("afsluiten");
         this.spelregels = new MenuItem("spelregels");
@@ -41,6 +40,7 @@ public class SplashScreenView extends BorderPane {
         this.leftContainer = new VBox();
         this.chessLogo = new ImageView("/applicationLogoSmall.png");
         this.homeBtn = new Button("Home page");
+        this.contentCreators = new Label("Program created by Deef and MattiMagic");
 
     }
 
@@ -53,11 +53,13 @@ public class SplashScreenView extends BorderPane {
         this.setTop(menuBar);
 
 //        MainContainerContent
-        mainContainer.getChildren().add(splashScreenImage);
+        mainContainer.getChildren().addAll(chessLogo,contentCreators);
+        mainContainer.setSpacing(20);
+        mainContainer.setAlignment(Pos.CENTER);
         this.setCenter(mainContainer);
 
 //        leftArea
-        leftContainer.getChildren().addAll(chessLogo, homeBtn);
+        leftContainer.getChildren().addAll( homeBtn);
         this.setLeft(leftContainer);
     }
 }
