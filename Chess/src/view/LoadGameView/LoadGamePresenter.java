@@ -1,5 +1,4 @@
-package view.rankingView;
-
+package view.LoadGameView;
 
 import Model.Model;
 import javafx.event.ActionEvent;
@@ -7,19 +6,20 @@ import javafx.event.EventHandler;
 import view.homeView.homePresenter;
 import view.homeView.homeView;
 
-public class RankingPresenter {
+public class LoadGamePresenter {
 
     private Model model;
-    private RankingView view;
+    private loadGameView view;
 
-    public RankingPresenter(Model model,
-                            RankingView view) {
+    public LoadGamePresenter(Model model,
+                             loadGameView view) {
         this.model = model;
         this.view = view;
         this.addEventHandlers();
         this.updateView();
     }
     private void addEventHandlers() {
+
         // Terug naar HomeScherm
         view.getHomeBtn().setOnAction(new EventHandler<ActionEvent>() {
             @Override

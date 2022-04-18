@@ -1,5 +1,4 @@
-package view.rankingView;
-
+package view.newGameView;
 
 import Model.Model;
 import javafx.event.ActionEvent;
@@ -7,13 +6,13 @@ import javafx.event.EventHandler;
 import view.homeView.homePresenter;
 import view.homeView.homeView;
 
-public class RankingPresenter {
+public class newGamePresenter {
 
     private Model model;
-    private RankingView view;
+    private newGameView view;
 
-    public RankingPresenter(Model model,
-                            RankingView view) {
+    public newGamePresenter(Model model,
+                            newGameView view) {
         this.model = model;
         this.view = view;
         this.addEventHandlers();

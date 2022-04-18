@@ -100,4 +100,8 @@ public class RankingView extends BorderPane {
         //        statusbar
         this.setBottom(statusBarText);
     }
+
+    public Button getHomeBtn() {
+        return homeBtn;
+    }
 }

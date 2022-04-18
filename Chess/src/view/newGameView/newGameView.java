@@ -8,7 +8,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 
-public class LoadGameView extends BorderPane {
+public class newGameView extends BorderPane {
     private VBox mainContainer;
     private HBox helpIconsContainer;
     private VBox leftContainer;
@@ -38,7 +38,7 @@ public class LoadGameView extends BorderPane {
 
 
 
-    public LoadGameView() {
+    public newGameView() {
         this.initialiseNodes();
         this.layoutNodes();
     }
@@ -111,4 +111,7 @@ public class LoadGameView extends BorderPane {
 
     }
 
+    public Button getHomeBtn() {
+        return homeBtn;
+    }
 }

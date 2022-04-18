@@ -7,7 +7,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 
-public class newGameView extends BorderPane {
+public class loadGameView extends BorderPane {
     private VBox mainContainer;
     private HBox helpIconsContainer;
     private VBox leftContainer;
@@ -33,7 +33,7 @@ public class newGameView extends BorderPane {
     private Label welkomTekst;
 
 
-    public newGameView() {
+    public loadGameView() {
         this.initialiseNodes();
         this.layoutNodes();
     }
@@ -97,5 +97,9 @@ public class newGameView extends BorderPane {
         //        statusbar
         this.setBottom(statusBarText);
 
+    }
+
+    public Button getHomeBtn() {
+        return homeBtn;
     }
 }

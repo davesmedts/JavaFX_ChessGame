@@ -20,4 +20,5 @@ public class SplashScreenPresenter {
     private void updateView() {
     }
 
+
 }

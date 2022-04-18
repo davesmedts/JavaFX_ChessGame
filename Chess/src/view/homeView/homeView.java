@@ -94,5 +94,11 @@ public class homeView extends BorderPane {
         return newGameBtn;
     }
 
+    public Button getRangschikkingBtn() {
+        return rangschikkingBtn;
+    }
 
+    public Button getOpenenBtn() {
+        return openenBtn;
+    }
 }
