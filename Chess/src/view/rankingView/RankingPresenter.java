@@ -1,7 +1,7 @@
 package view.rankingView;
 
 
-import Model.Model;
+import model.Model;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import view.homeView.homePresenter;

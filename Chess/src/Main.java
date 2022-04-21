@@ -1,4 +1,4 @@
-import Model.Model;
+import model.Model;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;

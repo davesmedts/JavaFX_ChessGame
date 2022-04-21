@@ -2,20 +2,20 @@ TO DO
 
 - Special moves
     - Rokeren
-    - Check
-        - Bug: nadat een move geregistreerd wordt die de eigen King in check zet is het niet meer mogelijk een ander stuk te selecteren.
-    - checkmate
+    [Done]- Check
+    [Done] - Bug: nadat een move geregistreerd wordt die de eigen King in check zet is het niet meer mogelijk een ander stuk te selecteren.
+    [Done] - checkmate
 
 - BUG
-    - array out of bounds lijn 216 in de player klasse ook exception als je enkel 'a' intikt
-    - pawn kan springen bij eerste move?
-    - player, catch illegalMoveException verwijzen naar selectPiece()
-    - situatie: black staat in check en kan nog steeds een move doen zonder dat de checkStatus ongedaan wordt gemaakt.
+    [Done]- array out of bounds lijn 216 in de player klasse ook exception als je enkel 'a' intikt
+    [Done]- pawn kan springen bij eerste move? -> aan te passen in getValidMoves in Pawn. hint: pieceFound gebruiken.
+    [Done]- player, catch illegalMoveException verwijzen naar selectPiece()
+    [Done (denk ik ;-))]- situatie: black staat in check en kan nog steeds een move doen zonder dat de checkStatus ongedaan wordt gemaakt.
     - duplicatie van King naar F1 bij castle move naar C1
 
 - DESIGN CHECKS
-    - promoveren PAWN --> kunnen we het niet in 1 methode steken? Dus geen movePawn
-    - 2 getValidMoveSquaresPawn - migreren naar 1 methode
+    [Done]- promoveren PAWN --> kunnen we het niet in 1 methode steken? Dus geen movePawn
+    [Done] 2 getValidMoveSquaresPawn - migreren naar 1 methode
 
 - Verloop spel met winnaar en datetime
 - Werken met extra bestanden voor opslag

@@ -1,14 +1,14 @@
-package view.gameView;
+package view.splashScreenView;
 
 import model.Model;
 
-public class gamePresenter {
+public class SplashScreenPresenter {
 
     private Model model;
-    private gameView view;
+    private view.SplashScreenView.SplashScreenView view;
 
-    public gamePresenter(Model model,
-                         gameView view) {
+    public SplashScreenPresenter(Model model,
+                                 view.SplashScreenView.SplashScreenView view) {
         this.model = model;
         this.view = view;
         this.addEventHandlers();
@@ -19,5 +19,6 @@ public class gamePresenter {
 
     private void updateView() {
     }
+
 
 }

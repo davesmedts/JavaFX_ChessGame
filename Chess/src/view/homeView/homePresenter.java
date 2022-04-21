@@ -1,6 +1,6 @@
 package view.homeView;
 
-import Model.Model;
+import model.Model;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import view.LoadGameView.LoadGamePresenter;
@@ -63,5 +63,4 @@ public class homePresenter {
 
     private void updateView() {
     }
-
 }
