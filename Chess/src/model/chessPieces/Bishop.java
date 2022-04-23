@@ -16,10 +16,20 @@ public class Bishop extends Piece {
         super(color, startPosition);
     } //Constructor to create a bishop piece, constructor calls the constructor of the superclass Piece
 
+    @Override
     public List<Square> getValidMoves(Board gameBoard, Player opponent) {
         List<Square> possibleSquares = new ArrayList<>();
 
-        if (super.getPosition() == null) {
+        List<Square> north = new ArrayList<>();
+        List<Square> south = new ArrayList<>();
+        List<Square> west = new ArrayList<>();
+        List<Square> east = new ArrayList<>();
+        List<Square> northEast = new ArrayList<>();
+        List<Square> northWest = new ArrayList<>();
+        List<Square> southEast = new ArrayList<>();
+        List<Square> southWest = new ArrayList<>();
+
+        if(super.getPosition() == null){
             return possibleSquares;
         }
 
@@ -31,70 +41,29 @@ public class Bishop extends Piece {
         for (int i = 1; i < 8; i++) {
             int newRow = row + i;
             char newColumn = (char) (column + i);
-
-            if (newRow <= 8 && newColumn < 65 + 8) {
-                Square moveSquare = gameBoard.lookupSquare(newColumn, newRow);
-                Piece moveSquareContent = moveSquare.getSquareContent();
-                if (moveSquareContent == null) {
-                    possibleSquares.add(moveSquare);
-                } else if (moveSquareContent.getColor() != super.getColor()) {
-                    possibleSquares.add(moveSquare);
-                    break;
-                } else {
-                    break;
-                }
-            }
+            if (newRow <= 8 && newColumn < 65 + 8)
+                northEast.add(new Square(newRow, newColumn));
         }
 //        north-west
         for (int i = 1; i < 8; i++) {
             int newRow = row + i;
             char newColumn = (char) (column - i);
-            if (newRow <= 8 && newColumn >= 65) {
-                Square moveSquare = gameBoard.lookupSquare(newColumn, newRow);
-                Piece moveSquareContent = moveSquare.getSquareContent();
-                if (moveSquareContent == null) {
-                    possibleSquares.add(moveSquare);
-                } else if (moveSquareContent.getColor() != super.getColor()) {
-                    possibleSquares.add(moveSquare);
-                    break;
-                } else {
-                    break;
-                }
-            }
+            if (newRow <= 8 && newColumn >= 65)
+                northWest.add(new Square(newRow, newColumn));
         }
 //        south-east
         for (int i = 1; i < 8; i++) {
             int newRow = row - i;
             char newColumn = (char) (column + i);
-            if (newRow > 0 && newColumn < 65 + 8) {
-                Square moveSquare = gameBoard.lookupSquare(newColumn, newRow);
-                Piece moveSquareContent = moveSquare.getSquareContent();
-                if (moveSquareContent == null) {
-                    possibleSquares.add(moveSquare);
-                } else if (moveSquareContent.getColor() != super.getColor()) {
-                    possibleSquares.add(moveSquare);
-                    break;
-                } else {
-                    break;
-                }
-            }
+            if (newRow > 0 && newColumn < 65 + 8)
+                southEast.add(new Square(newRow, newColumn));
         }
 //        south-west
         for (int i = 1; i < 8; i++) {
             int newRow = row - i;
             char newColumn = (char) (column - i);
-            if (newRow > 0 && newColumn >= 65) {
-                Square moveSquare = gameBoard.lookupSquare(newColumn, newRow);
-                Piece moveSquareContent = moveSquare.getSquareContent();
-                if (moveSquareContent == null) {
-                    possibleSquares.add(moveSquare);
-                } else if (moveSquareContent.getColor() != super.getColor()) {
-                    possibleSquares.add(moveSquare);
-                    break;
-                } else {
-                    break;
-                }
-            }
+            if (newRow > 0 && newColumn >= 65)
+                southWest.add(new Square(newRow, newColumn));
         }
 
         return possibleSquares;

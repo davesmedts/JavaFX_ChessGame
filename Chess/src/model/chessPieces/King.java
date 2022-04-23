@@ -341,6 +341,7 @@ public class King extends Piece {
         }
         startPosition.setSquareContent(this);
         this.setPosition(startPosition);
+        targetSquare.setSquareContent(null);
 
         return isChecked;
     }
