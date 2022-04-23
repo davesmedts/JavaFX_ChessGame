@@ -5,10 +5,10 @@ import model.Model;
 public class SplashScreenPresenter {
 
     private Model model;
-    private SplashScreenView view;
+    private view.SplashScreenView.SplashScreenView view;
 
     public SplashScreenPresenter(Model model,
-                                 SplashScreenView view) {
+                                 view.SplashScreenView.SplashScreenView view) {
         this.model = model;
         this.view = view;
         this.addEventHandlers();

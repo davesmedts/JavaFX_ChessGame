@@ -293,7 +293,6 @@ public class King extends Piece {
     public boolean moveCheckSimulation(Square targetSquare, Board gameBoard, Player opponent) {
         Square startPosition = this.getPosition(); // set the previous content to null because the piece is moved
         startPosition.setSquareContent(null);
-        Piece targetSquareOriginalContent = targetSquare.getSquareContent();
 
         setPosition(targetSquare); // assigns the new square to the piece
         targetSquare.setSquareContent(this); // assigns piece to the new square
@@ -342,7 +341,6 @@ public class King extends Piece {
         }
         startPosition.setSquareContent(this);
         this.setPosition(startPosition);
-        targetSquare.setSquareContent(targetSquareOriginalContent);
 
         return isChecked;
     }
