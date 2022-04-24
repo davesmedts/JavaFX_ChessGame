@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,4 +55,15 @@ public class Board {
     public List<Square> getSquares() {
         return squares;
     }
+
+    public Square lookupSquare(char columnLetter, int rowNumber) {
+        Square matchedSquare = null;
+        for (Square square : squares) {
+            if (columnLetter == square.getColumnLetter() && rowNumber == square.getRowNumber()) {
+                matchedSquare = square;
+            }
+        }
+        return matchedSquare;
+    }
+
 }

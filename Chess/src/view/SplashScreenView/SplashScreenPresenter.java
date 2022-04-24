@@ -1,6 +1,6 @@
-package view.SplashScreenView;
+package view.splashScreenView;
 
-import Model.Model;
+import model.Model;
 
 public class SplashScreenPresenter {
 

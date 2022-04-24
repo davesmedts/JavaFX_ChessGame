@@ -1,6 +1,6 @@
-package Model;
+package model;
 
-import Model.ChessPieces.*;
+import model.chessPieces.*;
 
 import java.util.Objects;
 

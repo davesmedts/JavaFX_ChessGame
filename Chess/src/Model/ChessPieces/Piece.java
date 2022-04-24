@@ -1,16 +1,17 @@
-package Model.ChessPieces;
+package model.chessPieces;
 
-import Model.Color;
-import Model.Square;
+import model.Board;
+import model.Color;
+import model.Player;
+import model.Square;
 
 import java.util.*;
 
-public class Piece {
+public abstract class Piece {
     private Color color;
     private Square position;
     private List<Square> moves;
     private boolean isCaptured;
-
 
 
     public Piece(Color color, Square startPosition) {
@@ -24,11 +25,9 @@ public class Piece {
         return moves;
     }
 
-    public Map<String, List<Square>> getValidMoves() {
-        return new HashMap<>();
-    }
+    public abstract List<Square> getValidMoves(Board gameBoard, Player opponent);
 
-    public Map<String, List<Square>> getValidMovesPawn(List<Square> squares){
+    public Map<String, List<Square>> getValidMovesPawn(List<Square> squares){ //moet vervangen worden door getValidMoves in de subklasse Pawn
         return new HashMap<>();
     }
 
@@ -40,7 +39,7 @@ public class Piece {
         return color;
     }
 
-    public void setMoves(Square square) {
+    public void addMove(Square square) {
         moves.add(square);
     }
 

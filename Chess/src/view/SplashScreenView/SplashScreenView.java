@@ -1,4 +1,4 @@
-package view.SplashScreenView;
+package view.splashScreenView;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.*;

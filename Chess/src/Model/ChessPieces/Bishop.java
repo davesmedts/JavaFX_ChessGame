@@ -1,7 +1,9 @@
-package Model.ChessPieces;
+package model.chessPieces;
 
-import Model.Color;
-import Model.Square;
+import model.Board;
+import model.Color;
+import model.Player;
+import model.Square;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,8 +17,8 @@ public class Bishop extends Piece {
     } //Constructor to create a bishop piece, constructor calls the constructor of the superclass Piece
 
     @Override
-    public Map<String, List<Square>> getValidMoves() {
-        Map<String, List<Square>> possibleSquares = new HashMap<>();
+    public List<Square> getValidMoves(Board gameBoard, Player opponent) {
+        List<Square> possibleSquares = new ArrayList<>();
 
         List<Square> north = new ArrayList<>();
         List<Square> south = new ArrayList<>();
@@ -64,17 +66,6 @@ public class Bishop extends Piece {
                 southWest.add(new Square(newRow, newColumn));
         }
 
-        possibleSquares.put("north", north);
-        possibleSquares.put("east", east);
-        possibleSquares.put("south", south);
-        possibleSquares.put("west", west);
-        possibleSquares.put("northEast", northEast);
-        possibleSquares.put("northWest", northWest);
-        possibleSquares.put("southEast", southEast);
-        possibleSquares.put("southWest", southWest);
-
         return possibleSquares;
-
-
     }
 }

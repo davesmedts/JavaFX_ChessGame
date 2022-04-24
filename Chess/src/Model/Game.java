@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 import java.time.LocalDateTime;
 import java.util.Random;
@@ -15,6 +15,7 @@ public class Game {
 
     //constructor
     public Game(Player playerOne, Player playerTwo) {
+        this.startTime = LocalDateTime.now();
         // creating Random boolean that can be used to randomly define who plays black or white
         Random rd = new Random();
         boolean playerOneIsBlack = rd.nextBoolean();
@@ -66,14 +67,14 @@ public class Game {
         System.out.println(getGameBoard());
         while (!gameFinished) {
             if (turn == Color.WHITE) {
-                whitePlayer.selectPiece(blackPlayer);
+                whitePlayer.selectPiece(whitePlayer, blackPlayer);
                 turn = Color.BLACK;
                 if (whitePlayer.isWinner()) {
                     gameFinished = true;
                     System.out.printf("Game Over! %s wins!", whitePlayer);
                 }
             } else {
-                blackPlayer.selectPiece(whitePlayer);
+                blackPlayer.selectPiece(blackPlayer, whitePlayer);
                 turn = Color.WHITE;
                 if (blackPlayer.isWinner()) {
                     gameFinished = true;
