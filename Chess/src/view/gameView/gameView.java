@@ -59,7 +59,7 @@ public class gameView extends BorderPane {
         this.settingsIcon = new ImageView("/infoIcon.png");
         this.infoIcon = new ImageView("/settingsIcon.png");
 
-        //        statusbar
+//        statusbar
         this.statusBarText = new Label("designed and build with by Dave Smedts and Mattia Verreydt");
 
 
@@ -84,7 +84,7 @@ public class gameView extends BorderPane {
         helpIconsContainer.getChildren().addAll(settingsIcon, helpIcon, infoIcon);
         this.setRight(helpIconsContainer);
 
-        //        statusbar
+//        statusbar
         this.setBottom(statusBarText);
 
     }
