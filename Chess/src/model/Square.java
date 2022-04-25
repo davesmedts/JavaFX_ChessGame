@@ -92,4 +92,16 @@ public class Square implements Comparable<Square> {
         return value;
 
     }
+
+    public String log() {
+        StringBuilder builder = new StringBuilder("[");
+        if (squareContent != null) {
+
+            builder.append(String.format("%s, %s", this, this.squareContent.log())).append("]");
+        } else {
+            builder.append(String.format("%s, %s", this, null)).append("]");
+
+        }
+        return builder.toString();
+    }
 }

@@ -29,7 +29,7 @@ public class Bishop extends Piece {
         List<Square> southEast = new ArrayList<>();
         List<Square> southWest = new ArrayList<>();
 
-        if(super.getPosition() == null){
+        if (super.getPosition() == null) {
             return possibleSquares;
         }
 
@@ -67,5 +67,10 @@ public class Bishop extends Piece {
         }
 
         return possibleSquares;
+    }
+
+    @Override
+    public String log() {
+        return "[" + String.format("%s, %s", this.getClass().getSimpleName(), super.getColor()) + "]";
     }
 }

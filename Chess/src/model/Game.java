@@ -84,4 +84,11 @@ public class Game {
             System.out.println(getGameBoard());
         }
     }
+
+    public String log(){
+        StringBuilder builder = new StringBuilder();
+        builder.append("[").append(String.format("%s, %s, %s, %s", startTime.toString(), whitePlayer.log(), blackPlayer.log(), gameBoard.log())).append("]");
+        return builder.toString();
+    }
+
 }

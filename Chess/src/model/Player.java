@@ -246,128 +246,6 @@ public class Player {
         }
     }
 
-//    public void movePawn(List<Square> validMoveSquares, Piece selectedPiece) {
-//        Scanner keyboard = new Scanner(System.in);
-//        System.out.println(player + ": please enter column and row of where you want to move the piece:");
-//        String targetSquare = keyboard.nextLine().toUpperCase();
-//        char[] targetSquareArray = targetSquare.toCharArray();
-//        char columnLetter = targetSquareArray[0];
-////        Exception handling still to do! What if no piece is found. values must match board!
-//        int rowNumber = Character.getNumericValue(targetSquareArray[1]); // the getNumericValue method transforms the character to a numeric value.
-////        Exception handling still to do! What if no piece is found. values must match the board
-//        King king = null;
-//
-//        try {
-//            int endRowWhite = 1; // need these two attributes to check if the pawn is going to the end row
-//            int endRowBlack = 8;
-//
-//            Square targetSquareObject = lookupSquare(columnLetter, rowNumber);
-//            Piece targetSquareContent = targetSquareObject.getSquareContent();
-//
-//            Square whiteEnpassantSquareLeft = lookupSquare((char) (selectedPiece.getPosition().getColumnLetter() - 1), selectedPiece.getPosition().getRowNumber() + 1);
-//            Piece whiteEnpassantContentLeft = whiteEnpassantSquareLeft.getSquareContent();
-//
-//            Square whiteEnpassantSquareRigth = lookupSquare((char) (selectedPiece.getPosition().getColumnLetter() + 1), selectedPiece.getPosition().getRowNumber() + 1);
-//            Piece whiteEnpassantContentRight = whiteEnpassantSquareRigth.getSquareContent();
-//
-//            Square blackEnpassantSquareLeft = lookupSquare((char) (selectedPiece.getPosition().getColumnLetter() - 1), selectedPiece.getPosition().getRowNumber() - 1);
-//            Piece blackEnpassantContentLeft = blackEnpassantSquareLeft.getSquareContent();
-//
-//            Square blackEnpassantSquareRight = lookupSquare((char) (selectedPiece.getPosition().getColumnLetter() + 1), selectedPiece.getPosition().getRowNumber() - 1);
-//            Piece blackEnpassantContentRight = blackEnpassantSquareRight.getSquareContent();
-//
-//            if (targetSquareObject == null) {
-//                throw new IllegalMoveException("Invoer niet gevonden op het bord, probeer opnieuw: ");
-//            }
-//
-//            boolean isFound = false;
-//            Square startPosition = selectedPiece.getPosition();
-//            for (Square validMoveSquare : validMoveSquares) {
-//                if (validMoveSquare == targetSquareObject) {
-//                    isFound = true;
-//                    boolean enPassant = false;
-//                    startPosition.setSquareContent(null);// set the previous content to null because the piece is moved
-//                    int startPositionCheckColumn = startPosition.getColumnLetter();
-//                    char startPositionCheckRow = (char) startPosition.getRowNumber();
-//
-//                    if ((startPositionCheckColumn + 1 == columnLetter && startPositionCheckRow + 1 == rowNumber) || (startPositionCheckColumn - 1 == columnLetter && startPositionCheckRow + 1 == rowNumber)) { // be sure that we only go in the code below if we want an enPassant
-//                        if (selectedPiece.getColor() == Color.WHITE && targetSquareObject.getSquareContent() == null && targetSquareObject.getRowNumber() == 6) { // en passant wit
-//                            Square enPassantSquare = lookupSquare(targetSquareObject.getColumnLetter(), targetSquareObject.getRowNumber() - 1);
-//                            enPassantSquare.getSquareContent().capturePiece();
-//                            enPassantSquare.setSquareContent(null);
-//                        }
-//                    }
-//
-//                    if ((startPositionCheckColumn + 1 == columnLetter && startPositionCheckRow - 1 == rowNumber) || (startPositionCheckColumn - 1 == columnLetter && startPositionCheckRow - 1 == rowNumber)) {
-//                        if (selectedPiece.getColor() == Color.BLACK && targetSquareObject.getSquareContent() == null && targetSquareObject.getRowNumber() == 5) { // en passant zwart
-//                            Square enPassantSquare = lookupSquare(targetSquareObject.getColumnLetter(), targetSquareObject.getRowNumber() + 1);
-//                            enPassantSquare.getSquareContent().capturePiece();
-//                            enPassantSquare.setSquareContent(null);
-//                        }
-//                    }
-//                    selectedPiece.setPosition(targetSquareObject); // assigns the new square to the piece
-//                    targetSquareObject.setSquareContent(selectedPiece); // assigns piece to the new square
-//                    System.out.println(selectedPiece.getPosition());
-//                    if (targetSquareObject.getSquareContent() != null && targetSquareObject.getSquareContent().getColor() != selectedPiece.getColor()) {
-//                        targetSquareObject.getSquareContent().capturePiece();
-//
-//                    }
-//                    if (rowNumber == endRowBlack || rowNumber == endRowWhite) { // we check if the rownumber that the user gave in is the same as the endrow for the color
-//                        System.out.println("U kan uw pion promoveren. Geef de letter van het stuk in (Q,K,B,R):");
-//                        String desiredPiece = keyboard.nextLine().toUpperCase();
-//                        promotePiece(desiredPiece, selectedPiece);
-//                    }
-//                }
-//            }
-//            if (!isFound) {
-//                throw new IllegalMoveException("Invoer behoort niet tot de mogelijke zetten, probeer opnieuw: ");
-//            }
-//            king = kingLookup(color);
-//            boolean kingIsChecked = king.defineCheckStatus(gameBoard);
-//            if (kingIsChecked) {
-////                selected piece and square back to inital state
-//                selectedPiece.setPosition(startPosition);
-//                startPosition.setSquareContent(selectedPiece);
-//                targetSquareObject.setSquareContent(targetSquareContent);
-//                if (targetSquareContent != null) {
-//                    targetSquareContent.setPosition(targetSquareObject);
-//                }
-//
-////                en passant squares and pieces back to initial state
-//                whiteEnpassantSquareLeft.setSquareContent(whiteEnpassantContentLeft);
-//                if (whiteEnpassantContentLeft != null) {
-//                    whiteEnpassantContentLeft.setPosition(whiteEnpassantSquareLeft);
-//                }
-//
-//                whiteEnpassantSquareRigth.setSquareContent(whiteEnpassantContentRight);
-//                if (whiteEnpassantContentRight != null) {
-//                    whiteEnpassantContentRight.setPosition(whiteEnpassantSquareRigth);
-//                }
-//
-//                blackEnpassantSquareLeft.setSquareContent(blackEnpassantContentLeft);
-//                if (blackEnpassantContentLeft != null) {
-//                    blackEnpassantContentLeft.setPosition(blackEnpassantSquareLeft);
-//                }
-//
-//                blackEnpassantSquareRight.setSquareContent(blackEnpassantContentRight);
-//                if (blackEnpassantContentRight != null) {
-//                    blackEnpassantContentRight.setPosition(blackEnpassantSquareRight);
-//                }
-//
-//                throw new IllegalMoveException("Je kan deze zet niet doen omdat je jezelf dan in check gaat zetten. Probeer opnieuw: ");
-//            } else {
-//                king.setChecked(false);
-//                moves.add(targetSquareObject); // add move to moves list in the player
-//                selectedPiece.addMove(targetSquareObject); // add the move to the move list in piece
-//            }
-//
-//        } catch (IllegalMoveException ime) {
-//            System.out.println(ime.getMessage());
-//            selectPiece(this);
-//        }
-//    }
-
-
     public void movePiece(List<Square> validMoveSquares, Piece selectedPiece, Player opponent) {
         Scanner keyboard = new Scanner(System.in);
         System.out.println(player + ": please enter column and row of where you want to move the piece:");
@@ -475,35 +353,6 @@ public class Player {
         }
     }
 
-//    public void promotePiece(String desiredPieceLetter, Piece selectedPiece) {
-//        Square startPosition = selectedPiece.getPosition(); // set the pawn content to null because the piece is promoted
-//        startPosition.setSquareContent(null); // Welke value gaan we dit juist geven, want nu komt dat in de lijst met captured pieces wat niet de bedoeling is
-//        Color kleurPiece = selectedPiece.getColor();
-//
-//        switch (desiredPieceLetter) {
-//            case "Q":
-//                pieces.add(new Queen(kleurPiece, startPosition, this));
-//                startPosition.setSquareContent(pieces.get(pieces.size() - 1));
-//
-//                break;
-//            case "K":
-//                pieces.add(new Knight(kleurPiece, startPosition, this));
-//                startPosition.setSquareContent(pieces.get(pieces.size() - 1));
-//
-//                break;
-//            case "B":
-//                pieces.add(new Bishop(kleurPiece, startPosition, this));
-//                startPosition.setSquareContent(pieces.get(pieces.size() - 1));
-//
-//                break;
-//            case "R":
-//                pieces.add(new Rook(kleurPiece, startPosition, this));
-//                startPosition.setSquareContent(pieces.get(pieces.size() - 1));
-//
-//                break;
-//        }
-//    }
-
     public King kingLookup(Color playerColor) {
         Piece king = null;
         for (Square square : gameBoard.getSquares()) {
@@ -514,81 +363,14 @@ public class Player {
         return (King) king;
     }
 
-//    public boolean defineCheckMateStatus(King opponentKing) {
-//        boolean checkMate = true;
-//        List<Piece> opponentPieces = new ArrayList<>();
-//        if (color == Color.WHITE) {
-//            opponentPieces = movesValidator.getBlackPieces();
-//        } else {
-//            opponentPieces = movesValidator.getWhitePieces();
-//        }
-//        for (Piece opponentPiece : opponentPieces) {
-//            List<Square> validMovesPiece;
-//            Square originalPosition = opponentPiece.getPosition();
-//            if (opponentPiece instanceof Pawn) {
-//                validMovesPiece = movesValidator.getValidMoveSquaresPawn(opponentPiece);
-//            } else {
-//                validMovesPiece = movesValidator.getValidMoveSquares(opponentPiece);
-//            }
-//            for (Square validMove : validMovesPiece) {
-//                boolean isChecked;
-//                if (validMove.getSquareContent() == null) {
-//                    opponentPiece.setPosition(validMove);
-//                    validMove.setSquareContent(opponentPiece);
-//
-//                    isChecked = movesValidator.defineCheckStatus(opponentKing);
-//
-//                    opponentPiece.setPosition(originalPosition);
-//                    validMove.setSquareContent(null);
-//
-//                } else {
-//                    Piece originalContent = validMove.getSquareContent();
-//                    opponentPiece.setPosition(validMove);
-//                    validMove.setSquareContent(opponentPiece);
-//                    originalContent.setPosition(null);
-//
-//                    isChecked = movesValidator.defineCheckStatus(opponentKing);
-//
-//                    validMove.setSquareContent(originalContent);
-//                    originalContent.setPosition(validMove);
-//                    opponentPiece.setPosition(originalPosition);
-//                    originalPosition.setSquareContent(opponentPiece);
-//                }
-//
-//                if (!isChecked) {
-//                    checkMate = false;
-//                    break;
-//                }
-//            }
-//            if(!checkMate){
-//                break;
-//            }
-//        }
-//        return checkMate;
-//    }
-
-//    public boolean defineCheckStatus(King king) {
-//        boolean kingIsChecked = false;
-//        Square kingPosition = king.getPosition();
-//        List<Square> allPossibleMoves;
-//        if (king.getColor() == Color.WHITE) {
-//            allPossibleMoves = getAllPossibleMoves(Color.BLACK);
-//        } else {
-//            allPossibleMoves = getAllPossibleMoves(Color.WHITE);
-//        }
-//
-//        for (Square possibleMove : allPossibleMoves) {
-//            if (possibleMove.equals(kingPosition)) {
-//                kingIsChecked = true;
-//                break;
-//            }
-//        }
-//        return kingIsChecked;
-//    }
-//
-
     @Override
     public String toString() {
         return player;
+    }
+
+    public String log(){
+        StringBuilder builder = new StringBuilder();
+        builder.append("[").append(String.format("[%s]",player)).append(String.format(",%s", moves)).append("]");
+        return builder.toString();
     }
 }

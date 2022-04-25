@@ -98,4 +98,10 @@ public class Rook extends Piece {
         }
         return possibleSquares;
     }
+
+    @Override
+    public String log() {
+        return "[" + String.format("%s, %s", this.getClass().getSimpleName(), super.getColor()) + "]";
+    }
+
 }

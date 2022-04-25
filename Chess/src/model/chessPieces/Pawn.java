@@ -217,5 +217,10 @@ public class Pawn extends Piece {
                 break;
         }
     }
+    @Override
+    public String log() {
+        return "[" + String.format("%s, %s", this.getClass().getSimpleName(), super.getColor()) + "]";
+    }
+
 }
 

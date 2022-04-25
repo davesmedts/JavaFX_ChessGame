@@ -5,6 +5,7 @@ public class TestPossibleMoves {
         Player dave = new Player("Dave");
         Player mattia = new Player("mattia");
         Game chessGame = new Game(dave, mattia);
+        System.out.println(chessGame.log());
         chessGame.play();
 
 //        Piece pawn = new Pawn(Color.WHITE, new Square(2, 'A'));
@@ -52,5 +53,7 @@ public class TestPossibleMoves {
 //        Square squareOne = new Square(1,'A');
 //        Square squareTwo = new Square(1,'A');
 //        System.out.println(squareOne.equals(squareTwo));
+
+
     }
 }

@@ -66,4 +66,17 @@ public class Board {
         return matchedSquare;
     }
 
+    public String log(){
+        StringBuilder builder = new StringBuilder();
+        builder.append("[");
+        for (int i = 0; i < squares.size(); i++) {
+            builder.append(squares.get(i).log());
+            if (i <squares.size()-1){
+                builder.append(",");
+            }
+        }
+        builder.append("]");
+        return builder.toString();
+    }
+
 }
