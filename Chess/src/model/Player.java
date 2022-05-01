@@ -370,7 +370,7 @@ public class Player {
 
     public String log(){
         StringBuilder builder = new StringBuilder();
-        builder.append("[").append(String.format("[%s]",player)).append(String.format(",%s", moves)).append("]");
+        builder.append(String.format("\"%s\"",player)).append(String.format(",%s", moves));
         return builder.toString();
     }
 }
